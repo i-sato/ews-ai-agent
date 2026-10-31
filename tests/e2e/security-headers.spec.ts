@@ -35,7 +35,8 @@ test("skrip dari server memakai nonce dari header", { tag: ["@smoke"] }, async (
 // Pelanggaran hanya terlihat pada build produksi (dev mengizinkan style inline untuk alat Next.js).
 test("tanpa pelanggaran CSP di halaman utama", { tag: ["@smoke"] }, async ({ page }) => {
   const violations = collectCspViolations(page);
-  for (const path of ["/dashboard", "/trainings", "/halaman-tidak-ada"]) await page.goto(path);
+  for (const path of ["/dashboard", "/trainings", "/compliance", "/halaman-tidak-ada"])
+    await page.goto(path);
   await expect(page.getByRole("heading", { name: "Halaman tidak ditemukan" })).toBeVisible();
   expect(violations).toEqual([]);
 });

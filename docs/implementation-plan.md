@@ -22,7 +22,7 @@ Status awal starter pack: tugas bertanda **(starter)** sudah tersedia dalam bent
 - [x] F1-05 Role dari `profiles`, helper `requireRole`, RLS per tim kerja. SH-AUTHZ-01/02. **(starter: policy awal)**
 - [x] F1-06 Header keamanan dan CSP nonce di `src/proxy.ts` (pengganti middleware di Next 16). SH-HDR-01..04.
 - [ ] F1-07 CI hijau di GitHub: ganti `<SHA>` pada workflow dengan SHA rilis yang dipin. **(starter: workflow)**
-- [ ] F1-08 `GET /api/health`, halaman pernyataan kepatuhan, footer tautan kepatuhan. **(starter: health)**
+- [x] F1-08 `GET /api/health`, halaman pernyataan kepatuhan, footer tautan kepatuhan. **(starter: health)**
 
 ## Fase 2 — Ingestion (spesifikasi §3)
 

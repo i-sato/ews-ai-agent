@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { AccessDenied } from "@/components/auth/AccessDenied";
+import { ComplianceLink } from "@/components/compliance/ComplianceLink";
 import { BottomTabs } from "@/components/navigation/BottomTabs";
 import { Sidebar } from "@/components/navigation/Sidebar";
 import { UserCard } from "@/components/navigation/UserCard";
@@ -18,7 +19,12 @@ export default async function DashboardLayout({ children }: { children: ReactNod
   return (
     <div className={styles.shell}>
       <Sidebar role={access.user.role} footer={<UserCard user={access.user} />} />
-      <main className={styles.main}>{children}</main>
+      <main className={styles.main}>
+        {children}
+        <footer className={styles.mobileFooter}>
+          <ComplianceLink />
+        </footer>
+      </main>
       <BottomTabs />
     </div>
   );

@@ -114,6 +114,16 @@
   background: #22345c;
 }
 
+.complianceLink {
+  padding: 0 8px;
+  font-size: 12px;
+  color: #a9b4c8;
+}
+
+.complianceLink:hover {
+  color: #fff;
+}
+
 .tabs {
   display: none;
 }
