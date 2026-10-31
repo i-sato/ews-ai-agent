@@ -2,7 +2,14 @@
 import { type SupabaseClient, createClient } from "@supabase/supabase-js";
 
 export type TestRole = "admin" | "pk_manager" | "training_manager" | "viewer";
-export type TestUser = { email: string; displayName: string; role: TestRole; active?: boolean };
+export type TestUser = {
+  email: string;
+  displayName: string;
+  role: TestRole;
+  active?: boolean;
+  /** Kode tim kerja dari seed (DTA, GTA, KDD). */
+  teams?: readonly string[];
+};
 
 // Kata sandi sintetis untuk akun uji di Supabase lokal; memenuhi SH-AUTH-05.
 export const TEST_PASSWORD = "Uji-Sintetis-2026";
@@ -12,9 +19,22 @@ export const TEST_USERS = {
     email: "e2e.pengelola@example.test",
     displayName: "Pengelola Uji",
     role: "training_manager",
+    teams: ["DTA"],
   },
-  viewer: { email: "e2e.viewer@example.test", displayName: "Viewer Uji", role: "viewer" },
+  viewer: {
+    email: "e2e.viewer@example.test",
+    displayName: "Viewer Uji",
+    role: "viewer",
+    teams: ["GTA"],
+  },
+  pkManager: { email: "e2e.pk@example.test", displayName: "Pengelola PK Uji", role: "pk_manager" },
   admin: { email: "e2e.admin@example.test", displayName: "Admin Uji", role: "admin" },
+  inactive: {
+    email: "e2e.nonaktif@example.test",
+    displayName: "Nonaktif Uji",
+    role: "training_manager",
+    active: false,
+  },
 } as const satisfies Record<string, TestUser>;
 
 export function localSupabaseEnv() {
@@ -73,5 +93,40 @@ export async function ensureTestUser(user: TestUser): Promise<string> {
     active: user.active ?? true,
   });
   if (error) throw error;
+  await setTeams(admin, id, user.teams ?? []);
   return id;
+}
+
+async function setTeams(admin: SupabaseClient, profileId: string, codes: readonly string[]) {
+  const { data: teams, error } = await admin.from("work_teams").select("id").in("code", codes);
+  if (error) throw error;
+  const keep = teams.map((t) => String(t.id));
+  let stale = admin.from("profile_work_teams").delete().eq("profile_id", profileId);
+  if (keep.length > 0) stale = stale.not("work_team_id", "in", `(${keep.join(",")})`);
+  const removed = await stale;
+  if (removed.error) throw removed.error;
+  if (keep.length === 0) return;
+  const rows = keep.map((id) => ({ profile_id: profileId, work_team_id: id }));
+  const upserted = await admin
+    .from("profile_work_teams")
+    .upsert(rows, { onConflict: "profile_id,work_team_id", ignoreDuplicates: true });
+  if (upserted.error) throw upserted.error;
+}
+
+/** Klien anon yang sudah masuk sebagai akun uji (sesi tidak disimpan). */
+export async function signedInClient(user: TestUser): Promise<SupabaseClient> {
+  const client = anonClient();
+  const { error } = await client.auth.signInWithPassword({
+    email: user.email,
+    password: TEST_PASSWORD,
+  });
+  if (error) throw error;
+  return client;
+}
+
+export async function setUserMetadata(userId: string, metadata: Record<string, unknown>) {
+  const { error } = await adminClient().auth.admin.updateUserById(userId, {
+    user_metadata: metadata,
+  });
+  if (error) throw error;
 }

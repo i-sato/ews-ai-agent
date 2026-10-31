@@ -1,13 +1,14 @@
 import Link from "next/link";
 import { Icon } from "./icons";
-import { MORE_MENU } from "./menu";
+import type { Role } from "@/lib/auth/roles";
+import { MORE_MENU, visibleFor } from "./menu";
 import styles from "./more.module.css";
 
 /** Daftar menu layar "Lainnya" (M-Lainnya.dc.html). */
-export function MoreMenu() {
+export function MoreMenu({ role }: { role: Role }) {
   return (
     <nav aria-label="Menu lainnya" className={styles.list}>
-      {MORE_MENU.map((m) => (
+      {visibleFor(MORE_MENU, role).map((m) => (
         <Link key={m.href} href={m.href} className={styles.item}>
           <span className={styles.icon}>
             <Icon name={m.icon} />

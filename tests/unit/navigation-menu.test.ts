@@ -5,6 +5,7 @@ import {
   MORE_HREF,
   MORE_MENU,
   isActivePath,
+  visibleFor,
 } from "@/components/navigation/menu";
 
 describe("menu utama (docs/design)", () => {
@@ -50,6 +51,22 @@ describe("menu utama (docs/design)", () => {
     const reachable = MOBILE_TABS.flatMap((t) => t.matches);
     for (const m of MAIN_MENU) expect(reachable).toContain(m.href);
   });
+});
+
+describe("visibleFor (M-Lainnya.dc.html: Pengaturan hanya untuk Admin)", () => {
+  it("admin melihat ketujuh menu", () => {
+    expect(visibleFor(MAIN_MENU, "admin")).toHaveLength(7);
+  });
+
+  it.each(["pk_manager", "training_manager", "viewer"] as const)(
+    "%s tidak melihat Pengaturan",
+    (role) => {
+      const labels = visibleFor(MAIN_MENU, role).map((m) => m.label);
+      expect(labels).toHaveLength(6);
+      expect(labels).not.toContain("Pengaturan");
+      expect(visibleFor(MORE_MENU, role).map((m) => m.label)).toEqual(["Peserta", "Indikator PK"]);
+    },
+  );
 });
 
 describe("isActivePath", () => {

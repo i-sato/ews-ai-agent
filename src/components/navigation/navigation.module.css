@@ -88,6 +88,15 @@
   line-height: 1.5;
 }
 
+.userName {
+  color: #fff;
+  font-weight: 600;
+}
+
+.userRole {
+  color: #a9b4c8;
+}
+
 .logout {
   margin-top: 8px;
   min-height: 32px;
