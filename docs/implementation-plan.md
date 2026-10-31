@@ -15,7 +15,7 @@ Status awal starter pack: tugas bertanda **(starter)** sudah tersedia dalam bent
 
 ## Fase 1 — Fondasi (spesifikasi §4, §5, §12)
 
-- [ ] F1-01 Instal dependensi dan pastikan `pnpm lint`, `pnpm typecheck`, `pnpm test:unit` lulus. **(starter)**
+- [x] F1-01 Instal dependensi dan pastikan `pnpm lint`, `pnpm typecheck`, `pnpm test:unit` lulus. **(starter)**
 - [ ] F1-02 `supabase init` (membuat `supabase/config.toml`), jalankan `supabase start`, terapkan migration awal. **(starter: migration)**
 - [ ] F1-03 Kerangka App Router: grup `(auth)` dan `(dashboard)`, layout dengan navigasi sesuai desain, halaman kosong per menu.
 - [ ] F1-04 Login Supabase Auth (email + kata sandi) dengan `@supabase/ssr`, middleware sesi, logout server-side. SH-AUTH-01/03, SH-SESS-01/03.
