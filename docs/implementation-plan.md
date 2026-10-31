@@ -29,7 +29,7 @@ Status awal starter pack: tugas bertanda **(starter)** sudah tersedia dalam bent
 - [ ] F2-01 Domain: normalisasi header, deteksi rentang item sampai `Cek Sync`, pemetaan status, jenis item. **(starter)**
 - [ ] F2-02 Domain: parser judul spreadsheet dan URL portal. **(starter)**
 - [ ] F2-03 Domain: parser `UPDATE TERAKHIR` dan tiga waktu kesegaran. **(starter)**
-- [ ] F2-04 Domain: normalisasi baris peserta (format lebar → panjang), baris tanpa identitas, galat formula, konsistensi `PERSENTASE LMS`, rekonsiliasi baris 1.
+- [x] F2-04 Domain: normalisasi baris peserta (format lebar → panjang), baris tanpa identitas, galat formula, konsistensi `PERSENTASE LMS`, rekonsiliasi baris 1.
 - [x] F2-05 Golden dataset sintetis di `tests/fixtures/` meniru dua sheet contoh (§3.2.3).
 - [ ] F2-06 Application: use case `ParseTrainingSource`, `RegisterTraining` (konfirmasi admin wajib), `PreviewImport`, `CommitImport`, `SyncSheet` + port.
 - [ ] F2-07 Infrastructure: adapter Google Sheets (service account) + Drive `modifiedTime`; adapter CSV/XLSX; repository Supabase.

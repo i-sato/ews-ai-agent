@@ -42,6 +42,10 @@ Sumber: spesifikasi §15.1. Perbarui kolom Status dan Catatan setiap ada keputus
 | 2026-10-31 | Halaman `/compliance` publik (tanpa login); tautan "Pernyataan kepatuhan" di bawah sidebar (web, sesuai `Main.dc.html`) dan di akhir konten setiap halaman (mobile) | §11.3 meminta tautan di setiap halaman; desain mobile belum memuatnya (keputusan pemilik) |
 | 2026-10-31 | Golden dataset F2-05: 25 baris tanpa identitas per sheet (bukan 1.996/1.986); nomor registrasi fiktif `SINTn-nnn` | Fixture kecil dan mudah ditinjau; tidak berpola nomor registrasi riil (keputusan pemilik) |
 | 2026-10-31 | Asumsi format baris 1 sheet: label dan angka di sel terpisah (A1 `UPDATE TERAKHIR`, B1–I1 pasangan label/angka, jumlah selesai di atas kolom item); `TOTAL DITERIMA` disamakan dengan `TOTAL PENDAFTAR` | Format persis dan arti `TOTAL DITERIMA` belum dikonfirmasi; verifikasi dengan sheet asli sebelum F2-04 dianggap final (keputusan pemilik) |
+| 2026-10-31 | Nomor registrasi ganda dalam satu sheet: semua baris tetap dinormalisasi dan diberi bendera `duplicate_participant`; pratinjau (F2-06) menahan commit sampai diselesaikan | Tidak ada data yang dipilih diam-diam (keputusan pemilik) |
+| 2026-10-31 | `TOTAL DITERIMA` di baris 1 dibaca dan ditampilkan dengan status `not_reconciled`, tanpa selisih atau peringatan | Artinya belum dikonfirmasi (keputusan pemilik) |
+| 2026-10-31 | Rekonsiliasi `TOTAL PENDAFTAR`: selisih yang setara jumlah baris `Pembatalan` berstatus `explained`; `TOTAL SELESAI` dibandingkan dengan jumlah peserta lulus | Contoh §3.3 (50 vs 51); arti `TOTAL SELESAI` mengikuti asumsi baris 1 |
+| 2026-10-31 | Konsistensi `PERSENTASE LMS` tidak dinilai bila ada status item tak dikenal; baris tetap ditandai `unknown_item_status` | Rasio item selesai tidak dapat diverifikasi sehingga `lms_mismatch` akan menjadi tuduhan palsu |
 
 ## Saran tertunda (belum diputuskan)
 
