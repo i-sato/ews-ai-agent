@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Impor Data — EWS AI Agent</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F5F6F8}
+a{color:#1F4FD1}a:hover{color:#163A9C}
+.nav{display:flex;flex-direction:column;gap:2px}
+@media (max-width:760px){.nav{flex-direction:row;flex-wrap:wrap}}
+</style>
+</helmet>
+<div style="display: flex; flex-wrap: wrap; min-height: 100vh; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #1B2430; background: #F5F6F8">
+  <aside style="flex: 1 1 224px; background: #0F1B33; color: #E6EAF2; padding: 20px 14px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 0 8px">
+      <div style="width: 36px; height: 36px; border-radius: 9px; background: #1F4FD1; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; color: #FFFFFF; letter-spacing: 0.5px">EWS</div>
+      <div>
+        <div style="font-weight: 700; font-size: 15px; color: #FFFFFF">EWS AI Agent</div>
+        <div style="font-size: 12px; color: #A9B4C8">Early Warning System Pelatihan</div>
+      </div>
+    </div>
+    <nav class="nav" aria-label="Menu utama">
+      <sc-for list="{{nav}}" as="n" hint-placeholder-count="7">
+        <a href="{{n.href}}" style="{{n.style}}">{{n.label}}</a>
+      </sc-for>
+    </nav>
+    <div style="margin-top: auto; padding: 12px; border-radius: 10px; background: #18284A; font-size: 12px; line-height: 1.5">
+      <div style="color: #FFFFFF; font-weight: 600">[Nama Pengguna]</div>
+      <div style="color: #A9B4C8">Role: Pengelola Pelatihan</div>
+    </div>
+    <a href="Web-Login.dc.html" style="padding: 0 8px; font-size: 12px; color: #A9B4C8">Pernyataan kepatuhan</a>
+  </aside>
+  <main style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <header style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 16px 32px; background: #FFFFFF; border-bottom: 1px solid #E2E5EA">
+      <div style="flex: 1 1 260px; min-width: 0">
+        <div style="font-size: 13px; color: #5B6573"><a href="Web-Pelatihan.dc.html" style="text-decoration: none">Pelatihan</a> › Impor &amp; sinkronisasi</div>
+        <h1 style="margin: 0; font-size: 22px; font-weight: 700">Impor data peserta</h1>
+      </div>
+    </header>
+
+    <div style="padding: 24px 32px 40px; display: flex; flex-direction: column; gap: 20px; max-width: 1280px; box-sizing: border-box; width: 100%">
+      <ol aria-label="Tahap impor" style="list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px">
+        <sc-for list="{{steps}}" as="s" hint-placeholder-count="4">
+          <li style="{{s.style}}"><span style="{{s.dot}}">{{s.n}}</span>{{s.label}}</li>
+        </sc-for>
+      </ol>
+
+      <section style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+        <h2 style="margin: 0; font-size: 16px">Pilih sumber</h2>
+        <div role="radiogroup" aria-label="Mode impor" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px">
+          <sc-for list="{{modes}}" as="m" hint-placeholder-count="3">
+            <button type="button" role="radio" aria-checked="{{m.checked}}" onClick="{{m.pick}}" style="{{m.style}}">
+              <span style="font-weight: 700; font-size: 15px">{{m.title}}</span>
+              <span style="font-size: 12px; font-weight: 600; color: #5B6573">{{m.tag}}</span>
+              <span style="font-size: 13px; color: #3A4452; line-height: 1.5">{{m.desc}}</span>
+            </button>
+          </sc-for>
+        </div>
+        <sc-if value="{{isSheets}}" hint-placeholder-val="{{ true }}">
+          <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; padding-top: 4px">
+            <div style="flex: 1 1 280px; display: flex; flex-direction: column; gap: 6px">
+              <label for="src" style="font-size: 13px; font-weight: 600">Konfigurasi sumber</label>
+              <select id="src" style="min-height: 40px; padding: 0 10px; border: 1px solid #CBD2DC; border-radius: 8px; font: inherit; font-size: 14px; background: #FFFFFF"><option>TRN-001 · tab ALL PENDAFTAR WEB · spreadsheet [ID] · gid 509877154</option></select>
+            </div>
+            <button type="button" style="min-height: 40px; padding: 0 16px; border-radius: 8px; border: 0; background: #1F4FD1; color: #FFFFFF; font: inherit; font-size: 14px; font-weight: 600">Jalankan sinkronisasi</button>
+            <div style="flex-basis: 100%; font-size: 12px; color: #5B6573">Spreadsheet ID dan gid diatur di Pengaturan › Sumber data. Sinkron manual hanya membaca ulang sheet; data dianggap baru bila isinya berubah. Jika gagal dibaca, gunakan impor CSV/XLSX.</div>
+          </div>
+        </sc-if>
+        <sc-if value="{{isFile}}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; flex-direction: column; gap: 10px; align-items: center; justify-content: center; padding: 28px; border: 2px dashed #CBD2DC; border-radius: 12px; text-align: center">
+            <div style="font-weight: 600">Tarik file ke sini atau</div>
+            <label for="file" style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 16px; border-radius: 8px; border: 1px solid #CBD2DC; font-weight: 600; font-size: 14px; cursor: pointer">Pilih file</label>
+            <input id="file" type="file" style="position: absolute; width: 1px; height: 1px; opacity: 0">
+            <div style="font-size: 12px; color: #5B6573">{{fileHint}}</div>
+          </div>
+        </sc-if>
+      </section>
+
+      <section style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px">
+        <div style="display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; padding: 16px 20px; border-bottom: 1px solid #E2E5EA">
+          <h2 style="margin: 0; font-size: 16px">Pratinjau &amp; rekonsiliasi</h2>
+          <span style="font-size: 13px; color: #5B6573">Staging batch <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">IMP-0143</span> · berlaku s.d. 29 Okt 2026, 12.00 WIB · belum ditulis ke tabel operasional</span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1px; background: #E2E5EA">
+          <sc-for list="{{counts}}" as="c" hint-placeholder-count="5">
+            <div style="background: #FFFFFF; padding: 16px 20px">
+              <div style="font-size: 12px; color: #5B6573; font-weight: 600">{{c.label}}</div>
+              <div style="{{c.numStyle}}">{{c.n}}</div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="padding: 16px 20px; border-bottom: 1px solid #E2E5EA; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px 24px">
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <h3 style="margin: 0; font-size: 14px">Rekonsiliasi dengan baris 1 sheet</h3>
+            <sc-for list="{{recon}}" as="x" hint-placeholder-count="4">
+              <div style="display: flex; gap: 8px; align-items: flex-start; font-size: 13px; line-height: 1.5">
+                <span style="{{x.mark}}">{{x.icon}}</span>
+                <span><b>{{x.label}}</b> {{x.detail}}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <h3 style="margin: 0; font-size: 14px">Diabaikan otomatis</h3>
+            <div style="font-size: 13px; line-height: 1.5"><b>1.996 baris</b> tanpa NO REGISTRASI yang hanya berisi nilai bawaan formula (Belum Mengerjakan, 0, FALSE, OK)</div>
+            <div style="font-size: 13px; line-height: 1.5"><b>8 slot item</b> tanpa judul di kolom AR–AY</div>
+            <div style="font-size: 12px; color: #5B6573">Tidak dihitung sebagai peserta maupun sebagai item belum selesai.</div>
+          </div>
+        </div>
+        <div style="padding: 16px 20px; display: flex; flex-direction: column; gap: 10px">
+          <h3 style="margin: 0; font-size: 14px">Temuan validasi</h3>
+          <div style="overflow-x: auto">
+            <table style="width: 100%; min-width: 640px; border-collapse: collapse; font-size: 13px">
+              <thead><tr style="text-align: left; color: #5B6573; background: #F9FAFB"><th style="padding: 8px 12px; font-weight: 600">Baris</th><th style="padding: 8px 12px; font-weight: 600">No. peserta</th><th style="padding: 8px 12px; font-weight: 600">Kolom</th><th style="padding: 8px 12px; font-weight: 600">Alasan</th><th style="padding: 8px 12px; font-weight: 600">Hasil</th></tr></thead>
+              <tbody>
+                <sc-for list="{{errors}}" as="e" hint-placeholder-count="4">
+                  <tr style="border-top: 1px solid #EEF0F3">
+                    <td style="padding: 10px 12px">{{e.row}}</td>
+                    <td style="padding: 10px 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px">{{e.no}}</td>
+                    <td style="padding: 10px 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px">{{e.field}}</td>
+                    <td style="padding: 10px 12px">{{e.reason}}</td>
+                    <td style="padding: 10px 12px; font-weight: 600">{{e.result}}</td>
+                  </tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 16px 20px; border-top: 1px solid #E2E5EA">
+          <label style="flex: 1 1 300px; display: flex; gap: 8px; align-items: flex-start; font-size: 13px; color: #3A4452; line-height: 1.5"><input type="checkbox" style="width: 18px; height: 18px; margin: 2px 0 0; flex: 0 0 18px; accent-color: #1F4FD1"><span>Saya memiliki dasar pemrosesan data peserta ini, termasuk persetujuan orang tua atau wali untuk peserta anak. Data divalidasi ulang saat commit; impor ulang tidak menggandakan peserta.</span></label>
+          <button type="button" style="min-height: 40px; padding: 0 16px; border-radius: 8px; border: 1px solid #CBD2DC; background: #FFFFFF; font: inherit; font-size: 14px; font-weight: 600">Batalkan</button>
+          <button type="button" style="min-height: 40px; padding: 0 16px; border-radius: 8px; border: 0; background: #1F4FD1; color: #FFFFFF; font: inherit; font-size: 14px; font-weight: 600">Commit 41 baris</button>
+        </div>
+      </section>
+
+      <section style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px">
+        <div style="padding: 16px 20px; border-bottom: 1px solid #E2E5EA"><h2 style="margin: 0; font-size: 16px">Riwayat sinkronisasi &amp; impor</h2></div>
+        <div style="overflow-x: auto">
+          <table style="width: 100%; min-width: 640px; border-collapse: collapse; font-size: 13px">
+            <thead><tr style="text-align: left; color: #5B6573; background: #F9FAFB"><th style="padding: 8px 20px; font-weight: 600">Batch</th><th style="padding: 8px 12px; font-weight: 600">Sumber</th><th style="padding: 8px 12px; font-weight: 600">Mulai</th><th style="padding: 8px 12px; font-weight: 600">Selesai</th><th style="padding: 8px 12px; font-weight: 600">Status</th><th style="padding: 8px 20px; font-weight: 600">Ringkasan galat</th></tr></thead>
+            <tbody>
+              <tr style="border-top: 1px solid #EEF0F3"><td style="padding: 10px 20px; font-family: 'JetBrains Mono', monospace; font-size: 12px">IMP-0142</td><td style="padding: 10px 12px">Google Sheets</td><td style="padding: 10px 12px">28 Okt, 09.58</td><td style="padding: 10px 12px">28 Okt, 10.00</td><td style="padding: 10px 12px; color: #085D3A; font-weight: 600">Berhasil</td><td style="padding: 10px 20px">—</td></tr>
+              <tr style="border-top: 1px solid #EEF0F3"><td style="padding: 10px 20px; font-family: 'JetBrains Mono', monospace; font-size: 12px">IMP-0141</td><td style="padding: 10px 12px">XLSX</td><td style="padding: 10px 12px">21 Okt, 14.10</td><td style="padding: 10px 12px">21 Okt, 14.11</td><td style="padding: 10px 12px; color: #085D3A; font-weight: 600">Berhasil</td><td style="padding: 10px 20px">2 baris ditolak</td></tr>
+              <tr style="border-top: 1px solid #EEF0F3"><td style="padding: 10px 20px; font-family: 'JetBrains Mono', monospace; font-size: 12px">IMP-0140</td><td style="padding: 10px 12px">Google Sheets</td><td style="padding: 10px 12px">21 Okt, 08.00</td><td style="padding: 10px 12px">21 Okt, 08.00</td><td style="padding: 10px 12px; color: #B42318; font-weight: 600">Gagal</td><td style="padding: 10px 20px">Sheet tidak dapat diakses (403)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1460}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { mode: 'sheets' }; }
+  renderVals() {
+    const ACTIVE = 'Pelatihan';
+    const NAV = [['Dashboard','Main.dc.html'],['Pelatihan','Web-Pelatihan.dc.html'],['Peserta','Web-Peserta.dc.html'],['Pemantauan Risiko','Web-Risiko.dc.html'],['Indikator PK','Web-IndikatorPK.dc.html'],['Laporan','Web-Laporan.dc.html'],['Pengaturan','Web-Pengaturan.dc.html']];
+    const nav = NAV.map(([label, href]) => ({ label, href, style: { display: 'block', padding: '10px 12px', borderRadius: '8px', fontSize: '14px', fontWeight: label === ACTIVE ? 600 : 500, textDecoration: 'none', color: label === ACTIVE ? '#FFFFFF' : '#C9D1E0', background: label === ACTIVE ? '#1F4FD1' : 'transparent' } }));
+    const mode = this.state.mode;
+    const M = [
+      ['sheets', 'Google Sheets', 'Utama', 'Sinkronkan dari sumber yang terkonfigurasi melalui Google Sheets API atau ekspor CSV.'],
+      ['csv', 'Unggah CSV', 'Cadangan pertama', 'Unggah file CSV dengan header asli dari sheet.'],
+      ['xlsx', 'Unggah XLSX', 'Cadangan kedua', 'Unggah Excel, pilih sheet, lalu petakan kolom. Formula tidak dieksekusi.']
+    ];
+    const modes = M.map(([id, title, tag, desc]) => ({ title, tag, desc, checked: mode === id ? 'true' : 'false', pick: () => this.setState({ mode: id }), style: { display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '4px', textAlign: 'left', padding: '14px 16px', borderRadius: '10px', font: 'inherit', color: '#1B2430', cursor: 'pointer', background: mode === id ? '#F5F8FF' : '#FFFFFF', border: mode === id ? '2px solid #1F4FD1' : '1px solid #CBD2DC' } }));
+    const stepState = ['done', 'done', 'current', 'todo'];
+    const steps = ['Parse', 'Validasi', 'Pratinjau & rekonsiliasi', 'Commit'].map((label, i) => {
+      const s = stepState[i];
+      return { n: s === 'done' ? '✓' : String(i + 1), label, style: { display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 14px 8px 8px', borderRadius: '999px', fontSize: '13px', fontWeight: 600, background: s === 'current' ? '#1F4FD1' : '#FFFFFF', color: s === 'current' ? '#FFFFFF' : (s === 'done' ? '#085D3A' : '#5B6573'), border: s === 'current' ? '1px solid #1F4FD1' : '1px solid #E2E5EA' }, dot: { width: '24px', height: '24px', borderRadius: '50%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', background: s === 'current' ? '#FFFFFF' : (s === 'done' ? '#DCFAE6' : '#F2F4F7'), color: s === 'current' ? '#1F4FD1' : 'inherit' } };
+    });
+    const num = (c) => ({ fontSize: '26px', fontWeight: 700, color: c });
+    return {
+      nav, modes, steps,
+      isSheets: mode === 'sheets',
+      isFile: mode !== 'sheets',
+      fileHint: mode === 'csv' ? 'CSV · maks. [ukuran] MB · maks. [jumlah] baris' : 'XLSX · maks. [ukuran] MB · workbook tidak valid ditolak',
+      counts: [
+        { label: 'Baru', n: '0', numStyle: num('#1B2430') },
+        { label: 'Berubah', n: '23', numStyle: num('#1B2430') },
+        { label: 'Tidak berubah', n: '18', numStyle: num('#5B6573') },
+        { label: 'Duplikat', n: '0', numStyle: num('#5B6573') },
+        { label: 'Ditolak', n: '1', numStyle: num('#B42318') },
+        { label: 'Ditandai perlu dicek', n: '1', numStyle: num('#93370D') }
+      ],
+      recon: [
+        [true, 'Rentang item terdeteksi J–AY:', 'kolom setelah PERSENTASE LMS sampai sebelum Cek Sync (AZ); 34 berjudul, 8 slot kosong; katalog sama dengan versi 1.'],
+        [false, 'TOTAL PENDAFTAR 41 vs 42 baris:', 'selisih 1 baris berstatus Pembatalan, ditolak karena konflik.'],
+        [true, 'TOTAL ONBOARDING 35:', 'cocok dengan hitung ulang.'],
+        [true, 'TOTAL SELESAI per item:', '34 dari 34 kolom cocok.'],
+        [true, 'UPDATE TERAKHIR “28 OKTOBER 10:00 WIB”:', 'dibaca 28 Okt 2026, 10.00 WIB; tahun diambil dari periode pelatihan.']
+      ].map(([ok, label, detail]) => ({ label, detail, icon: ok ? '✓' : '!', mark: { flex: '0 0 20px', width: '20px', height: '20px', borderRadius: '50%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: 700, background: ok ? '#DCFAE6' : '#FEF0C7', color: ok ? '#085D3A' : '#93370D' } })),
+      errors: [
+        { row: '44', no: 'P-0042', field: 'STATUS, PERSENTASE LMS', reason: 'STATUS Pembatalan, PERSENTASE LMS 100 tetapi 0 item selesai, Cek Sync Error Sync', result: 'Ditolak (konflik)' },
+        { row: '17', no: 'P-0015', field: 'Cek Sync', reason: 'Galat formula #REF!', result: 'Diterima, ditandai DATA_INVALID' },
+        { row: '2', no: '—', field: 'Judul kolom AD, AO', reason: 'Judul item mengandung entitas HTML &AMP;', result: 'Didekode untuk tampilan' },
+        { row: '1', no: '—', field: 'UPDATE TERAKHIR', reason: 'Tidak memuat tahun', result: 'Tahun dari periode pelatihan' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

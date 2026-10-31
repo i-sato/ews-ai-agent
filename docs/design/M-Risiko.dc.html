@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Pemantauan Risiko (mobile) — EWS</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1F4FD1}a:hover{color:#163A9C}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; display: flex; flex-direction: column; overflow: hidden; position: relative; background: #F5F6F8; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #1B2430">
+  <header style="display: flex; flex-direction: column; gap: 10px; padding: 14px 16px 12px; background: #0F1B33; color: #FFFFFF">
+    <div style="display: flex; align-items: center; gap: 10px">
+      <h1 style="margin: 0; font-size: 18px; flex: 1">Pemantauan Risiko</h1>
+      <button type="button" style="min-height: 36px; padding: 0 12px; border-radius: 8px; border: 1px solid #3A4E78; background: transparent; color: #FFFFFF; font: inherit; font-size: 13px; font-weight: 600">Hitung ulang</button>
+    </div>
+    <div role="tablist" aria-label="Jenis risiko" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; padding: 4px; background: #18284A; border-radius: 10px">
+      <button type="button" role="tab" aria-selected="{{selK}}" onClick="{{showK}}" style="{{styleK}}">Capaian kinerja</button>
+      <button type="button" role="tab" aria-selected="{{selI}}" onClick="{{showI}}" style="{{styleI}}">Individu peserta</button>
+    </div>
+  </header>
+
+  <div style="display: flex; gap: 8px; padding: 10px 16px; overflow-x: auto; background: #FFFFFF; border-bottom: 1px solid #E2E5EA">
+    <button type="button" style="flex: 0 0 auto; min-height: 36px; padding: 0 12px; border-radius: 999px; border: 0; background: #1B2430; color: #FFFFFF; font: inherit; font-size: 13px; font-weight: 600">Semua</button>
+    <button type="button" style="flex: 0 0 auto; min-height: 36px; padding: 0 12px; border-radius: 999px; border: 1px solid #CBD2DC; background: #FFFFFF; font: inherit; font-size: 13px">Kritis</button>
+    <button type="button" style="flex: 0 0 auto; min-height: 36px; padding: 0 12px; border-radius: 999px; border: 1px solid #CBD2DC; background: #FFFFFF; font: inherit; font-size: 13px">Waspada</button>
+    <button type="button" style="flex: 0 0 auto; min-height: 36px; padding: 0 12px; border-radius: 999px; border: 1px solid #CBD2DC; background: #FFFFFF; font: inherit; font-size: 13px">Data tidak valid</button>
+    <button type="button" style="flex: 0 0 auto; min-height: 36px; padding: 0 12px; border-radius: 999px; border: 1px solid #CBD2DC; background: #FFFFFF; font: inherit; font-size: 13px">Data tidak memadai</button>
+  </div>
+
+  <div style="flex: 1; overflow-y: auto; padding: 12px 16px 150px; display: flex; flex-direction: column; gap: 10px">
+    <div style="font-size: 12px; color: #5B6573">Rules engine v1.0 · dinilai 28 Okt 2026, 10.05 WIB</div>
+    <sc-for list="{{list}}" as="r" hint-placeholder-count="5">
+      <a href="M-DetailRisiko.dc.html" style="display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px; text-decoration: none; color: #1B2430">
+        <div style="display: flex; justify-content: space-between; gap: 8px; align-items: center">
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #5B6573">{{r.ref}}</span>
+          <span style="{{r.pill.style}}">{{r.pill.label}}</span>
+        </div>
+        <div style="font-weight: 600; font-size: 15px">{{r.title}}</div>
+        <div style="font-size: 13px; color: #3A4452">{{r.reason}}</div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #5B6573">{{r.rule}}</div>
+      </a>
+    </sc-for>
+  </div>
+
+  <a href="M-AgenAI.dc.html" style="position: absolute; right: 16px; bottom: 80px; display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 16px; border-radius: 24px; background: #1F4FD1; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 14px; box-shadow: 0 6px 16px rgba(31,79,209,0.35)">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+    AI Agent
+  </a>
+
+  <nav aria-label="Menu utama" style="position: absolute; left: 0; right: 0; bottom: 0; height: 64px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); background: #FFFFFF; border-top: 1px solid #E2E5EA">
+    <sc-for list="{{tabs}}" as="t" hint-placeholder-count="5">
+      <a href="{{t.href}}" style="{{t.style}}">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{t.d}}"></path></svg>
+        <span>{{t.label}}</span>
+      </a>
+    </sc-for>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { tab: 'k' }; }
+  renderVals() {
+    const ACTIVE = 'Risiko';
+    const TABS = [
+      ['Dashboard', 'M-Dashboard.dc.html', 'M3 3h7v9H3zM14 3h7v5h-7zM14 12h7v9h-7zM3 16h7v5H3z'],
+      ['Pelatihan', 'M-Pelatihan.dc.html', 'M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14zM4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5'],
+      ['Risiko', 'M-Risiko.dc.html', 'M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01'],
+      ['Laporan', 'M-Laporan.dc.html', 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M8 13h8M8 17h8'],
+      ['Lainnya', 'M-Lainnya.dc.html', 'M3 6h18M3 12h18M3 18h18']
+    ];
+    const tabs = TABS.map(([label, href, d]) => ({ label, href, d, style: { display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '2px', textDecoration: 'none', fontSize: '11px', fontWeight: 600, color: label === ACTIVE ? '#1F4FD1' : '#5B6573' } }));
+    const ST = { kritis: ['Kritis', '#FEE4E2', '#B42318'], waspada: ['Waspada', '#FEF0C7', '#93370D'], stale: ['Data tidak memadai', '#EAECF0', '#344054'], invalid: ['Data tidak valid', '#EAECF0', '#344054'] };
+    const pill = (k) => ({ label: ST[k][0], style: { display: 'inline-block', padding: '2px 8px', borderRadius: '999px', fontSize: '11px', fontWeight: 600, background: ST[k][1], color: ST[k][2], whiteSpace: 'nowrap' } });
+    const tab = this.state.tab;
+    const seg = (on) => ({ minHeight: '40px', border: 0, borderRadius: '8px', font: 'inherit', fontSize: '13px', fontWeight: 600, background: on ? '#FFFFFF' : 'transparent', color: on ? '#0F1B33' : '#C9D1E0', cursor: 'pointer' });
+    const K = [
+      ['IKSK 3.2 · Lintas tim', 'Proyeksi peserta kumulatif di bawah target', 'Proyeksi 77.400 dari target 78.319', 'TARGET_UNLIKELY', 'kritis'],
+      ['IKSK 2.1 · GTA', 'Kelulusan aparatur di bawah target antara', '97,8% dari target 99%', 'TARGET_GAP', 'waspada'],
+      ['IKSK 3.2 · TRN-003', 'Data sumber kedaluwarsa', 'Pembaruan terakhir 19 Okt 2026', 'DATA_STALE', 'stale']
+    ];
+    const I = [
+      ['P-0012 · TRN-001', 'Peserta Contoh 12', 'Belum ada item selesai, belum onboarding', 'NOT_STARTED', 'kritis'],
+      ['P-0007 · TRN-001', 'Peserta Contoh 07', '6 dari 34 item; estimasi melewati tenggat', 'COMPLETION_AT_RISK', 'kritis'],
+      ['P-0004 · TRN-001', 'Peserta Contoh 04', 'Berhenti di M15 KUIS 1 selama 5 hari', 'PROGRESS_STAGNANT', 'waspada'],
+      ['P-0009 · TRN-001', 'Peserta Contoh 09', '47% vs rencana 74%', 'BEHIND_SCHEDULE', 'waspada'],
+      ['P-0011 · TRN-002', 'Peserta Contoh 11', 'Item wajib M16 belum selesai', 'MODULE_INCOMPLETE', 'waspada'],
+      ['P-0003 · TRN-002', 'Peserta Contoh 03', 'Progres 100%, STATUS belum Lulus', 'PASS_PENDING', 'waspada'],
+      ['P-0015 · TRN-001', 'Peserta Contoh 15', 'Cek Sync bernilai #REF!', 'DATA_INVALID', 'invalid']
+    ];
+    return {
+      tabs,
+      selK: tab === 'k' ? 'true' : 'false', selI: tab === 'i' ? 'true' : 'false',
+      styleK: seg(tab === 'k'), styleI: seg(tab === 'i'),
+      showK: () => this.setState({ tab: 'k' }), showI: () => this.setState({ tab: 'i' }),
+      list: (tab === 'k' ? K : I).map((x) => ({ ref: x[0], title: x[1], reason: x[2], rule: x[3], pill: pill(x[4]) }))
+    };
+  }
+}
+</script>
+</body>
+</html>

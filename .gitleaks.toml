@@ -1,0 +1,14 @@
+title = "EWS AI Agent"
+
+[extend]
+useDefault = true
+
+# Nomor registrasi peserta (12 digit, tanda hubung, 1–2 digit). Data riil tidak boleh di-commit (SH-PDP-05).
+[[rules]]
+id = "participant-registration-number"
+description = "Pola NO REGISTRASI peserta"
+regex = '''\b\d{12}-\d{1,2}\b'''
+tags = ["pii"]
+
+[[rules.allowlists]]
+paths = ['''^tests/fixtures/''']

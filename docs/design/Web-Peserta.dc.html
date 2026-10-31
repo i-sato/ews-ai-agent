@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Peserta — EWS AI Agent</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F5F6F8}
+a{color:#1F4FD1}a:hover{color:#163A9C}
+.nav{display:flex;flex-direction:column;gap:2px}
+@media (max-width:760px){.nav{flex-direction:row;flex-wrap:wrap}}
+</style>
+</helmet>
+<div style="display: flex; flex-wrap: wrap; min-height: 100vh; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #1B2430; background: #F5F6F8">
+  <aside style="flex: 1 1 224px; background: #0F1B33; color: #E6EAF2; padding: 20px 14px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 0 8px">
+      <div style="width: 36px; height: 36px; border-radius: 9px; background: #1F4FD1; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; color: #FFFFFF; letter-spacing: 0.5px">EWS</div>
+      <div>
+        <div style="font-weight: 700; font-size: 15px; color: #FFFFFF">EWS AI Agent</div>
+        <div style="font-size: 12px; color: #A9B4C8">Early Warning System Pelatihan</div>
+      </div>
+    </div>
+    <nav class="nav" aria-label="Menu utama">
+      <sc-for list="{{nav}}" as="n" hint-placeholder-count="7">
+        <a href="{{n.href}}" style="{{n.style}}">{{n.label}}</a>
+      </sc-for>
+    </nav>
+    <div style="margin-top: auto; padding: 12px; border-radius: 10px; background: #18284A; font-size: 12px; line-height: 1.5">
+      <div style="color: #FFFFFF; font-weight: 600">[Nama Pengguna]</div>
+      <div style="color: #A9B4C8">Role: Pengelola Pelatihan</div>
+    </div>
+    <a href="Web-Login.dc.html" style="padding: 0 8px; font-size: 12px; color: #A9B4C8">Pernyataan kepatuhan</a>
+  </aside>
+  <main style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <header style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 16px 32px; background: #FFFFFF; border-bottom: 1px solid #E2E5EA">
+      <div style="flex: 1 1 260px; min-width: 0">
+        <h1 style="margin: 0; font-size: 22px; font-weight: 700">Peserta</h1>
+        <div style="font-size: 13px; color: #5B6573">Progres item modul dan risiko individu · ditampilkan sesuai hak akses</div>
+      </div>
+      <a href="Web-AgenAI.dc.html" style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border: 1px solid #CBD2DC; border-radius: 8px; color: #1B2430; text-decoration: none; font-size: 14px; font-weight: 600; background: #FFFFFF">AI Agent</a>
+    </header>
+
+    <div style="padding: 24px 32px 40px; display: flex; flex-direction: column; gap: 20px; max-width: 1280px; box-sizing: border-box; width: 100%">
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end">
+        <div style="flex: 0 1 300px; display: flex; flex-direction: column; gap: 6px">
+          <label for="trn" style="font-size: 13px; font-weight: 600">Pelatihan</label>
+          <select id="trn" style="min-height: 40px; padding: 0 10px; border: 1px solid #CBD2DC; border-radius: 8px; font: inherit; font-size: 14px; background: #FFFFFF"><option>TRN-001 · Pemrograman Web (IAWD)</option></select>
+        </div>
+        <div style="flex: 1 1 220px; display: flex; flex-direction: column; gap: 6px">
+          <label for="q" style="font-size: 13px; font-weight: 600">Cari peserta</label>
+          <input id="q" type="search" placeholder="Nomor registrasi, nama, atau instansi" style="min-height: 40px; padding: 0 12px; border: 1px solid #CBD2DC; border-radius: 8px; font: inherit; font-size: 14px">
+        </div>
+        <div style="flex: 0 1 180px; display: flex; flex-direction: column; gap: 6px">
+          <label for="kat" style="font-size: 13px; font-weight: 600">Kategori</label>
+          <select id="kat" style="min-height: 40px; padding: 0 10px; border: 1px solid #CBD2DC; border-radius: 8px; font: inherit; font-size: 14px; background: #FFFFFF"><option>Semua</option><option>Belum mulai</option><option>Sebagian</option><option>Tuntas</option><option>Perlu dicek</option></select>
+        </div>
+        <div style="flex: 0 1 180px; display: flex; flex-direction: column; gap: 6px">
+          <label for="rs" style="font-size: 13px; font-weight: 600">Status risiko</label>
+          <select id="rs" style="min-height: 40px; padding: 0 10px; border: 1px solid #CBD2DC; border-radius: 8px; font: inherit; font-size: 14px; background: #FFFFFF"><option>Semua</option><option>Kritis</option><option>Waspada</option><option>Normal</option><option>Data tidak valid</option><option>Data tidak memadai</option></select>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start">
+        <section style="flex: 3 1 560px; min-width: 0; background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px">
+          <div style="overflow-x: auto">
+            <table style="width: 100%; min-width: 820px; border-collapse: collapse; font-size: 13px">
+              <thead>
+                <tr style="text-align: left; color: #5B6573; background: #F9FAFB">
+                  <th style="padding: 10px 16px; font-weight: 600">No. peserta</th>
+                  <th style="padding: 10px 12px; font-weight: 600">Nama · Instansi</th>
+                  <th style="padding: 10px 12px; font-weight: 600; text-align: right">Item selesai</th>
+                  <th style="padding: 10px 12px; font-weight: 600">Titik berhenti</th>
+                  <th style="padding: 10px 12px; font-weight: 600">Perubahan</th>
+                  <th style="padding: 10px 16px; font-weight: 600">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <sc-for list="{{rows}}" as="r" hint-placeholder-count="8">
+                  <tr style="{{r.rowStyle}}">
+                    <td style="padding: 12px 16px; font-family: 'JetBrains Mono', monospace; font-size: 12px">{{r.no}}</td>
+                    <td style="padding: 12px"><div style="font-weight: 600">{{r.name}}</div><div style="font-size: 12px; color: #5B6573">{{r.org}}</div></td>
+                    <td style="padding: 12px; text-align: right; font-weight: 600">{{r.done}}</td>
+                    <td style="padding: 12px"><div title="{{r.stop}}" style="max-width: 190px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{r.stop}}</div></td>
+                    <td style="padding: 12px; color: #3A4452">{{r.delta}}</td>
+                    <td style="padding: 12px 16px"><span style="{{r.pill.style}}">{{r.pill.label}}</span><div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #5B6573; margin-top: 2px">{{r.rule}}</div></td>
+                  </tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </div>
+          <div style="padding: 12px 16px; border-top: 1px solid #E2E5EA; font-size: 12px; color: #5B6573">Nilai kosong ditampilkan sebagai “—”, tidak dianggap 0%. Menampilkan 1–8 dari 41 peserta.</div>
+        </section>
+
+        <section style="flex: 2 1 360px; min-width: 0; background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 16px">
+          <div>
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #5B6573">P-0007 · TRN-001</div>
+            <h2 style="margin: 2px 0 0; font-size: 18px">Peserta Contoh 07</h2>
+            <div style="font-size: 13px; color: #5B6573">Instansi Contoh B · Onboarding: ya · STATUS: belum ditetapkan</div>
+          </div>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap">
+            <span style="padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; background: #FEE4E2; color: #B42318">Kritis</span>
+            <span style="padding: 2px 10px; border-radius: 6px; font-size: 12px; font-family: 'JetBrains Mono', monospace; background: #F2F4F7">COMPLETION_AT_RISK</span>
+            <span style="padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; background: #EEF2FF; color: #2A3FA0">Sebagian</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; font-size: 13px">
+            <div style="background: #F9FAFB; border-radius: 8px; padding: 10px"><div style="color: #5B6573; font-size: 12px">Item selesai</div><div style="font-weight: 700; font-size: 18px">6/34 · 18%</div></div>
+            <div style="background: #F9FAFB; border-radius: 8px; padding: 10px"><div style="color: #5B6573; font-size: 12px">Rencana s.d. hari ke-8</div><div style="font-weight: 700; font-size: 18px">25/34 · 74%</div></div>
+            <div style="background: #F9FAFB; border-radius: 8px; padding: 10px"><div style="color: #5B6573; font-size: 12px">Laju (v)</div><div style="font-weight: 700; font-size: 18px">2,5 poin/hari</div><div style="font-size: 12px; color: #5B6573">≈ 0,9 item/hari</div></div>
+            <div style="background: #F9FAFB; border-radius: 8px; padding: 10px"><div style="color: #5B6573; font-size: 12px">Estimasi selesai</div><div style="font-weight: 700; font-size: 18px">33 hari lagi</div><div style="font-size: 12px; color: #B42318">Melewati tenggat 31 Okt</div></div>
+          </div>
+          <div>
+            <div style="font-size: 13px; font-weight: 700; margin-bottom: 8px">Status item M01–M34</div>
+            <div role="img" aria-label="6 dari 34 item selesai, berhenti di M07" style="display: flex; flex-wrap: wrap; gap: 2px">
+              <sc-for list="{{strip}}" as="k" hint-placeholder-count="34">
+                <span style="{{k.style}}"></span>
+              </sc-for>
+            </div>
+          </div>
+          <div>
+            <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px"><span style="font-size: 13px; font-weight: 700">Item belum selesai</span><span style="font-size: 12px; color: #5B6573">28 dari 34</span></div>
+            <sc-for list="{{pending}}" as="m" hint-placeholder-count="6">
+              <div style="display: flex; gap: 10px; align-items: center; padding: 7px 0; border-top: 1px solid #EEF0F3; font-size: 13px">
+                <span style="flex: 0 0 34px; font-family: 'JetBrains Mono', monospace; font-size: 12px">{{m.code}}</span>
+                <span title="{{m.title}}" style="flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{m.title}}</span>
+                <span style="{{m.chip.style}}">{{m.chip.label}}</span>
+              </div>
+            </sc-for>
+            <div style="padding-top: 7px; border-top: 1px solid #EEF0F3; font-size: 12px; color: #5B6573">{{pendingMore}}</div>
+          </div>
+          <div style="font-size: 12px; color: #5B6573; line-height: 1.5">Proyeksi linear dari 2 snapshot valid (21 Okt → 28 Okt) dengan katalog item yang sama. Laju tidak dijamin berlanjut. Snapshot <span style="font-family: 'JetBrains Mono', monospace">SNAP-8812</span>, <span style="font-family: 'JetBrains Mono', monospace">SNAP-9034</span> · aturan v1.0</div>
+          <a href="Web-Risiko.dc.html" style="display: inline-flex; align-items: center; justify-content: center; min-height: 40px; border-radius: 8px; border: 1px solid #CBD2DC; text-decoration: none; font-size: 14px; font-weight: 600; color: #1B2430">Buka assessment risiko</a>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1140}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const ACTIVE = 'Peserta';
+    const NAV = [['Dashboard','Main.dc.html'],['Pelatihan','Web-Pelatihan.dc.html'],['Peserta','Web-Peserta.dc.html'],['Pemantauan Risiko','Web-Risiko.dc.html'],['Indikator PK','Web-IndikatorPK.dc.html'],['Laporan','Web-Laporan.dc.html'],['Pengaturan','Web-Pengaturan.dc.html']];
+    const nav = NAV.map(([label, href]) => ({ label, href, style: { display: 'block', padding: '10px 12px', borderRadius: '8px', fontSize: '14px', fontWeight: label === ACTIVE ? 600 : 500, textDecoration: 'none', color: label === ACTIVE ? '#FFFFFF' : '#C9D1E0', background: label === ACTIVE ? '#1F4FD1' : 'transparent' } }));
+    const ST = { kritis: ['Kritis', '#FEE4E2', '#B42318'], waspada: ['Waspada', '#FEF0C7', '#93370D'], normal: ['Normal', '#DCFAE6', '#085D3A'], stale: ['Data tidak memadai', '#EAECF0', '#344054'], invalid: ['Data tidak valid', '#EAECF0', '#344054'] };
+    const pill = (k) => ({ label: ST[k][0], style: { display: 'inline-block', padding: '2px 10px', borderRadius: '999px', fontSize: '12px', fontWeight: 600, background: ST[k][1], color: ST[k][2], whiteSpace: 'nowrap' } });
+    const CG = 'MENERAPKAN CODING-GUIDELINES DAN BEST PRACTICES DALAM PENULISAN PROGRAM (';
+    const ITEMS = [
+      'OVERVIEW', CG + 'CODING-STANDARD HTML (1))', CG + 'CODING-STANDARD HTML (2))', CG + 'CODING-STANDARD UNTUK CSS)',
+      CG + 'CODING STANDARD UNTUK PHP (1))', CG + 'CODING STANDARD UNTUK PHP (2))', CG + 'CODING STANDARD UNTUK PHP (3))', CG + 'CODING STANDARD UNTUK PHP (4))',
+      CG + 'CODING STANDARD UNTUK PHP (5))', CG + 'CODING STANDARD UNTUK PHP (6))', CG + 'CODING STANDARD UNTUK PHP (7))', CG + 'CODING STANDARD UNTUK PHP (8))',
+      'MENGGUNAKAN TIPE DATA DAN CONTROL PROGRAM', 'VIDEO: README', 'KUIS 1', 'MEMBUAT PROGRAM SEDERHANA',
+      'MEMBUAT PROGRAM MENGGUNAKAN PROSEDUR DAN FUNGSI', 'MEMBUAT PROGRAM MENGGUNAKAN ARRAY', 'MEMBUAT DAN MENAMPILKAN ISI ARRAY', 'VIDEO: PERULANGAN WHILE - DO WHILE',
+      'VIDEO: FOR & FOREACH', 'MENGHAPUS DAN MENAMBAHKAN ISI ARRAY', 'ARRAY ASOSIATIF DAN ARRAY MULTI DIMENSI', 'VIDEO: NESTED LOOP',
+      'MEMBUAT PROGRAM UNTUK AKSES FILE', 'MENGKOMPILASI PROGRAM', 'KUIS 2', 'MENGENAL LIBRARY',
+      'MENDAPATKAN LIBRARY', 'INSTALASI LIBARY', 'UPDATE LIBRARY', 'VIDEO: MEMILIH LIBRARY PRE EXISTING & PUBLIKASI WEBSITE VIA GITHUB PAGES',
+      'KUIS 3', 'FINAL ASSESSMENT'
+    ];
+    const code = (i) => 'M' + String(i + 1).padStart(2, '0');
+    const R = [
+      ['P-0001', 'Peserta Contoh 01', 'Instansi Contoh A', 34, 'done', '+4 item', '—', 'normal'],
+      ['P-0004', 'Peserta Contoh 04', 'Instansi Contoh A', 14, 'stop', 'Tidak berubah 5 hari', 'PROGRESS_STAGNANT', 'waspada'],
+      ['P-0007', 'Peserta Contoh 07', 'Instansi Contoh B', 6, 'stop', '+6 item', 'COMPLETION_AT_RISK', 'kritis'],
+      ['P-0009', 'Peserta Contoh 09', 'Instansi Contoh C', 16, 'stop', '+2 item', 'BEHIND_SCHEDULE', 'waspada'],
+      ['P-0012', 'Peserta Contoh 12', 'Instansi Contoh B', 0, 'none', 'Belum onboarding', 'NOT_STARTED', 'kritis'],
+      ['P-0015', 'Peserta Contoh 15', 'Instansi Contoh D', 0, 'check', 'Cek Sync: #REF!', 'DATA_INVALID', 'invalid'],
+      ['P-0018', 'Peserta Contoh 18', 'Instansi Contoh C', 26, 'stop', '+5 item', '—', 'normal'],
+      ['P-0021', 'Peserta Contoh 21', 'Instansi Contoh D', 19, 'stop', '−3 item (koreksi sumber)', 'BEHIND_SCHEDULE', 'waspada']
+    ];
+    const stopLabel = (d, k) => k === 'stop' ? code(d) + ' · ' + ITEMS[d] : (k === 'none' ? 'Belum mulai' : '—');
+    const SEL = 6;
+    const amber = { display: 'inline-block', padding: '1px 8px', borderRadius: '999px', fontSize: '11px', fontWeight: 700, background: '#FEF0C7', color: '#93370D', whiteSpace: 'nowrap' };
+    const grey = { display: 'inline-block', padding: '1px 8px', borderRadius: '999px', fontSize: '11px', fontWeight: 600, background: '#F2F4F7', color: '#475467', whiteSpace: 'nowrap' };
+    const left = ITEMS.slice(SEL).map((title, i) => ({ code: code(SEL + i), title, chip: i === 0 ? { label: 'Titik berhenti', style: amber } : { label: 'Belum Mengerjakan', style: grey } }));
+    return {
+      nav,
+      rows: R.map((x) => ({ no: x[0], name: x[1], org: x[2], done: x[3] + '/34', stop: stopLabel(x[3], x[4]), delta: x[5], rule: x[6], pill: pill(x[7]), rowStyle: { borderTop: '1px solid #EEF0F3', background: x[0] === 'P-0007' ? '#F5F8FF' : 'transparent' } })),
+      strip: ITEMS.map((_, i) => ({ style: { width: '8px', height: '18px', flex: '0 0 8px', borderRadius: '2px', background: i < SEL ? '#1F4FD1' : (i === SEL ? '#F79009' : '#E4E7EC') } })),
+      pending: left.slice(0, 6),
+      pendingMore: '+' + (left.length - 6) + ' item lainnya (' + code(SEL + 6) + '–M34)'
+    };
+  }
+}
+</script>
+</body>
+</html>

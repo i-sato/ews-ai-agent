@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Laporan (mobile) — EWS</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1F4FD1}a:hover{color:#163A9C}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; display: flex; flex-direction: column; overflow: hidden; position: relative; background: #F5F6F8; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #1B2430">
+  <header style="display: flex; align-items: center; gap: 10px; padding: 14px 16px; background: #0F1B33; color: #FFFFFF">
+    <h1 style="margin: 0; font-size: 18px; flex: 1">Laporan</h1>
+    <button type="button" style="min-height: 40px; padding: 0 14px; border-radius: 8px; border: 0; background: #1F4FD1; color: #FFFFFF; font: inherit; font-size: 13px; font-weight: 600">Buat draf</button>
+  </header>
+
+  <div role="radiogroup" aria-label="Jenis laporan" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; margin: 10px 16px 0; padding: 4px; background: #E9ECF1; border-radius: 10px">
+    <sc-for list="{{types}}" as="t" hint-placeholder-count="3">
+      <button type="button" role="radio" aria-checked="{{t.checked}}" onClick="{{t.pick}}" style="{{t.style}}">{{t.label}}</button>
+    </sc-for>
+  </div>
+
+  <div style="flex: 1; overflow-y: auto; padding: 12px 16px 90px; display: flex; flex-direction: column; gap: 14px">
+    <sc-if value="{{isMonthly}}" hint-placeholder-val="{{ true }}">
+      <section style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 12px">
+        <div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #5B6573">RPT-0022 · Tim kerja DTA · template bulanan v1</div>
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 2px">
+            <h2 style="margin: 0; font-size: 16px">Laporan Pelatihan DTA · Oktober 2026</h2>
+            <span style="padding: 1px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; background: #FEF0C7; color: #93370D">Sementara</span>
+          </div>
+          <div style="font-size: 12px; color: #5B6573; margin-top: 2px">Batas data 31 Okt 2026 · status Draf</div>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+          <div style="background: #F9FAFB; border-radius: 10px; padding: 10px"><div style="font-size: 11px; color: #5B6573; font-weight: 600">Pelatihan</div><div style="font-size: 18px; font-weight: 700">5</div><div style="font-size: 11px; color: #3A4452">2 selesai · 3 berjalan</div></div>
+          <div style="background: #F9FAFB; border-radius: 10px; padding: 10px"><div style="font-size: 11px; color: #5B6573; font-weight: 600">Peserta</div><div style="font-size: 18px; font-weight: 700">196</div><div style="font-size: 11px; color: #3A4452">dari 5 pelatihan</div></div>
+          <div style="background: #F9FAFB; border-radius: 10px; padding: 10px"><div style="font-size: 11px; color: #5B6573; font-weight: 600">Lulusan final</div><div style="font-size: 18px; font-weight: 700">60</div><div style="font-size: 11px; color: #3A4452">dari 2 pelatihan selesai</div></div>
+          <div style="background: #F9FAFB; border-radius: 10px; padding: 10px"><div style="font-size: 11px; color: #5B6573; font-weight: 600">Pelatihan berjalan</div><div style="font-size: 18px; font-weight: 700">121</div><div style="font-size: 11px; color: #93370D; font-weight: 600">peserta · sementara</div></div>
+        </div>
+        <div role="status" style="padding: 10px 12px; border-radius: 8px; background: #FFFAEB; border: 1px solid #FEDF89; font-size: 13px; line-height: 1.5"><b>Perlu tindakan:</b> TRN-003 memakai data 19 Okt yang kedaluwarsa. Sinkronkan atau kecualikan dengan alasan sebelum validasi.</div>
+        <div>
+          <div style="font-size: 13px; font-weight: 700; margin-bottom: 4px">Pelatihan yang tercakup</div>
+          <sc-for list="{{coverage}}" as="c" hint-placeholder-count="5">
+            <div style="display: flex; gap: 8px; align-items: center; padding: 8px 0; border-top: 1px solid #EEF0F3; font-size: 13px">
+              <span style="flex: 0 0 auto; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #5B6573">{{c.code}}</span>
+              <span style="flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{c.name}}</span>
+              <span style="{{c.pill.style}}">{{c.pill.label}}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+          <a href="#" style="display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 8px; border: 1px solid #CBD2DC; text-decoration: none; color: #1B2430; font-size: 13px; font-weight: 600">Buka Google Docs</a>
+          <button type="button" disabled style="min-height: 44px; border-radius: 8px; border: 1px solid #E2E5EA; background: #F2F4F7; color: #667085; font: inherit; font-size: 13px; font-weight: 600">Ajukan persetujuan</button>
+        </div>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{isTraining}}" hint-placeholder-val="{{ false }}">
+      <section style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 12px">
+        <div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #5B6573">RPT-0021 · template v3</div>
+          <h2 style="margin: 2px 0 0; font-size: 16px">Laporan TRN-001 · 21–31 Okt 2026</h2>
+        </div>
+        <ol aria-label="Status laporan" style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0">
+          <sc-for list="{{flow}}" as="f" hint-placeholder-count="5">
+            <li style="display: flex; align-items: center; gap: 10px; padding: 6px 0; font-size: 13px"><span style="{{f.dot}}"></span><span style="{{f.text}}">{{f.label}}</span></li>
+          </sc-for>
+        </ol>
+        <div style="padding: 10px 12px; border-radius: 8px; background: #FEF0C7; color: #7A2E0E; font-size: 13px; line-height: 1.5"><b>1 placeholder perlu dilengkapi:</b> training_location. Sistem tidak mengarang isi.</div>
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+          <a href="#" style="display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 8px; border: 1px solid #CBD2DC; text-decoration: none; color: #1B2430; font-size: 13px; font-weight: 600">Buka Google Docs</a>
+          <button type="button" style="min-height: 44px; border-radius: 8px; border: 0; background: #1F4FD1; color: #FFFFFF; font: inherit; font-size: 13px; font-weight: 600">Ajukan persetujuan</button>
+        </div>
+      </section>
+    </sc-if>
+
+    <sc-if value="{{isAnnual}}" hint-placeholder-val="{{ false }}">
+      <section style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 12px">
+        <div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #5B6573">RPT-0023 · Tim kerja DTA · template tahunan v1</div>
+          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 2px">
+            <h2 style="margin: 0; font-size: 16px">Laporan Tim Kerja DTA · 2026</h2>
+            <span style="padding: 1px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; background: #FEF0C7; color: #93370D">Sementara</span>
+          </div>
+          <div style="font-size: 12px; color: #5B6573; margin-top: 2px">Batas data 31 Des 2026 · per 30 Okt mencakup Jan–Okt</div>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+          <div style="background: #F9FAFB; border-radius: 10px; padding: 10px"><div style="font-size: 11px; color: #5B6573; font-weight: 600">Pelatihan</div><div style="font-size: 18px; font-weight: 700">7</div><div style="font-size: 11px; color: #3A4452">4 selesai · 3 berjalan</div></div>
+          <div style="background: #F9FAFB; border-radius: 10px; padding: 10px"><div style="font-size: 11px; color: #5B6573; font-weight: 600">Peserta</div><div style="font-size: 18px; font-weight: 700">270</div><div style="font-size: 11px; color: #3A4452">149 di pelatihan selesai</div></div>
+          <div style="background: #F9FAFB; border-radius: 10px; padding: 10px"><div style="font-size: 11px; color: #5B6573; font-weight: 600">Lulusan final</div><div style="font-size: 18px; font-weight: 700">125</div><div style="font-size: 11px; color: #3A4452">dari 4 pelatihan</div></div>
+          <div style="background: #F9FAFB; border-radius: 10px; padding: 10px"><div style="font-size: 11px; color: #5B6573; font-weight: 600">Capaian IKSK 1.1</div><div style="font-size: 18px; font-weight: 700">108,9%</div><div style="font-size: 11px; color: #3A4452">94,7% dari 87%</div></div>
+        </div>
+        <div style="font-size: 12px; color: #5B6573; line-height: 1.5">Pelatihan DTA level Basic terpetakan ke IKSK 1.1 (125 lulus ÷ 132 peserta progres ≥ 90%). Kontribusi ke IKSK 3.2 dihitung lintas tim.</div>
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+          <a href="#" style="display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: 8px; border: 1px solid #CBD2DC; text-decoration: none; color: #1B2430; font-size: 13px; font-weight: 600">Buka Google Docs</a>
+          <button type="button" disabled style="min-height: 44px; border-radius: 8px; border: 1px solid #E2E5EA; background: #F2F4F7; color: #667085; font: inherit; font-size: 13px; font-weight: 600">Ajukan persetujuan</button>
+        </div>
+      </section>
+    </sc-if>
+
+    <section style="display: flex; flex-direction: column; gap: 8px">
+      <h3 style="margin: 0; font-size: 14px">Riwayat laporan</h3>
+      <sc-for list="{{reports}}" as="r" hint-placeholder-count="6">
+        <div style="display: flex; gap: 10px; align-items: center; background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 10px; padding: 12px">
+          <div style="flex: 1; min-width: 0">
+            <div style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center"><span style="{{r.kindStyle}}">{{r.kind}}</span><span style="font-weight: 600; font-size: 14px">{{r.title}}</span></div>
+            <div style="font-size: 12px; color: #5B6573">{{r.meta}}</div>
+          </div>
+          <span style="{{r.pill.style}}">{{r.pill.label}}</span>
+        </div>
+      </sc-for>
+    </section>
+  </div>
+
+  <nav aria-label="Menu utama" style="position: absolute; left: 0; right: 0; bottom: 0; height: 64px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); background: #FFFFFF; border-top: 1px solid #E2E5EA">
+    <sc-for list="{{tabs}}" as="t" hint-placeholder-count="5">
+      <a href="{{t.href}}" style="{{t.style}}">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{t.d}}"></path></svg>
+        <span>{{t.label}}</span>
+      </a>
+    </sc-for>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { type: 'monthly' }; }
+  renderVals() {
+    const ACTIVE = 'Laporan';
+    const TABS = [
+      ['Dashboard', 'M-Dashboard.dc.html', 'M3 3h7v9H3zM14 3h7v5h-7zM14 12h7v9h-7zM3 16h7v5H3z'],
+      ['Pelatihan', 'M-Pelatihan.dc.html', 'M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14zM4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5'],
+      ['Risiko', 'M-Risiko.dc.html', 'M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01'],
+      ['Laporan', 'M-Laporan.dc.html', 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M8 13h8M8 17h8'],
+      ['Lainnya', 'M-Lainnya.dc.html', 'M3 6h18M3 12h18M3 18h18']
+    ];
+    const tabs = TABS.map(([label, href, d]) => ({ label, href, d, style: { display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '2px', textDecoration: 'none', fontSize: '11px', fontWeight: 600, color: label === ACTIVE ? '#1F4FD1' : '#5B6573' } }));
+    const s = this.state;
+    const ST = { draft: ['Draf', '#EAECF0', '#344054'], validated: ['Tervalidasi', '#EEF2FF', '#2A3FA0'], published: ['Terpublikasi', '#DCFAE6', '#085D3A'], approved: ['Disetujui', '#DCFAE6', '#085D3A'], failed: ['Gagal', '#FEE4E2', '#B42318'], done: ['Selesai', '#DCFAE6', '#085D3A'], run: ['Berjalan', '#EEF2FF', '#2A3FA0'] };
+    const pill = (k) => ({ label: ST[k][0], style: { display: 'inline-block', padding: '2px 8px', borderRadius: '999px', fontSize: '11px', fontWeight: 600, background: ST[k][1], color: ST[k][2], whiteSpace: 'nowrap' } });
+    const seg = (on) => ({ minHeight: '40px', border: 0, borderRadius: '8px', font: 'inherit', fontSize: '13px', fontWeight: 600, background: on ? '#FFFFFF' : 'transparent', color: '#1B2430', boxShadow: on ? '0 1px 2px rgba(16,24,40,0.12)' : 'none', cursor: 'pointer' });
+    const TYPES = [['training', 'Per pelatihan'], ['monthly', 'Bulanan'], ['annual', 'Tahunan']];
+    const steps = ['Draf', 'Tervalidasi', 'Menunggu persetujuan', 'Disetujui', 'Terpublikasi'];
+    const cur = 1;
+    const flow = steps.map((label, i) => ({ label, dot: { width: '12px', height: '12px', borderRadius: '50%', flex: '0 0 12px', background: i < cur ? '#12B76A' : (i === cur ? '#1F4FD1' : '#FFFFFF'), border: i > cur ? '2px solid #D0D5DD' : '2px solid transparent', boxSizing: 'border-box' }, text: { fontWeight: i === cur ? 700 : 500, color: i > cur ? '#5B6573' : '#1B2430' } }));
+    const KIND = { training: 'Pelatihan', monthly: 'Bulanan', annual: 'Tahunan' };
+    const kindStyle = { padding: '1px 6px', borderRadius: '6px', fontSize: '11px', fontWeight: 600, background: '#F2F4F7', color: '#344054' };
+    const R = [
+      ['annual', 'DTA · 2026', 'RPT-0023 · 7 pelatihan · 30 Okt 2026', 'draft'],
+      ['monthly', 'DTA · Oktober 2026', 'RPT-0022 · 5 pelatihan · 30 Okt 2026', 'draft'],
+      ['training', 'TRN-001 · 21–31 Okt 2026', 'RPT-0021 · 28 Okt 2026', 'validated'],
+      ['training', 'TRN-002 · 13 Okt – 3 Nov 2026', 'RPT-0020 · 27 Okt 2026', 'failed'],
+      ['training', 'TRN-004 · 14–18 Sep 2026', 'RPT-0019 · 25 Sep 2026', 'published'],
+      ['training', 'TRN-005 · 2–6 Sep 2026', 'RPT-0018 · 12 Sep 2026', 'approved']
+    ];
+    return {
+      tabs, flow,
+      types: TYPES.map(([id, label]) => ({ label, checked: s.type === id ? 'true' : 'false', pick: () => this.setState({ type: id }), style: seg(s.type === id) })),
+      isMonthly: s.type === 'monthly', isTraining: s.type === 'training', isAnnual: s.type === 'annual',
+      coverage: [
+        { code: 'TRN-007', name: 'Pelatihan Analisis Data', pill: pill('done') },
+        { code: 'TRN-008', name: 'Pelatihan Teknis AI Agent', pill: pill('done') },
+        { code: 'TRN-002', name: 'Instalasi Kabel Fiber Optik (OIAT)', pill: pill('run') },
+        { code: 'TRN-003', name: 'Pelatihan Keamanan Informasi', pill: pill('run') },
+        { code: 'TRN-001', name: 'Pemrograman Web (IAWD)', pill: pill('run') }
+      ],
+      reports: R.map(([k, title, meta, st]) => ({ kind: KIND[k], kindStyle, title, meta, pill: pill(st) }))
+    };
+  }
+}
+</script>
+</body>
+</html>

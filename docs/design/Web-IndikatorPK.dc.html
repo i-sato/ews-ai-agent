@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Indikator PK — EWS AI Agent</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F5F6F8}
+a{color:#1F4FD1}a:hover{color:#163A9C}
+.nav{display:flex;flex-direction:column;gap:2px}
+@media (max-width:760px){.nav{flex-direction:row;flex-wrap:wrap}}
+</style>
+</helmet>
+<div style="display: flex; flex-wrap: wrap; min-height: 100vh; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #1B2430; background: #F5F6F8">
+  <aside style="flex: 1 1 224px; background: #0F1B33; color: #E6EAF2; padding: 20px 14px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 0 8px">
+      <div style="width: 36px; height: 36px; border-radius: 9px; background: #1F4FD1; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; color: #FFFFFF; letter-spacing: 0.5px">EWS</div>
+      <div>
+        <div style="font-weight: 700; font-size: 15px; color: #FFFFFF">EWS AI Agent</div>
+        <div style="font-size: 12px; color: #A9B4C8">Early Warning System Pelatihan</div>
+      </div>
+    </div>
+    <nav class="nav" aria-label="Menu utama">
+      <sc-for list="{{nav}}" as="n" hint-placeholder-count="7">
+        <a href="{{n.href}}" style="{{n.style}}">{{n.label}}</a>
+      </sc-for>
+    </nav>
+    <div style="margin-top: auto; padding: 12px; border-radius: 10px; background: #18284A; font-size: 12px; line-height: 1.5">
+      <div style="color: #FFFFFF; font-weight: 600">[Nama Pengguna]</div>
+      <div style="color: #A9B4C8">Role: Pengelola PK</div>
+    </div>
+    <a href="Web-Login.dc.html" style="padding: 0 8px; font-size: 12px; color: #A9B4C8">Pernyataan kepatuhan</a>
+  </aside>
+  <main style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <header style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 16px 32px; background: #FFFFFF; border-bottom: 1px solid #E2E5EA">
+      <div style="flex: 1 1 260px; min-width: 0">
+        <h1 style="margin: 0; font-size: 22px; font-weight: 700">Indikator PK</h1>
+        <div style="font-size: 13px; color: #5B6573">Perjanjian Kinerja per tahun, indikator, target antara, dan pemetaan ke tim kerja</div>
+      </div>
+      <label for="thn" style="font-size: 13px; font-weight: 600">Tahun</label>
+      <select id="thn" style="min-height: 40px; padding: 0 10px; border: 1px solid #CBD2DC; border-radius: 8px; font: inherit; font-size: 14px; background: #FFFFFF"><option>2026</option></select>
+      <button type="button" style="min-height: 40px; padding: 0 14px; border: 0; border-radius: 8px; background: #1F4FD1; color: #FFFFFF; font: inherit; font-size: 14px; font-weight: 600">Baca ulang folder PK</button>
+    </header>
+
+    <div style="padding: 24px 32px 40px; display: flex; flex-direction: column; gap: 20px; max-width: 1280px; box-sizing: border-box; width: 100%">
+      <section style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px">
+        <div style="display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; padding: 16px 20px; border-bottom: 1px solid #E2E5EA">
+          <h2 style="margin: 0; font-size: 16px">Dokumen PK 2026</h2>
+          <span style="font-size: 13px; color: #5B6573">Folder Drive PK › 2026 · dibaca 31 Okt 2026, 09.00 WIB</span>
+        </div>
+        <div style="overflow-x: auto">
+          <table style="width: 100%; min-width: 860px; border-collapse: collapse; font-size: 13px">
+            <thead><tr style="text-align: left; color: #5B6573; background: #F9FAFB"><th style="padding: 8px 20px; font-weight: 600">File</th><th style="padding: 8px 12px; font-weight: 600">Jenis</th><th style="padding: 8px 12px; font-weight: 600">Peran</th><th style="padding: 8px 12px; font-weight: 600">Isi terbaca</th><th style="padding: 8px 12px; font-weight: 600">Checksum</th><th style="padding: 8px 20px; font-weight: 600">Status</th></tr></thead>
+            <tbody>
+              <sc-for list="{{docs}}" as="d" hint-placeholder-count="3">
+                <tr style="border-top: 1px solid #EEF0F3">
+                  <td style="padding: 12px 20px; font-weight: 600">{{d.name}}</td>
+                  <td style="padding: 12px">{{d.kind}}</td>
+                  <td style="padding: 12px">{{d.role}}</td>
+                  <td style="padding: 12px; color: #3A4452">{{d.content}}</td>
+                  <td style="padding: 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px">{{d.sum}}</td>
+                  <td style="padding: 12px 20px"><span style="{{d.pill.style}}">{{d.pill.label}}</span></td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+        <div style="padding: 10px 20px; border-top: 1px solid #E2E5EA; font-size: 12px; color: #5B6573; line-height: 1.5">Rumus di manual berupa objek persamaan sehingga tidak terbaca dari PDF; rumus diambil dari spreadsheet PK atau bagian “Keterangan Metode Pengukuran”. Folder PK sebaiknya hanya dibagikan ke service account dan pengelola.</div>
+      </section>
+
+      <section style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px">
+        <div style="display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; padding: 16px 20px; border-bottom: 1px solid #E2E5EA">
+          <h2 style="margin: 0; font-size: 16px">Indikator dan pemetaan tim kerja</h2>
+          <span style="font-size: 13px; color: #5B6573">Hanya indikator berstatus disetujui yang dipakai rules engine</span>
+        </div>
+        <div style="overflow-x: auto">
+          <table style="width: 100%; min-width: 1120px; border-collapse: collapse; font-size: 13px">
+            <thead><tr style="text-align: left; color: #5B6573; background: #F9FAFB"><th style="padding: 8px 20px; font-weight: 600">Indikator</th><th style="padding: 8px 12px; font-weight: 600">Tim kerja</th><th style="padding: 8px 12px; font-weight: 600; text-align: right">Target</th><th style="padding: 8px 12px; font-weight: 600">Penyebut / pembilang</th><th style="padding: 8px 12px; font-weight: 600">Target antara Okt</th><th style="padding: 8px 12px; font-weight: 600">Sumber</th><th style="padding: 8px 12px; font-weight: 600">Status</th><th style="padding: 8px 20px; font-weight: 600"><span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Aksi</span></th></tr></thead>
+            <tbody>
+              <sc-for list="{{inds}}" as="r" hint-placeholder-count="6">
+                <tr style="{{r.rowStyle}}">
+                  <td style="padding: 12px 20px; max-width: 320px"><div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #5B6573">{{r.code}}</div><div style="font-weight: 600">{{r.name}}</div></td>
+                  <td style="padding: 12px"><span style="{{r.teamStyle}}">{{r.team}}</span></td>
+                  <td style="padding: 12px; text-align: right; font-weight: 600; white-space: nowrap">{{r.target}}</td>
+                  <td style="padding: 12px; color: #3A4452; max-width: 300px">{{r.rule}}</td>
+                  <td style="padding: 12px; white-space: nowrap">{{r.interim}}</td>
+                  <td style="padding: 12px; color: #3A4452">{{r.src}}</td>
+                  <td style="padding: 12px"><span style="{{r.pill.style}}">{{r.pill.label}}</span></td>
+                  <td style="padding: 12px 20px"><sc-if value="{{r.canApprove}}" hint-placeholder-val="{{ false }}"><div style="display: flex; gap: 6px"><button type="button" style="min-height: 32px; padding: 0 12px; border-radius: 8px; border: 0; background: #1F4FD1; color: #FFFFFF; font: inherit; font-size: 13px; font-weight: 600">Setujui</button><button type="button" style="min-height: 32px; padding: 0 12px; border-radius: 8px; border: 1px solid #CBD2DC; background: #FFFFFF; font: inherit; font-size: 13px; font-weight: 600">Ubah</button></div></sc-if></td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+        <div style="padding: 10px 20px; border-top: 1px solid #E2E5EA; font-size: 12px; color: #5B6573; line-height: 1.5">IKSK 4.1–4.4 (BPK, kinerja anggaran, UAKPA) bukan indikator pelatihan dan tidak dipantau EWS. Realisasi resmi dicocokkan dengan Metabase setiap bulan.</div>
+      </section>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start">
+        <section style="flex: 3 1 520px; min-width: 0; background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px">
+          <div style="padding: 16px 20px; border-bottom: 1px solid #E2E5EA"><h2 style="margin: 0; font-size: 16px">Pemetaan pelatihan ke indikator</h2></div>
+          <div style="overflow-x: auto">
+            <table style="width: 100%; min-width: 640px; border-collapse: collapse; font-size: 13px">
+              <thead><tr style="text-align: left; color: #5B6573; background: #F9FAFB"><th style="padding: 8px 20px; font-weight: 600">Pelatihan</th><th style="padding: 8px 12px; font-weight: 600">Level · metode</th><th style="padding: 8px 12px; font-weight: 600">Indikator</th><th style="padding: 8px 20px; font-weight: 600">Status</th></tr></thead>
+              <tbody>
+                <sc-for list="{{maps}}" as="m" hint-placeholder-count="4">
+                  <tr style="border-top: 1px solid #EEF0F3">
+                    <td style="padding: 12px 20px"><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #5B6573">{{m.trn}}</span> {{m.name}}</td>
+                    <td style="padding: 12px">{{m.level}}</td>
+                    <td style="padding: 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px">{{m.ind}}</td>
+                    <td style="padding: 12px 20px"><span style="{{m.pill.style}}">{{m.pill.label}}</span></td>
+                  </tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section style="flex: 2 1 360px; min-width: 0; background: #F5F8FF; border: 1px solid #C7D3F5; border-radius: 12px; padding: 18px 20px; display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; gap: 8px; align-items: center"><h2 style="margin: 0; font-size: 16px">Usulan AI dari manual PK</h2><span style="padding: 1px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; background: #EEF2FF; color: #2A3FA0">Draf</span></div>
+          <div style="font-size: 13px; line-height: 1.6"><b>IKSK 3.1 → KDD.</b> Definisi menyebut “keterampilan digital dasar” dan “microskill”. Lulus: post-test ≥ 60, tugas untuk tema tertentu. Mengikuti: ≥ 90% kegiatan. Target antara April–Desember 95%. <span style="color: #5B6573">Manual PK 2026, hlm. 6–7.</span></div>
+          <div style="font-size: 12px; color: #5B6573; line-height: 1.5">AI hanya mengusulkan. Angka resmi memakai versi yang disetujui Pengelola PK.</div>
+          <div style="display: flex; gap: 8px"><button type="button" style="min-height: 36px; padding: 0 12px; border-radius: 8px; border: 0; background: #1F4FD1; color: #FFFFFF; font: inherit; font-size: 13px; font-weight: 600">Tinjau dan setujui</button><button type="button" style="min-height: 36px; padding: 0 12px; border-radius: 8px; border: 1px solid #CBD2DC; background: #FFFFFF; font: inherit; font-size: 13px; font-weight: 600">Tolak</button></div>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1300}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const ACTIVE = 'Indikator PK';
+    const NAV = [['Dashboard','Main.dc.html'],['Pelatihan','Web-Pelatihan.dc.html'],['Peserta','Web-Peserta.dc.html'],['Pemantauan Risiko','Web-Risiko.dc.html'],['Indikator PK','Web-IndikatorPK.dc.html'],['Laporan','Web-Laporan.dc.html'],['Pengaturan','Web-Pengaturan.dc.html']];
+    const nav = NAV.map(([label, href]) => ({ label, href, style: { display: 'block', padding: '10px 12px', borderRadius: '8px', fontSize: '14px', fontWeight: label === ACTIVE ? 600 : 500, textDecoration: 'none', color: label === ACTIVE ? '#FFFFFF' : '#C9D1E0', background: label === ACTIVE ? '#1F4FD1' : 'transparent' } }));
+    const ST = { ok: ['Disetujui', '#DCFAE6', '#085D3A'], ai: ['Usulan AI', '#EEF2FF', '#2A3FA0'], read: ['Terbaca', '#DCFAE6', '#085D3A'], partial: ['Sebagian terisi', '#FEF0C7', '#93370D'], out: ['Di luar EWS', '#F2F4F7', '#475467'], pending: ['Perlu ditinjau', '#FEF0C7', '#93370D'] };
+    const pill = (k) => ({ label: ST[k][0], style: { display: 'inline-block', padding: '2px 10px', borderRadius: '999px', fontSize: '12px', fontWeight: 600, background: ST[k][1], color: ST[k][2], whiteSpace: 'nowrap' } });
+    const teamStyle = (t) => ({ display: 'inline-block', padding: '1px 8px', borderRadius: '6px', fontSize: '12px', fontWeight: 600, fontFamily: 'JetBrains Mono, monospace', background: t === '—' ? '#F2F4F7' : '#EEF2FF', color: t === '—' ? '#475467' : '#2A3FA0', whiteSpace: 'nowrap' });
+    const I = [
+      ['IKSK 1.1', 'Persentase peserta pelatihan SDM bidang komdigi yang bertalenta digital (DEX, VBL non-sertifikasi)', 'DTA', '87%', 'Lulus completion ÷ peserta progres ≥ 90%; hanya level Basic', '87%', 'Spreadsheet PK', 'ok'],
+      ['IKSK 2.1', 'Persentase peserta pelatihan SDM aparatur bidang komdigi yang bertalenta digital', 'GTA', '99%', 'Live: absen ≤ 10% dan nilai ≥ 65 · Self-paced: semua aktivitas LMS ÷ peserta ≥ 90%', '99%', 'Manual hlm. 4–5', 'ok'],
+      ['IKSK 3.1', 'Persentase peserta pelatihan keterampilan dasar yang meningkat keterampilan digitalnya', 'KDD', '95%', 'Post-test ≥ 60 (+ tugas tema tertentu) ÷ peserta ≥ 90% kegiatan', '95%', 'Manual hlm. 6–7', 'ai'],
+      ['IKSK 3.2', 'Jumlah peserta pelatihan SDM bidang komdigi yang bertalenta digital (kumulatif)', 'Lintas tim', '78.319', 'Capaian 2025 (54.969) + peserta yang menyelesaikan pelatihan 2026', '75.969', 'Manual hlm. 8–10', 'ok'],
+      ['IKSK 4.1–4.4', 'Temuan dan tindak lanjut BPK, nilai kinerja anggaran, kualitas laporan keuangan UAKPA', '—', '—', 'Bukan indikator pelatihan', '—', 'Manual hlm. 11–26', 'out']
+    ];
+    return {
+      nav,
+      docs: [
+        { name: 'PK', kind: 'Spreadsheet', role: 'Sumber utama (dibaca deterministik)', content: '1 dari 8 indikator terisi (IKSK 1.1)', sum: 'sha256:7c1e…92ab', pill: pill('partial') },
+        { name: 'PK_2026', kind: 'Google Docs', role: 'Manual, dibaca AI untuk usulan', content: '8 indikator, target antara, kriteria', sum: 'sha256:3fa0…d41c', pill: pill('read') },
+        { name: 'PK_2026', kind: 'PDF, 26 halaman', role: 'Arsip dan rujukan halaman', content: 'Sama dengan Docs; rumus tidak terbaca', sum: 'sha256:b82d…0e77', pill: pill('read') }
+      ],
+      inds: I.map(([code, name, team, target, rule, interim, src, st]) => ({ code, name, team, target, rule, interim, src, pill: pill(st), teamStyle: teamStyle(team), canApprove: st === 'ai', rowStyle: { borderTop: '1px solid #EEF0F3', background: st === 'out' ? '#FAFAFB' : 'transparent' } })),
+      maps: [
+        { trn: 'TRN-001', name: 'Pemrograman Web (IAWD)', level: 'Basic · VBL non-sertifikasi', ind: 'IKSK 1.1, IKSK 3.2', pill: pill('ok') },
+        { trn: 'TRN-002', name: 'Instalasi Kabel Fiber Optik (OIAT)', level: 'Basic · VBL non-sertifikasi', ind: 'IKSK 1.1, IKSK 3.2', pill: pill('ok') },
+        { trn: 'TRN-005', name: 'Pelatihan Manajemen Proyek TI', level: 'Live session · aparatur', ind: 'IKSK 2.1, IKSK 3.2', pill: pill('ok') },
+        { trn: 'TRN-004', name: 'Pelatihan Literasi Digital', level: 'Dasar · self-paced', ind: 'IKSK 3.1, IKSK 3.2', pill: pill('ai') },
+        { trn: 'TRN-006', name: 'Pelatihan Tata Kelola Data', level: '[level belum diisi]', ind: '—', pill: pill('pending') }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

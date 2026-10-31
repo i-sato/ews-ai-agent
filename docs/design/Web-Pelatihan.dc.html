@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Pelatihan — EWS AI Agent</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F5F6F8}
+a{color:#1F4FD1}a:hover{color:#163A9C}
+.nav{display:flex;flex-direction:column;gap:2px}
+@media (max-width:760px){.nav{flex-direction:row;flex-wrap:wrap}}
+</style>
+</helmet>
+<div style="display: flex; flex-wrap: wrap; min-height: 100vh; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #1B2430; background: #F5F6F8">
+  <aside style="flex: 1 1 224px; background: #0F1B33; color: #E6EAF2; padding: 20px 14px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 0 8px">
+      <div style="width: 36px; height: 36px; border-radius: 9px; background: #1F4FD1; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; color: #FFFFFF; letter-spacing: 0.5px">EWS</div>
+      <div>
+        <div style="font-weight: 700; font-size: 15px; color: #FFFFFF">EWS AI Agent</div>
+        <div style="font-size: 12px; color: #A9B4C8">Early Warning System Pelatihan</div>
+      </div>
+    </div>
+    <nav class="nav" aria-label="Menu utama">
+      <sc-for list="{{nav}}" as="n" hint-placeholder-count="7">
+        <a href="{{n.href}}" style="{{n.style}}">{{n.label}}</a>
+      </sc-for>
+    </nav>
+    <div style="margin-top: auto; padding: 12px; border-radius: 10px; background: #18284A; font-size: 12px; line-height: 1.5">
+      <div style="color: #FFFFFF; font-weight: 600">[Nama Pengguna]</div>
+      <div style="color: #A9B4C8">Role: Pengelola Pelatihan</div>
+    </div>
+    <a href="Web-Login.dc.html" style="padding: 0 8px; font-size: 12px; color: #A9B4C8">Pernyataan kepatuhan</a>
+  </aside>
+  <main style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <header style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 16px 32px; background: #FFFFFF; border-bottom: 1px solid #E2E5EA">
+      <div style="flex: 1 1 260px; min-width: 0">
+        <h1 style="margin: 0; font-size: 22px; font-weight: 700">Pelatihan</h1>
+        <div style="font-size: 13px; color: #5B6573">Daftar pelatihan per tahun dan tim kerja · satu spreadsheet per kelas</div>
+      </div>
+      <a href="Web-Impor.dc.html" style="display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border-radius: 8px; background: #1F4FD1; color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 600">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><path d="M17 8l-5-5-5 5"></path><path d="M12 3v12"></path></svg>
+        Impor data
+      </a>
+      <a href="Web-PelatihanTambah.dc.html" style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border: 1px solid #CBD2DC; border-radius: 8px; color: #1B2430; text-decoration: none; font-size: 14px; font-weight: 600; background: #FFFFFF">Tambah pelatihan</a>
+      <a href="Web-AgenAI.dc.html" style="display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border: 1px solid #CBD2DC; border-radius: 8px; color: #1B2430; text-decoration: none; font-size: 14px; font-weight: 600; background: #FFFFFF">AI Agent</a>
+    </header>
+
+    <div style="padding: 24px 32px 40px; display: flex; flex-direction: column; gap: 20px; max-width: 1280px; box-sizing: border-box; width: 100%">
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end">
+        <div style="flex: 1 1 280px; display: flex; flex-direction: column; gap: 6px">
+          <label for="cari" style="font-size: 13px; font-weight: 600">Cari pelatihan</label>
+          <input id="cari" type="search" placeholder="Kode atau nama pelatihan" style="min-height: 40px; padding: 0 12px; border: 1px solid #CBD2DC; border-radius: 8px; font: inherit; font-size: 14px">
+        </div>
+        <div style="flex: 0 1 120px; display: flex; flex-direction: column; gap: 6px"><label for="tahun" style="font-size: 13px; font-weight: 600">Tahun</label><select id="tahun" style="min-height: 40px; padding: 0 10px; border: 1px solid #CBD2DC; border-radius: 8px; font: inherit; font-size: 14px; background: #FFFFFF"><option>2026</option></select></div>
+        <div style="display: flex; flex-direction: column; gap: 6px; flex: 0 1 260px"><label for="tim" style="font-size: 13px; font-weight: 600">Tim kerja</label><select id="tim" style="min-height: 40px; padding: 0 10px; border: 1px solid #CBD2DC; border-radius: 8px; font: inherit; font-size: 14px; background: #FFFFFF"><option>Semua tim kerja</option><option>DTA · Digital Talent Academy</option><option>GTA · Government Transformation Academy</option><option>KDD · Keterampilan Digital Dasar</option></select></div>
+        <div style="flex: 0 1 200px; display: flex; flex-direction: column; gap: 6px">
+          <label for="status" style="font-size: 13px; font-weight: 600">Status pelatihan</label>
+          <select id="status" style="min-height: 40px; padding: 0 10px; border: 1px solid #CBD2DC; border-radius: 8px; font: inherit; font-size: 14px; background: #FFFFFF">
+            <option>Semua status</option><option>Direncanakan</option><option>Berlangsung</option><option>Selesai</option><option>Dibatalkan</option>
+          </select>
+        </div>
+        <div style="flex: 0 1 200px; display: flex; flex-direction: column; gap: 6px">
+          <label for="risk" style="font-size: 13px; font-weight: 600">Status risiko</label>
+          <select id="risk" style="min-height: 40px; padding: 0 10px; border: 1px solid #CBD2DC; border-radius: 8px; font: inherit; font-size: 14px; background: #FFFFFF">
+            <option>Semua</option><option>Kritis</option><option>Waspada</option><option>Normal</option><option>Data tidak memadai</option><option>Data tidak valid</option>
+          </select>
+        </div>
+      </div>
+
+      <section style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px">
+        <div style="display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; padding: 12px 20px; border-bottom: 1px solid #E2E5EA; font-size: 12px; color: #3A4452">
+          <span style="font-weight: 600">Penyelesaian item:</span>
+          <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 12px; height: 8px; border-radius: 2px; background: #D0D5DD"></span>Belum mulai</span>
+          <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 12px; height: 8px; border-radius: 2px; background: #9DB4F5"></span>Sebagian</span>
+          <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 12px; height: 8px; border-radius: 2px; background: #1F4FD1"></span>Tuntas</span>
+          <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 12px; height: 8px; border-radius: 2px; background: #F79009"></span>Perlu dicek</span>
+        </div>
+        <div style="overflow-x: auto">
+          <table style="width: 100%; min-width: 1400px; border-collapse: collapse; font-size: 13px">
+            <thead>
+              <tr style="text-align: left; color: #5B6573; background: #F9FAFB">
+                <th style="padding: 10px 20px; font-weight: 600">Pelatihan</th>
+                <th style="padding: 10px 12px; font-weight: 600">Periode</th>
+                <th style="padding: 10px 12px; font-weight: 600">Halaman &amp; jadwal</th>
+                <th style="padding: 10px 12px; font-weight: 600">Status</th>
+                <th style="padding: 10px 12px; font-weight: 600; text-align: right">Peserta</th>
+                <th style="padding: 10px 12px; font-weight: 600">Penyelesaian item</th>
+                <th style="padding: 10px 12px; font-weight: 600; text-align: right">Rata-rata LMS</th>
+                <th style="padding: 10px 12px; font-weight: 600">Titik berhenti terbanyak</th>
+                <th style="padding: 10px 12px; font-weight: 600">Data terakhir</th>
+                <th style="padding: 10px 20px; font-weight: 600">Status risiko</th>
+              </tr>
+            </thead>
+            <tbody>
+              <sc-for list="{{rows}}" as="r" hint-placeholder-count="6">
+                <tr style="{{r.rowStyle}}">
+                  <td style="padding: 12px 20px"><div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #5B6573">{{r.code}} · {{r.team}}</div><a href="Web-PelatihanDetail.dc.html" style="font-weight: 600; text-decoration: none">{{r.name}}</a></td>
+                  <td style="padding: 12px">{{r.period}}</td>
+                  <td style="padding: 12px"><sc-if value="{{r.hasPortal}}" hint-placeholder-val="{{ true }}"><a href="{{r.portalHref}}" style="font-size: 12px; font-weight: 600; text-decoration: none">Digitalent ↗</a></sc-if><div style="margin-top: 4px"><span style="{{r.sched.style}}">{{r.sched.label}}</span></div></td>
+                  <td style="padding: 12px">{{r.status}}</td>
+                  <td style="padding: 12px; text-align: right">{{r.count}}</td>
+                  <td style="padding: 12px; width: 240px">
+                    <sc-if value="{{r.hasCats}}" hint-placeholder-val="{{ true }}">
+                      <div>
+                        <div style="display: flex; gap: 2px; height: 8px; border-radius: 4px; overflow: hidden; width: 200px">
+                          <div style="{{r.segA}}"></div><div style="{{r.segB}}"></div><div style="{{r.segC}}"></div><div style="{{r.segD}}"></div>
+                        </div>
+                        <div style="font-size: 12px; color: #3A4452; margin-top: 4px">{{r.catText}}</div>
+                      </div>
+                    </sc-if>
+                    <sc-if value="{{r.noCats}}" hint-placeholder-val="{{ false }}"><span style="color: #667085">—</span></sc-if>
+                  </td>
+                  <td style="padding: 12px; text-align: right; font-weight: 600">{{r.avg}}</td>
+                  <td style="padding: 12px"><div title="{{r.stopTop}}" style="max-width: 220px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{r.stopTop}}</div></td>
+                  <td style="padding: 12px; color: #3A4452">{{r.fresh}}</td>
+                  <td style="padding: 12px 20px"><span style="{{r.pill.style}}">{{r.pill.label}}</span></td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; align-items: center; padding: 12px 20px; border-top: 1px solid #E2E5EA; font-size: 13px; color: #5B6573">
+          <span>Menampilkan 1–6 dari 12 pelatihan. Kategori dihitung dari status item pada snapshot valid terakhir.</span>
+          <div style="display: flex; gap: 8px">
+            <button type="button" style="min-height: 36px; padding: 0 12px; border: 1px solid #CBD2DC; border-radius: 8px; background: #FFFFFF; font: inherit; font-size: 13px">Sebelumnya</button>
+            <button type="button" style="min-height: 36px; padding: 0 12px; border: 1px solid #CBD2DC; border-radius: 8px; background: #FFFFFF; font: inherit; font-size: 13px">Berikutnya</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":860}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const ACTIVE = 'Pelatihan';
+    const NAV = [['Dashboard','Main.dc.html'],['Pelatihan','Web-Pelatihan.dc.html'],['Peserta','Web-Peserta.dc.html'],['Pemantauan Risiko','Web-Risiko.dc.html'],['Indikator PK','Web-IndikatorPK.dc.html'],['Laporan','Web-Laporan.dc.html'],['Pengaturan','Web-Pengaturan.dc.html']];
+    const nav = NAV.map(([label, href]) => ({ label, href, style: { display: 'block', padding: '10px 12px', borderRadius: '8px', fontSize: '14px', fontWeight: label === ACTIVE ? 600 : 500, textDecoration: 'none', color: label === ACTIVE ? '#FFFFFF' : '#C9D1E0', background: label === ACTIVE ? '#1F4FD1' : 'transparent' } }));
+    const ST = { kritis: ['Kritis', '#FEE4E2', '#B42318'], waspada: ['Waspada', '#FEF0C7', '#93370D'], normal: ['Normal', '#DCFAE6', '#085D3A'], stale: ['Data tidak memadai', '#EAECF0', '#344054'], none: ['Belum dinilai', '#F2F4F7', '#475467'] };
+    const pill = (k) => ({ label: ST[k][0], style: { display: 'inline-block', padding: '2px 10px', borderRadius: '999px', fontSize: '12px', fontWeight: 600, background: ST[k][1], color: ST[k][2], whiteSpace: 'nowrap' } });
+    const COL = ['#D0D5DD', '#9DB4F5', '#1F4FD1', '#F79009'];
+    const seg = (c, i) => ({ flex: c[i] + ' 1 0px', minWidth: c[i] ? '3px' : '0px', background: COL[i] });
+    const D = [
+      ['TRN-001', 'Pemrograman Web (IAWD)', '21–31 Okt 2026', 'Berlangsung', '41', [5, 23, 12, 1], '55%', 'M15 · KUIS 1 (7 peserta)', '28 Okt, 10.00', 'kritis'],
+      ['TRN-002', 'Instalasi Kabel Fiber Optik (OIAT)', '13 Okt – 3 Nov 2026', 'Berlangsung', '50', [4, 30, 16, 0], '61%', 'M16 · MERENCANAKAN PEMASANGAN (6 peserta)', '28 Okt, 10.00', 'waspada'],
+      ['TRN-003', 'Pelatihan Keamanan Informasi', '14 Okt – 7 Nov 2026', 'Berlangsung', '30', null, '—', '—', '19 Okt, 08.00 (kedaluwarsa)', 'stale'],
+      ['TRN-004', 'Pelatihan Literasi Digital', '14–18 Sep 2026', 'Selesai', '45', [0, 3, 42, 0], '96%', '3 item berbeda', '28 Okt, 10.00', 'normal'],
+      ['TRN-005', 'Pelatihan Manajemen Proyek TI', '2–6 Sep 2026', 'Selesai', '32', [1, 0, 31, 0], '97%', '—', '28 Okt, 10.00', 'normal'],
+      ['TRN-006', 'Pelatihan Tata Kelola Data', '9–13 Nov 2026', 'Direncanakan', '—', null, '—', '—', 'Belum ada impor', 'none']
+    ];
+    const TEAM = { 'TRN-001': 'DTA', 'TRN-002': 'DTA', 'TRN-003': 'DTA', 'TRN-004': 'KDD', 'TRN-005': 'GTA', 'TRN-006': 'GTA' };
+    const SCH = {
+      'TRN-001': ['#', 'ok'], 'TRN-002': ['#', 'warn'], 'TRN-003': ['#', 'pending'],
+      'TRN-004': ['#', 'ok'], 'TRN-005': ['#', 'ok'], 'TRN-006': ['', 'none']
+    };
+    const SP = { ok: ['Jadwal terverifikasi', '#DCFAE6', '#085D3A'], warn: ['Beda dengan judul sheet', '#FEF0C7', '#93370D'], pending: ['Perlu verifikasi', '#EEF2FF', '#2A3FA0'], none: ['Tautan belum ada', '#F2F4F7', '#475467'] };
+    const spill = (k) => ({ label: SP[k][0], style: { display: 'inline-block', padding: '1px 8px', borderRadius: '999px', fontSize: '11px', fontWeight: 600, background: SP[k][1], color: SP[k][2], whiteSpace: 'nowrap' } });
+    return {
+      nav,
+      rows: D.map((d, i) => {
+        const c = d[5];
+        return {
+          code: d[0], team: TEAM[d[0]], name: d[1], period: d[2], status: d[3], count: d[4],
+          hasCats: !!c, noCats: !c,
+          segA: c ? seg(c, 0) : {}, segB: c ? seg(c, 1) : {}, segC: c ? seg(c, 2) : {}, segD: c ? seg(c, 3) : {},
+          catText: c ? c[0] + ' belum mulai · ' + c[1] + ' sebagian · ' + c[2] + ' tuntas' + (c[3] ? ' · ' + c[3] + ' perlu dicek' : '') : '',
+          avg: d[6], stopTop: d[7], fresh: d[8], pill: pill(d[9]),
+          hasPortal: !!SCH[d[0]][0], portalHref: SCH[d[0]][0], sched: spill(SCH[d[0]][1]),
+          rowStyle: { borderTop: '1px solid #EEF0F3', background: i === 0 ? '#F5F8FF' : 'transparent' }
+        };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>

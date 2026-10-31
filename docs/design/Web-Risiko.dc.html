@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Pemantauan Risiko — EWS AI Agent</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F5F6F8}
+a{color:#1F4FD1}a:hover{color:#163A9C}
+.nav{display:flex;flex-direction:column;gap:2px}
+@media (max-width:760px){.nav{flex-direction:row;flex-wrap:wrap}}
+</style>
+</helmet>
+<div style="display: flex; flex-wrap: wrap; min-height: 100vh; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #1B2430; background: #F5F6F8">
+  <aside style="flex: 1 1 224px; background: #0F1B33; color: #E6EAF2; padding: 20px 14px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 0 8px">
+      <div style="width: 36px; height: 36px; border-radius: 9px; background: #1F4FD1; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; color: #FFFFFF; letter-spacing: 0.5px">EWS</div>
+      <div>
+        <div style="font-weight: 700; font-size: 15px; color: #FFFFFF">EWS AI Agent</div>
+        <div style="font-size: 12px; color: #A9B4C8">Early Warning System Pelatihan</div>
+      </div>
+    </div>
+    <nav class="nav" aria-label="Menu utama">
+      <sc-for list="{{nav}}" as="n" hint-placeholder-count="7">
+        <a href="{{n.href}}" style="{{n.style}}">{{n.label}}</a>
+      </sc-for>
+    </nav>
+    <div style="margin-top: auto; padding: 12px; border-radius: 10px; background: #18284A; font-size: 12px; line-height: 1.5">
+      <div style="color: #FFFFFF; font-weight: 600">[Nama Pengguna]</div>
+      <div style="color: #A9B4C8">Role: Pengelola Pelatihan</div>
+    </div>
+    <a href="Web-Login.dc.html" style="padding: 0 8px; font-size: 12px; color: #A9B4C8">Pernyataan kepatuhan</a>
+  </aside>
+  <main style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <header style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 16px 32px; background: #FFFFFF; border-bottom: 1px solid #E2E5EA">
+      <div style="flex: 1 1 260px; min-width: 0">
+        <h1 style="margin: 0; font-size: 22px; font-weight: 700">Pemantauan Risiko</h1>
+        <div style="font-size: 13px; color: #5B6573">Hasil rules engine · versi aturan 1.0 · dinilai 28 Okt 2026, 10.05 WIB</div>
+      </div>
+      <button type="button" style="display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border: 1px solid #CBD2DC; border-radius: 8px; background: #FFFFFF; font: inherit; font-size: 14px; font-weight: 600; color: #1B2430">Hitung ulang risiko</button>
+      <a href="Web-AgenAI.dc.html" style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 8px; background: #1F4FD1; color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 600">Tanya AI Agent</a>
+    </header>
+
+    <div style="padding: 24px 32px 40px; display: flex; flex-direction: column; gap: 20px; max-width: 1280px; box-sizing: border-box; width: 100%">
+      <div role="tablist" aria-label="Jenis risiko" style="display: flex; flex-wrap: wrap; gap: 4px; padding: 4px; background: #E9ECF1; border-radius: 10px; align-self: flex-start">
+        <button type="button" role="tab" aria-selected="{{tabKinerja}}" onClick="{{showKinerja}}" style="{{tabStyleK}}">Risiko capaian kinerja</button>
+        <button type="button" role="tab" aria-selected="{{tabIndividu}}" onClick="{{showIndividu}}" style="{{tabStyleI}}">Risiko individu peserta</button>
+      </div>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start">
+        <section style="flex: 2 1 400px; min-width: 0; background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px">
+          <div style="display: flex; flex-wrap: wrap; gap: 8px; padding: 14px 16px; border-bottom: 1px solid #E2E5EA">
+            <label for="fs" style="font-size: 13px; font-weight: 600; align-self: center">Status</label>
+            <select id="fs" style="min-height: 36px; padding: 0 8px; border: 1px solid #CBD2DC; border-radius: 8px; font: inherit; font-size: 13px; background: #FFFFFF"><option>Semua</option><option>Kritis</option><option>Waspada</option><option>Data tidak valid</option><option>Data tidak memadai</option></select>
+            <label for="ft" style="font-size: 13px; font-weight: 600; align-self: center; margin-left: 8px">Pelatihan</label>
+            <select id="ft" style="min-height: 36px; padding: 0 8px; border: 1px solid #CBD2DC; border-radius: 8px; font: inherit; font-size: 13px; background: #FFFFFF"><option>Semua pelatihan</option></select>
+          </div>
+          <sc-for list="{{list}}" as="r" hint-placeholder-count="5">
+            <div style="{{r.rowStyle}}">
+              <div style="display: flex; justify-content: space-between; gap: 8px; align-items: flex-start">
+                <div style="min-width: 0">
+                  <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #5B6573">{{r.ref}}</div>
+                  <div style="font-weight: 600; font-size: 14px">{{r.title}}</div>
+                </div>
+                <span style="{{r.pill.style}}">{{r.pill.label}}</span>
+              </div>
+              <div style="font-size: 13px; color: #3A4452">{{r.reason}}</div>
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #5B6573">{{r.rule}}</div>
+            </div>
+          </sc-for>
+        </section>
+
+        <section style="flex: 3 1 520px; min-width: 0; background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 18px">
+          <div style="display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center">
+            <div style="flex: 1 1 260px; min-width: 0">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #5B6573">Assessment ASM-3301 · IKSK 3.2 · lintas tim</div>
+              <h2 style="margin: 2px 0 0; font-size: 18px">Proyeksi peserta kumulatif di bawah target PK</h2>
+            </div>
+            <span style="padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 700; background: #FEE4E2; color: #B42318">Kritis</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px">
+            <div style="background: #F9FAFB; border-radius: 8px; padding: 12px"><div style="font-size: 12px; color: #5B6573">Target resmi (T)</div><div style="font-size: 20px; font-weight: 700">78.319</div></div>
+            <div style="background: #F9FAFB; border-radius: 8px; padding: 12px"><div style="font-size: 12px; color: #5B6573">Realisasi (Rₜ)</div><div style="font-size: 20px; font-weight: 700">74.210</div></div>
+            <div style="background: #F9FAFB; border-radius: 8px; padding: 12px"><div style="font-size: 12px; color: #5B6573">Capaian (Aₜ)</div><div style="font-size: 20px; font-weight: 700">94,8%</div></div>
+            <div style="background: #F9FAFB; border-radius: 8px; padding: 12px"><div style="font-size: 12px; color: #5B6573">Gap (Gₜ)</div><div style="font-size: 20px; font-weight: 700; color: #B42318">−1.759</div></div>
+            <div style="background: #F9FAFB; border-radius: 8px; padding: 12px"><div style="font-size: 12px; color: #5B6573">Proyeksi akhir</div><div style="font-size: 20px; font-weight: 700">77.400</div></div>
+          </div>
+
+          <div style="font-size: 14px; line-height: 1.6"><b>Penjelasan rules engine:</b> Realisasi kumulatif 74.210 (baseline 2025 54.969 + 19.241 peserta 2026) berada 1.759 di bawah target antara Oktober 75.969. Proyeksi akhir periode 77.400, di bawah target resmi 78.319. Kontribusi terbesar yang masih bisa ditambah: TRN-001 (5 peserta belum mulai, 7 berhenti di M15 KUIS 1).</div>
+
+          <div style="border: 1px solid #E2E5EA; border-radius: 10px; padding: 14px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px 16px; font-size: 13px">
+            <div><div style="color: #5B6573; font-size: 12px">Rule terpicu</div><div style="font-family: 'JetBrains Mono', monospace; font-size: 12px">TARGET_GAP, TARGET_UNLIKELY</div></div>
+            <div><div style="color: #5B6573; font-size: 12px">Versi aturan</div><div>1.0 · berlaku 1 Okt 2026</div></div>
+            <div><div style="color: #5B6573; font-size: 12px">Snapshot data</div><div style="font-family: 'JetBrains Mono', monospace; font-size: 12px">IMP-0142 · 40 snapshot</div></div>
+            <div><div style="color: #5B6573; font-size: 12px">Kualitas data</div><div style="color: #085D3A; font-weight: 600">Valid</div></div>
+          </div>
+
+          <div style="border: 1px solid #C7D3F5; background: #F5F8FF; border-radius: 10px; padding: 14px; display: flex; flex-direction: column; gap: 10px">
+            <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center">
+              <div style="font-weight: 700; font-size: 14px">Rekomendasi AI Agent</div>
+              <span style="font-size: 12px; color: #2A3FA0; font-weight: 600">Perlu persetujuan</span>
+              <span style="margin-left: auto; font-size: 12px; color: #5B6573">Gemini · [model] · merujuk ASM-3301</span>
+            </div>
+            <div style="font-size: 14px; line-height: 1.5">Untuk menambah peserta yang menyelesaikan pelatihan, aktivasi 5 peserta TRN-001 yang belum mulai, lalu dampingi 7 peserta yang berhenti di M15 KUIS 1.</div>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px">
+              <button type="button" style="min-height: 40px; padding: 0 14px; border-radius: 8px; border: 0; background: #1F4FD1; color: #FFFFFF; font: inherit; font-size: 14px; font-weight: 600">Setujui jadi tindak lanjut</button>
+              <button type="button" style="min-height: 40px; padding: 0 14px; border-radius: 8px; border: 1px solid #CBD2DC; background: #FFFFFF; font: inherit; font-size: 14px; font-weight: 600">Ubah</button>
+              <button type="button" style="min-height: 40px; padding: 0 14px; border-radius: 8px; border: 1px solid #CBD2DC; background: #FFFFFF; font: inherit; font-size: 14px; font-weight: 600">Tolak</button>
+            </div>
+          </div>
+
+          <div>
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px">
+              <h3 style="margin: 0; font-size: 15px">Tindak lanjut</h3>
+              <button type="button" style="margin-left: auto; min-height: 36px; padding: 0 12px; border-radius: 8px; border: 1px solid #CBD2DC; background: #FFFFFF; font: inherit; font-size: 13px; font-weight: 600">Tambah tindak lanjut</button>
+            </div>
+            <div style="overflow-x: auto">
+              <table style="width: 100%; min-width: 480px; border-collapse: collapse; font-size: 13px">
+                <thead><tr style="text-align: left; color: #5B6573"><th style="padding: 8px 0; font-weight: 600">Deskripsi</th><th style="padding: 8px; font-weight: 600">PIC</th><th style="padding: 8px; font-weight: 600">Tenggat</th><th style="padding: 8px 0; font-weight: 600">Status</th></tr></thead>
+                <tbody>
+                  <tr style="border-top: 1px solid #EEF0F3"><td style="padding: 10px 0">Aktivasi peserta yang belum mulai (belum onboarding)</td><td style="padding: 10px 8px">[Nama]</td><td style="padding: 10px 8px">29 Okt 2026</td><td style="padding: 10px 0"><span style="padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; background: #EEF2FF; color: #2A3FA0">Terbuka</span></td></tr>
+                  <tr style="border-top: 1px solid #EEF0F3"><td style="padding: 10px 0">Jadwalkan pendampingan M15 KUIS 1</td><td style="padding: 10px 8px">[Nama]</td><td style="padding: 10px 8px">30 Okt 2026</td><td style="padding: 10px 0"><span style="padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; background: #FEF0C7; color: #93370D">Dalam proses</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1280}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { tab: 'kinerja' }; }
+  renderVals() {
+    const ACTIVE = 'Pemantauan Risiko';
+    const NAV = [['Dashboard','Main.dc.html'],['Pelatihan','Web-Pelatihan.dc.html'],['Peserta','Web-Peserta.dc.html'],['Pemantauan Risiko','Web-Risiko.dc.html'],['Indikator PK','Web-IndikatorPK.dc.html'],['Laporan','Web-Laporan.dc.html'],['Pengaturan','Web-Pengaturan.dc.html']];
+    const nav = NAV.map(([label, href]) => ({ label, href, style: { display: 'block', padding: '10px 12px', borderRadius: '8px', fontSize: '14px', fontWeight: label === ACTIVE ? 600 : 500, textDecoration: 'none', color: label === ACTIVE ? '#FFFFFF' : '#C9D1E0', background: label === ACTIVE ? '#1F4FD1' : 'transparent' } }));
+    const ST = { kritis: ['Kritis', '#FEE4E2', '#B42318'], waspada: ['Waspada', '#FEF0C7', '#93370D'], stale: ['Data tidak memadai', '#EAECF0', '#344054'], invalid: ['Data tidak valid', '#EAECF0', '#344054'] };
+    const pill = (k) => ({ label: ST[k][0], style: { display: 'inline-block', padding: '2px 10px', borderRadius: '999px', fontSize: '12px', fontWeight: 600, background: ST[k][1], color: ST[k][2], whiteSpace: 'nowrap' } });
+    const tab = this.state.tab;
+    const tabStyle = (on) => ({ minHeight: '40px', padding: '0 16px', border: 0, borderRadius: '8px', font: 'inherit', fontSize: '14px', fontWeight: 600, background: on ? '#FFFFFF' : 'transparent', color: on ? '#1B2430' : '#3A4452', boxShadow: on ? '0 1px 2px rgba(16,24,40,0.12)' : 'none', cursor: 'pointer' });
+    const kinerja = [
+      ['IKSK 3.2 · Lintas tim', 'Proyeksi peserta kumulatif di bawah target PK', 'Proyeksi 77.400 dari target 78.319', 'TARGET_UNLIKELY', 'kritis'],
+      ['IKSK 2.1 · GTA', 'Persentase kelulusan aparatur di bawah target antara', '97,8% dari target antara 99%', 'TARGET_GAP', 'waspada'],
+      ['IKSK 3.2 · TRN-003', 'Data sumber melewati batas kesegaran', 'Pembaruan terakhir 19 Okt 2026', 'DATA_STALE', 'stale']
+    ];
+    const individu = [
+      ['P-0012 · TRN-001', 'Peserta Contoh 12', 'Belum ada item selesai dan belum onboarding, hari ke-8 dari 11', 'NOT_STARTED', 'kritis'],
+      ['P-0007 · TRN-001', 'Peserta Contoh 07', '6 dari 34 item; estimasi selesai melewati tenggat', 'COMPLETION_AT_RISK', 'kritis'],
+      ['P-0004 · TRN-001', 'Peserta Contoh 04', 'Berhenti di M15 KUIS 1, tidak berubah 5 hari', 'PROGRESS_STAGNANT', 'waspada'],
+      ['P-0009 · TRN-001', 'Peserta Contoh 09', '16 dari 34 item (47%) vs rencana 74%', 'BEHIND_SCHEDULE', 'waspada'],
+      ['P-0011 · TRN-002', 'Peserta Contoh 11', 'Item wajib M16 belum selesai, tenggat 4 hari', 'MODULE_INCOMPLETE', 'waspada'],
+      ['P-0003 · TRN-002', 'Peserta Contoh 03', 'Progres 100% (masuk penyebut IKSK 1.1), STATUS belum Lulus, 3 hari sebelum akhir periode', 'PASS_PENDING', 'waspada'],
+      ['P-0015 · TRN-001', 'Peserta Contoh 15', 'Cek Sync bernilai #REF! (galat formula)', 'DATA_INVALID', 'invalid']
+    ];
+    const src = tab === 'kinerja' ? kinerja : individu;
+    return {
+      nav,
+      tabKinerja: tab === 'kinerja' ? 'true' : 'false',
+      tabIndividu: tab === 'individu' ? 'true' : 'false',
+      tabStyleK: tabStyle(tab === 'kinerja'),
+      tabStyleI: tabStyle(tab === 'individu'),
+      showKinerja: () => this.setState({ tab: 'kinerja' }),
+      showIndividu: () => this.setState({ tab: 'individu' }),
+      list: src.map((x, i) => ({ ref: x[0], title: x[1], reason: x[2], rule: x[3], pill: pill(x[4]), rowStyle: { display: 'flex', flexDirection: 'column', gap: '4px', padding: '14px 16px', borderTop: i ? '1px solid #EEF0F3' : '0', background: i === 0 ? '#F5F8FF' : 'transparent' } }))
+    };
+  }
+}
+</script>
+</body>
+</html>

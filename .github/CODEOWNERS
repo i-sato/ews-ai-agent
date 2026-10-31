@@ -1,0 +1,7 @@
+# Ganti @org/ews-maintainers dengan tim pemilik di organisasi GitHub instansi.
+supabase/migrations/**              @org/ews-maintainers
+.github/**                          @org/ews-maintainers
+src/lib/auth/**                     @org/ews-maintainers
+src/lib/security/**                 @org/ews-maintainers
+src/modules/*/infrastructure/**     @org/ews-maintainers
+docs/security_hardening_ews_ai_agent.md @org/ews-maintainers

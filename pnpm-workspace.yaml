@@ -1,0 +1,6 @@
+# Hanya pasang versi paket yang sudah terbit minimal 14 hari (SH-SUPPLY-01).
+minimumReleaseAge: 20160
+onlyBuiltDependencies:
+  - esbuild
+  - sharp
+  - unrs-resolver

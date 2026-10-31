@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Dashboard (mobile) — EWS</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1F4FD1}a:hover{color:#163A9C}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; display: flex; flex-direction: column; overflow: hidden; position: relative; background: #F5F6F8; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #1B2430">
+  <header style="display: flex; align-items: center; gap: 10px; padding: 14px 16px; background: #0F1B33; color: #FFFFFF">
+    <div style="width: 32px; height: 32px; border-radius: 8px; background: #1F4FD1; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 11px">EWS</div>
+    <h1 style="margin: 0; font-size: 18px; flex: 1">Dashboard</h1>
+    <a href="M-Impor.dc.html" aria-label="Sinkronkan data" style="width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; color: #FFFFFF; border-radius: 8px">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"></path><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"></path><path d="M21 3v5h-5"></path><path d="M3 21v-5h5"></path></svg>
+    </a>
+  </header>
+
+  <div style="flex: 1; overflow-y: auto; padding: 14px 16px 90px; display: flex; flex-direction: column; gap: 14px">
+    <div style="display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; padding: 10px 12px; background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 10px; font-size: 12px; color: #3A4452">
+      <span style="display: inline-flex; align-items: center; gap: 6px; font-weight: 600; color: #085D3A"><span style="width: 8px; height: 8px; border-radius: 50%; background: #12B76A"></span>Data terkini</span>
+      <span>Per 28 Okt 2026, 10.00 WIB</span>
+      <span>Google Sheets · aturan v1.0</span>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+      <div style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 4px">
+        <div style="font-size: 12px; color: #5B6573; font-weight: 600">Capaian IKSK 3.2</div>
+        <div style="font-size: 24px; font-weight: 700">94,8%</div>
+        <div style="font-size: 12px; color: #3A4452">74.210 / 78.319 peserta</div>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 4px">
+        <div style="font-size: 12px; color: #5B6573; font-weight: 600">Gap rencana</div>
+        <div style="font-size: 24px; font-weight: 700; color: #B42318">−15</div>
+        <div style="font-size: 12px; color: #3A4452">Rencana 140</div>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 4px">
+        <div style="font-size: 12px; color: #5B6573; font-weight: 600">Pelatihan berisiko</div>
+        <div style="font-size: 24px; font-weight: 700">3 <span style="font-size: 13px; color: #5B6573; font-weight: 500">dari 12</span></div>
+        <div style="font-size: 12px; color: #B42318; font-weight: 600">1 kritis</div>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 4px">
+        <div style="font-size: 12px; color: #5B6573; font-weight: 600">Peserta perlu perhatian</div>
+        <div style="font-size: 24px; font-weight: 700">29</div>
+        <div style="font-size: 12px; color: #3A4452">9 kritis · 20 waspada</div>
+      </div>
+    </div>
+
+    <section style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px">
+      <div style="display: flex; align-items: baseline; padding: 12px 14px; border-bottom: 1px solid #E2E5EA">
+        <h2 style="margin: 0; font-size: 15px; flex: 1">Risiko capaian PK</h2>
+        <a href="M-Risiko.dc.html" style="font-size: 13px; font-weight: 600">Semua</a>
+      </div>
+      <sc-for list="{{risks}}" as="r" hint-placeholder-count="3">
+        <a href="M-DetailRisiko.dc.html" style="display: flex; gap: 10px; align-items: center; padding: 12px 14px; border-top: 1px solid #EEF0F3; text-decoration: none; color: #1B2430">
+          <div style="flex: 1; min-width: 0">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #5B6573">{{r.code}}</div>
+            <div style="font-weight: 600; font-size: 14px">{{r.name}}</div>
+            <div style="font-size: 12px; color: #3A4452">{{r.reason}}</div>
+          </div>
+          <span style="{{r.pill.style}}">{{r.pill.label}}</span>
+        </a>
+      </sc-for>
+    </section>
+
+    <section style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px">
+      <div style="padding: 12px 14px; border-bottom: 1px solid #E2E5EA"><h2 style="margin: 0; font-size: 15px">Tindak lanjut terbuka</h2></div>
+      <div style="padding: 12px 14px; display: flex; flex-direction: column; gap: 2px; font-size: 13px"><b>Aktivasi peserta yang belum mulai</b><span style="color: #5B6573; font-size: 12px">TRN-001 · Tenggat 29 Okt 2026</span></div>
+      <div style="padding: 12px 14px; display: flex; flex-direction: column; gap: 2px; font-size: 13px; border-top: 1px solid #EEF0F3"><b>Perbarui data sumber TRN-003</b><span style="color: #5B6573; font-size: 12px">Tenggat 30 Okt 2026</span></div>
+    </section>
+  </div>
+
+  <a href="M-AgenAI.dc.html" style="position: absolute; right: 16px; bottom: 80px; display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 16px; border-radius: 24px; background: #1F4FD1; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 14px; box-shadow: 0 6px 16px rgba(31,79,209,0.35)">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+    AI Agent
+  </a>
+
+  <nav aria-label="Menu utama" style="position: absolute; left: 0; right: 0; bottom: 0; height: 64px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); background: #FFFFFF; border-top: 1px solid #E2E5EA">
+    <sc-for list="{{tabs}}" as="t" hint-placeholder-count="5">
+      <a href="{{t.href}}" style="{{t.style}}">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{t.d}}"></path></svg>
+        <span>{{t.label}}</span>
+      </a>
+    </sc-for>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const ACTIVE = 'Dashboard';
+    const TABS = [
+      ['Dashboard', 'M-Dashboard.dc.html', 'M3 3h7v9H3zM14 3h7v5h-7zM14 12h7v9h-7zM3 16h7v5H3z'],
+      ['Pelatihan', 'M-Pelatihan.dc.html', 'M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14zM4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5'],
+      ['Risiko', 'M-Risiko.dc.html', 'M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01'],
+      ['Laporan', 'M-Laporan.dc.html', 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M8 13h8M8 17h8'],
+      ['Lainnya', 'M-Lainnya.dc.html', 'M3 6h18M3 12h18M3 18h18']
+    ];
+    const tabs = TABS.map(([label, href, d]) => ({ label, href, d, style: { display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '2px', textDecoration: 'none', fontSize: '11px', fontWeight: 600, color: label === ACTIVE ? '#1F4FD1' : '#5B6573' } }));
+    const ST = { kritis: ['Kritis', '#FEE4E2', '#B42318'], waspada: ['Waspada', '#FEF0C7', '#93370D'], stale: ['Data kurang', '#EAECF0', '#344054'] };
+    const pill = (k) => ({ label: ST[k][0], style: { display: 'inline-block', padding: '2px 8px', borderRadius: '999px', fontSize: '11px', fontWeight: 600, background: ST[k][1], color: ST[k][2], whiteSpace: 'nowrap' } });
+    return {
+      tabs,
+      risks: [
+        { code: 'IKSK 3.2 · Lintas tim', name: 'Peserta bertalenta digital', reason: 'Proyeksi 77.400 dari target 78.319', pill: pill('kritis') },
+        { code: 'IKSK 2.1 · GTA', name: 'Persentase aparatur lulus', reason: '97,8% dari target 99%', pill: pill('waspada') },
+        { code: 'TRN-003', name: 'Pelatihan Keamanan Informasi', reason: 'Data melewati batas kesegaran', pill: pill('stale') }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

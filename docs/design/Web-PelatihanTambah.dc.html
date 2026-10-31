@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Tambah Pelatihan — EWS AI Agent</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F5F6F8}
+a{color:#1F4FD1}a:hover{color:#163A9C}
+.nav{display:flex;flex-direction:column;gap:2px}
+@media (max-width:760px){.nav{flex-direction:row;flex-wrap:wrap}}
+</style>
+</helmet>
+<div style="display: flex; flex-wrap: wrap; min-height: 100vh; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #1B2430; background: #F5F6F8">
+  <aside style="flex: 1 1 224px; background: #0F1B33; color: #E6EAF2; padding: 20px 14px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 0 8px">
+      <div style="width: 36px; height: 36px; border-radius: 9px; background: #1F4FD1; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; color: #FFFFFF; letter-spacing: 0.5px">EWS</div>
+      <div>
+        <div style="font-weight: 700; font-size: 15px; color: #FFFFFF">EWS AI Agent</div>
+        <div style="font-size: 12px; color: #A9B4C8">Early Warning System Pelatihan</div>
+      </div>
+    </div>
+    <nav class="nav" aria-label="Menu utama">
+      <sc-for list="{{nav}}" as="n" hint-placeholder-count="7">
+        <a href="{{n.href}}" style="{{n.style}}">{{n.label}}</a>
+      </sc-for>
+    </nav>
+    <div style="margin-top: auto; padding: 12px; border-radius: 10px; background: #18284A; font-size: 12px; line-height: 1.5">
+      <div style="color: #FFFFFF; font-weight: 600">[Nama Pengguna]</div>
+      <div style="color: #A9B4C8">Role: Pengelola Pelatihan</div>
+    </div>
+    <a href="Web-Login.dc.html" style="padding: 0 8px; font-size: 12px; color: #A9B4C8">Pernyataan kepatuhan</a>
+  </aside>
+  <main style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <header style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 16px 32px; background: #FFFFFF; border-bottom: 1px solid #E2E5EA">
+      <div style="flex: 1 1 260px; min-width: 0">
+        <div style="font-size: 13px; color: #5B6573"><a href="Web-Pelatihan.dc.html" style="text-decoration: none">Pelatihan</a> › Tambah pelatihan</div>
+        <h1 style="margin: 0; font-size: 22px; font-weight: 700">Tambah pelatihan</h1>
+      </div>
+    </header>
+
+    <div style="padding: 24px 32px 40px; display: flex; flex-direction: column; gap: 20px; max-width: 960px; box-sizing: border-box; width: 100%">
+      <section style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+        <h2 style="margin: 0; font-size: 16px">1 · Tautan sumber</h2>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <label for="sheet" style="font-size: 13px; font-weight: 600">Tautan Google Sheet peserta</label>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px">
+            <input id="sheet" type="url" readonly value="https://docs.google.com/spreadsheets/d/[ID]/edit?gid=509877154" style="flex: 1 1 360px; min-width: 0; min-height: 40px; padding: 0 12px; border: 1px solid #CBD2DC; border-radius: 8px; font: inherit; font-size: 13px">
+            <button type="button" style="min-height: 40px; padding: 0 14px; border-radius: 8px; border: 1px solid #CBD2DC; background: #FFFFFF; font: inherit; font-size: 14px; font-weight: 600">Periksa sheet</button>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          <sc-for list="{{sheetChecks}}" as="x" hint-placeholder-count="5">
+            <div style="display: flex; gap: 8px; align-items: flex-start; padding: 4px 0; font-size: 13px; line-height: 1.5"><span style="{{x.mark}}">{{x.icon}}</span><span>{{x.text}}</span></div>
+          </sc-for>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px; padding-top: 6px; border-top: 1px solid #EEF0F3">
+          <label for="portal" style="font-size: 13px; font-weight: 600">Tautan halaman pelatihan (opsional)</label>
+          <input id="portal" type="url" readonly value="https://digitalent.komdigi.go.id/pelatihan/13109" style="min-height: 40px; padding: 0 12px; border: 1px solid #CBD2DC; border-radius: 8px; font: inherit; font-size: 13px">
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          <sc-for list="{{portalChecks}}" as="x" hint-placeholder-count="2">
+            <div style="display: flex; gap: 8px; align-items: flex-start; padding: 4px 0; font-size: 13px; line-height: 1.5"><span style="{{x.mark}}">{{x.icon}}</span><span>{{x.text}}</span></div>
+          </sc-for>
+        </div>
+      </section>
+
+      <section style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+        <h2 style="margin: 0; font-size: 16px">2 · Tahun, tim kerja, dan ID pelatihan</h2>
+        <div style="padding: 10px 12px; border-radius: 8px; background: #F5F8FF; border: 1px solid #C7D3F5; font-size: 13px; line-height: 1.5">Hasil parsing judul spreadsheet “Mirror DTA VBL 13109 IAWD 23 - 30 Sept”: tim kerja <b>DTA</b> · ID <b>13109</b> · skema <b>IAWD</b> · periode 23–30 September. ID dari tautan portal: 13109 (cocok). Periksa dan ubah bila perlu.</div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px">
+          <div style="display: flex; flex-direction: column; gap: 6px"><label for="th" style="font-size: 13px; font-weight: 600">Tahun</label><select id="th" style="min-height: 40px; padding: 0 10px; border: 1px solid #CBD2DC; border-radius: 8px; font: inherit; font-size: 14px; background: #FFFFFF"><option>2026</option><option>2027</option></select></div>
+          <div style="display: flex; flex-direction: column; gap: 6px"><label for="tk" style="font-size: 13px; font-weight: 600">Tim kerja</label><select id="tk" style="min-height: 40px; padding: 0 10px; border: 1px solid #CBD2DC; border-radius: 8px; font: inherit; font-size: 14px; background: #FFFFFF"><option>DTA · Digital Talent Academy</option><option>GTA · Government Transformation Academy</option><option>KDD · Keterampilan Digital Dasar</option></select></div>
+          <div style="display: flex; flex-direction: column; gap: 6px"><label for="idp" style="font-size: 13px; font-weight: 600">ID pelatihan</label><input id="idp" type="text" readonly value="13109" style="min-height: 40px; padding: 0 10px; border: 1px solid #CBD2DC; border-radius: 8px; font: inherit; font-size: 14px; background: #FFFFFF"></div>
+          <div style="display: flex; flex-direction: column; gap: 6px"><label for="kode" style="font-size: 13px; font-weight: 600">Kode tampilan</label><input id="kode" type="text" readonly value="DTA-13109" style="min-height: 40px; padding: 0 10px; border: 1px solid #CBD2DC; border-radius: 8px; font: inherit; font-size: 14px; background: #FFFFFF; background: #F9FAFB"></div>
+          <div style="display: flex; flex-direction: column; gap: 6px"><label for="skema" style="font-size: 13px; font-weight: 600">Skema</label><input id="skema" type="text" readonly value="IAWD" style="min-height: 40px; padding: 0 10px; border: 1px solid #CBD2DC; border-radius: 8px; font: inherit; font-size: 14px; background: #FFFFFF"></div>
+          <div style="display: flex; flex-direction: column; gap: 6px"><label for="nama" style="font-size: 13px; font-weight: 600">Nama pelatihan</label><input id="nama" type="text" readonly value="DTA VBL 13109 · IAWD" style="min-height: 40px; padding: 0 10px; border: 1px solid #CBD2DC; border-radius: 8px; font: inherit; font-size: 14px; background: #FFFFFF"></div>
+        </div>
+        <label style="display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border-radius: 8px; border: 1px solid #FEDF89; background: #FFFAEB; font-size: 13px; line-height: 1.5"><input type="checkbox" style="width: 18px; height: 18px; margin: 2px 0 0; flex: 0 0 18px; accent-color: #1F4FD1"><span><b>Konfirmasi admin (wajib):</b> tahun, tim kerja, dan ID pelatihan sudah saya periksa dan sesuai. Pelatihan tidak dapat disimpan sebelum dikonfirmasi.</span></label>
+      </section>
+
+      <section style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+        <h2 style="margin: 0; font-size: 16px">3 · Jadwal</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px">
+          <div style="display: flex; flex-direction: column; gap: 6px"><label for="rb" style="font-size: 13px; font-weight: 600">Pendaftaran dibuka</label><input id="rb" type="date" style="min-height: 40px; padding: 0 10px; border: 1px solid #CBD2DC; border-radius: 8px; font: inherit; font-size: 14px"></div>
+          <div style="display: flex; flex-direction: column; gap: 6px"><label for="rt" style="font-size: 13px; font-weight: 600">Pendaftaran ditutup</label><input id="rt" type="date" style="min-height: 40px; padding: 0 10px; border: 1px solid #F79009; border-radius: 8px; font: inherit; font-size: 14px"></div>
+          <div style="display: flex; flex-direction: column; gap: 6px"><label for="pm" style="font-size: 13px; font-weight: 600">Pelaksanaan mulai</label><input id="pm" type="date" readonly value="2026-09-23" style="min-height: 40px; padding: 0 10px; border: 1px solid #CBD2DC; border-radius: 8px; font: inherit; font-size: 14px"></div>
+          <div style="display: flex; flex-direction: column; gap: 6px"><label for="ps" style="font-size: 13px; font-weight: 600">Pelaksanaan selesai</label><input id="ps" type="date" readonly value="2026-09-30" style="min-height: 40px; padding: 0 10px; border: 1px solid #CBD2DC; border-radius: 8px; font: inherit; font-size: 14px"></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px; max-width: 420px">
+          <label for="sj" style="font-size: 13px; font-weight: 600">Sumber jadwal</label>
+          <select id="sj" style="min-height: 40px; padding: 0 10px; border: 1px solid #CBD2DC; border-radius: 8px; font: inherit; font-size: 14px; background: #FFFFFF"><option>Diisi manual dari halaman pelatihan</option><option>Akses data resmi portal (belum tersedia)</option></select>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          <sc-for list="{{scheduleChecks}}" as="x" hint-placeholder-count="4">
+            <div style="display: flex; gap: 8px; align-items: flex-start; padding: 4px 0; font-size: 13px; line-height: 1.5"><span style="{{x.mark}}">{{x.icon}}</span><span>{{x.text}}</span></div>
+          </sc-for>
+        </div>
+      </section>
+
+      <section style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+        <h2 style="margin: 0; font-size: 16px">4 · Sinkronisasi</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px">
+          <div style="display: flex; flex-direction: column; gap: 6px"><label for="js" style="font-size: 13px; font-weight: 600">Jadwal sinkron otomatis</label><select id="js" style="min-height: 40px; padding: 0 10px; border: 1px solid #CBD2DC; border-radius: 8px; font: inherit; font-size: 14px; background: #FFFFFF"><option>Harian 06.00 WIB selama periode</option><option>Setiap 6 jam selama periode</option><option>Hanya manual</option></select></div>
+          <div style="display: flex; flex-direction: column; gap: 6px"><label for="bk" style="font-size: 13px; font-weight: 600">Batas kesegaran data</label><select id="bk" style="min-height: 40px; padding: 0 10px; border: 1px solid #CBD2DC; border-radius: 8px; font: inherit; font-size: 14px; background: #FFFFFF"><option>48 jam</option><option>24 jam</option><option>72 jam</option></select></div>
+        </div>
+        <div style="font-size: 12px; color: #5B6573; line-height: 1.5">Sinkron manual tetap tersedia di halaman pelatihan. Sinkron hanya membaca ulang sheet; data dianggap baru bila isinya berubah, bukan karena label UPDATE TERAKHIR.</div>
+      </section>
+
+      <section style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px; padding: 16px 20px; display: flex; flex-direction: column; gap: 14px">
+        <label style="display: flex; gap: 10px; align-items: flex-start; font-size: 13px; line-height: 1.6; color: #3A4452">
+          <input type="checkbox" style="width: 18px; height: 18px; margin: 3px 0 0; flex: 0 0 18px; accent-color: #1F4FD1">
+          <span>Saya menyatakan memiliki dasar pemrosesan data peserta pada sumber ini, termasuk persetujuan orang tua atau wali untuk peserta anak, sesuai UU No. 27 Tahun 2022 dan kebijakan instansi. <a href="Web-Login.dc.html">Baca pernyataan kepatuhan</a></span>
+        </label>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end">
+          <a href="Web-Pelatihan.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 8px; border: 1px solid #CBD2DC; text-decoration: none; color: #1B2430; font-size: 14px; font-weight: 600">Batal</a>
+          <a href="Web-Impor.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 8px; background: #1F4FD1; color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 600">Simpan &amp; pratinjau impor</a>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1800}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const ACTIVE = 'Pelatihan';
+    const NAV = [['Dashboard','Main.dc.html'],['Pelatihan','Web-Pelatihan.dc.html'],['Peserta','Web-Peserta.dc.html'],['Pemantauan Risiko','Web-Risiko.dc.html'],['Indikator PK','Web-IndikatorPK.dc.html'],['Laporan','Web-Laporan.dc.html'],['Pengaturan','Web-Pengaturan.dc.html']];
+    const nav = NAV.map(([label, href]) => ({ label, href, style: { display: 'block', padding: '10px 12px', borderRadius: '8px', fontSize: '14px', fontWeight: label === ACTIVE ? 600 : 500, textDecoration: 'none', color: label === ACTIVE ? '#FFFFFF' : '#C9D1E0', background: label === ACTIVE ? '#1F4FD1' : 'transparent' } }));
+    const mark = (ok) => ({ flex: '0 0 20px', width: '20px', height: '20px', borderRadius: '50%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: 700, background: ok ? '#DCFAE6' : '#FEF0C7', color: ok ? '#085D3A' : '#93370D' });
+    const checks = (list) => list.map(([ok, text]) => ({ icon: ok ? '✓' : '!', mark: mark(ok), text }));
+    return {
+      nav,
+      sheetChecks: checks([
+        [true, 'Spreadsheet ID dan gid 509877154 terbaca dari tautan.'],
+        [true, 'Tab ALL PENDAFTAR WEB ditemukan; 9 kolom wajib dikenali dari nama header.'],
+        [true, 'Item terdeteksi: 34 berjudul dan 8 slot kosong di J–AY, ditutup kolom Cek Sync di AZ.'],
+        [true, 'Baris 1: TOTAL PENDAFTAR 41 · UPDATE TERAKHIR “13 OKTOBER 11:43 WIB”.'],
+        [false, 'Sheet dapat dibuka siapa saja yang memiliki link. Bagikan ke service account ews-reader@[proyek].iam.gserviceaccount.com, lalu cabut akses publik.']
+      ]),
+      portalChecks: checks([
+        [true, 'ID pelatihan portal 13109 terbaca dari tautan, cocok dengan ID dari judul spreadsheet, dan belum dipakai pelatihan lain.'],
+        [false, 'Jadwal tidak dapat diambil otomatis: halaman dirender di browser dan API portal mengembalikan data terenkripsi. Isi jadwal di langkah 3 dari halaman tersebut.']
+      ]),
+      scheduleChecks: checks([
+        [true, 'Periode pelaksanaan cocok dengan judul sheet (23–30 Sept).'],
+        [false, 'Tahun dikonfirmasi manual: judul sheet dan UPDATE TERAKHIR tidak memuat tahun.'],
+        [false, 'Tanggal tutup pendaftaran belum diisi; diperlukan untuk menandai peserta yang masuk setelah pendaftaran ditutup.'],
+        [false, 'UPDATE TERAKHIR (13 Okt) jatuh setelah pelatihan selesai; data diperlakukan sebagai rekap akhir, bukan pemantauan berjalan.']
+      ])
+    };
+  }
+}
+</script>
+</body>
+</html>

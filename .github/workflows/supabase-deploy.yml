@@ -1,0 +1,33 @@
+# Migration produksi setelah merge ke main, dengan persetujuan reviewer environment `production`.
+# Vercel men-deploy aplikasi lewat integrasi Git; migration wajib kompatibel ke belakang.
+name: Supabase deploy
+on:
+  push:
+    branches: [main]
+    paths: ["supabase/migrations/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: supabase-deploy
+  cancel-in-progress: false
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 15
+    env:
+      SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+      SUPABASE_PROJECT_REF: ${{ vars.SUPABASE_PROJECT_REF }}
+    steps:
+      - uses: actions/checkout@<SHA> # v5
+      - uses: supabase/setup-cli@<SHA> # v1
+        with:
+          version: <versi-cli-yang-dipin>
+      - run: supabase link --project-ref "$SUPABASE_PROJECT_REF"
+      - run: supabase db push --dry-run
+      - run: supabase db push

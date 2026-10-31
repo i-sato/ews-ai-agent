@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Panel AI Agent — EWS</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1F4FD1}a:hover{color:#163A9C}
+</style>
+</helmet>
+<div style="width: 460px; height: 940px; box-sizing: border-box; display: flex; flex-direction: column; background: #FFFFFF; border-left: 1px solid #E2E5EA; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #1B2430">
+  <div style="display: flex; align-items: center; gap: 10px; padding: 16px 20px; border-bottom: 1px solid #E2E5EA">
+    <div style="flex: 1; min-width: 0">
+      <div style="font-weight: 700; font-size: 16px">AI Agent</div>
+      <div style="font-size: 12px; color: #5B6573">Gemini · [model] · hanya membaca data sesuai hak akses</div>
+    </div>
+    <a href="Main.dc.html" aria-label="Tutup panel" style="width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #3A4452">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18"></path><path d="M6 6l12 12"></path></svg>
+    </a>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 6px; padding: 12px 20px; border-bottom: 1px solid #E2E5EA">
+    <label for="scope" style="font-size: 12px; font-weight: 600; color: #5B6573">Ruang lingkup</label>
+    <select id="scope" style="min-height: 40px; padding: 0 10px; border: 1px solid #CBD2DC; border-radius: 8px; font: inherit; font-size: 14px; background: #FFFFFF"><option>Semua pelatihan yang dapat saya akses</option><option>TRN-001 · Pemrograman Web (IAWD)</option></select>
+  </div>
+
+  <div style="flex: 1; overflow-y: auto; padding: 16px 20px; display: flex; flex-direction: column; gap: 14px; background: #F9FAFB">
+    <div style="align-self: flex-end; max-width: 85%; padding: 10px 14px; border-radius: 12px 12px 4px 12px; background: #1F4FD1; color: #FFFFFF; font-size: 14px; line-height: 1.5">Pelatihan mana yang berisiko tidak mencapai target?</div>
+
+    <div style="max-width: 100%; padding: 14px; border-radius: 12px 12px 12px 4px; background: #FFFFFF; border: 1px solid #E2E5EA; display: flex; flex-direction: column; gap: 12px; font-size: 14px; line-height: 1.55">
+      <div style="display: flex; flex-wrap: wrap; gap: 6px; font-size: 12px">
+        <span style="padding: 2px 8px; border-radius: 999px; background: #DCFAE6; color: #085D3A; font-weight: 600">Data terkini</span>
+        <span style="color: #5B6573">Per 28 Okt 2026, 10.00 WIB</span>
+      </div>
+      <div>Ditemukan risiko yang perlu ditinjau. IKSK 3.2 (lintas tim) berstatus <b>kritis</b>: proyeksi akhir 77.400 peserta, di bawah target 78.319. IKSK 2.1 (GTA) berstatus <b>waspada</b> karena 97,8% masih di bawah target antara 99%. Di TRN-001, 5 peserta belum mulai dan 7 peserta berhenti di M15 KUIS 1.</div>
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <div style="font-size: 12px; font-weight: 700; color: #5B6573">Bukti</div>
+        <a href="Web-Risiko.dc.html" style="display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; border: 1px solid #E2E5EA; border-radius: 8px; text-decoration: none; color: #1B2430">
+          <span style="display: flex; justify-content: space-between; gap: 8px"><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">IKSK 3.2 · ASM-3301</span><span style="font-size: 12px; font-weight: 600; color: #B42318">Kritis</span></span>
+          <span style="font-size: 13px">Proyeksi akhir di bawah target resmi.</span>
+        </a>
+        <a href="Web-Risiko.dc.html" style="display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; border: 1px solid #E2E5EA; border-radius: 8px; text-decoration: none; color: #1B2430">
+          <span style="display: flex; justify-content: space-between; gap: 8px"><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">IKSK 2.1 · ASM-3302</span><span style="font-size: 12px; font-weight: 600; color: #93370D">Waspada</span></span>
+          <span style="font-size: 13px">Persentase kelulusan di bawah target antara.</span>
+        </a>
+        <div style="font-size: 12px; color: #5B6573">Definisi indikator: Manual PK 2026, hlm. 4–5 dan 8–10</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px; padding: 12px; border-radius: 8px; background: #F5F8FF; border: 1px solid #C7D3F5">
+        <div style="font-size: 12px; font-weight: 700; color: #2A3FA0">Rekomendasi · perlu persetujuan</div>
+        <div style="font-size: 13px">Aktivasi peserta TRN-001 yang belum mulai.</div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap">
+          <button type="button" style="min-height: 36px; padding: 0 12px; border-radius: 8px; border: 0; background: #1F4FD1; color: #FFFFFF; font: inherit; font-size: 13px; font-weight: 600">Buat draf tindak lanjut</button>
+          <button type="button" style="min-height: 36px; padding: 0 12px; border-radius: 8px; border: 1px solid #CBD2DC; background: #FFFFFF; font: inherit; font-size: 13px; font-weight: 600">Abaikan</button>
+        </div>
+      </div>
+    </div>
+    <div style="font-size: 12px; color: #5B6573; text-align: center">Status risiko berasal dari rules engine. AI merangkum dan merekomendasikan, tidak menetapkan angka capaian.</div>
+  </div>
+
+  <div style="padding: 12px 20px 16px; border-top: 1px solid #E2E5EA; display: flex; flex-direction: column; gap: 8px">
+    <div style="display: flex; flex-wrap: wrap; gap: 6px">
+      <button type="button" style="min-height: 32px; padding: 0 10px; border-radius: 999px; border: 1px solid #CBD2DC; background: #FFFFFF; font: inherit; font-size: 12px">Ringkas capaian TRN-001</button>
+      <button type="button" style="min-height: 32px; padding: 0 10px; border-radius: 999px; border: 1px solid #CBD2DC; background: #FFFFFF; font: inherit; font-size: 12px">Item paling banyak belum selesai</button>
+      <button type="button" style="min-height: 32px; padding: 0 10px; border-radius: 999px; border: 1px solid #CBD2DC; background: #FFFFFF; font: inherit; font-size: 12px">Draf laporan bulanan Oktober</button>
+    </div>
+    <div style="display: flex; gap: 8px">
+      <label for="ask" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Pertanyaan untuk AI Agent</label>
+      <input id="ask" type="text" placeholder="Tanyakan tentang capaian atau risiko…" style="flex: 1; min-width: 0; min-height: 44px; padding: 0 12px; border: 1px solid #CBD2DC; border-radius: 8px; font: inherit; font-size: 14px">
+      <button type="button" aria-label="Kirim" style="width: 44px; height: 44px; border-radius: 8px; border: 0; background: #1F4FD1; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2L11 13"></path><path d="M22 2l-7 20-4-9-9-4 20-7z"></path></svg>
+      </button>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":460,"height":940}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

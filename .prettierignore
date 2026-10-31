@@ -1,0 +1,9 @@
+docs/design/
+pnpm-lock.yaml
+.next/
+coverage/
+playwright-report/
+src/types/database.ts
+docs/
+.agent/
+*.md

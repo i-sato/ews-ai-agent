@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Impor Data (mobile) — EWS</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1F4FD1}a:hover{color:#163A9C}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; display: flex; flex-direction: column; overflow: hidden; position: relative; background: #F5F6F8; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #1B2430">
+  <header style="padding: 14px 16px; background: #0F1B33; color: #FFFFFF">
+    <a href="M-PelatihanDetail.dc.html" style="font-size: 12px; color: #C9D1E0; text-decoration: none">Pelatihan › TRN-001</a>
+    <h1 style="margin: 0; font-size: 18px">Impor &amp; sinkronisasi</h1>
+  </header>
+
+  <div style="flex: 1; overflow-y: auto; padding: 14px 16px 150px; display: flex; flex-direction: column; gap: 14px">
+    <div role="radiogroup" aria-label="Mode impor" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; padding: 4px; background: #E9ECF1; border-radius: 10px">
+      <sc-for list="{{modes}}" as="m" hint-placeholder-count="3">
+        <button type="button" role="radio" aria-checked="{{m.checked}}" onClick="{{m.pick}}" style="{{m.style}}">{{m.label}}</button>
+      </sc-for>
+    </div>
+    <div style="font-size: 12px; color: #5B6573; line-height: 1.5">{{modeHint}}</div>
+
+    <ol aria-label="Tahap impor" style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px">
+      <li style="font-size: 11px; font-weight: 600; color: #085D3A; text-align: center"><div style="height: 4px; border-radius: 2px; background: #12B76A; margin-bottom: 4px"></div>Parse</li>
+      <li style="font-size: 11px; font-weight: 600; color: #085D3A; text-align: center"><div style="height: 4px; border-radius: 2px; background: #12B76A; margin-bottom: 4px"></div>Validasi</li>
+      <li style="font-size: 11px; font-weight: 700; color: #1F4FD1; text-align: center"><div style="height: 4px; border-radius: 2px; background: #1F4FD1; margin-bottom: 4px"></div>Pratinjau</li>
+      <li style="font-size: 11px; font-weight: 600; color: #5B6573; text-align: center"><div style="height: 4px; border-radius: 2px; background: #D0D5DD; margin-bottom: 4px"></div>Commit</li>
+    </ol>
+
+    <section style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px">
+      <div style="padding: 12px 14px; border-bottom: 1px solid #E2E5EA">
+        <h2 style="margin: 0; font-size: 15px">Pratinjau &amp; rekonsiliasi</h2>
+        <div style="font-size: 12px; color: #5B6573">Staging <span style="font-family: 'JetBrains Mono', monospace">IMP-0143</span> · tab ALL PENDAFTAR WEB · berlaku s.d. 29 Okt, 12.00</div>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: #E2E5EA">
+        <sc-for list="{{counts}}" as="c" hint-placeholder-count="6">
+          <div style="background: #FFFFFF; padding: 10px 12px"><div style="font-size: 11px; color: #5B6573">{{c.label}}</div><div style="{{c.numStyle}}">{{c.n}}</div></div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 8px">
+      <h2 style="margin: 0; font-size: 14px">Rekonsiliasi baris 1 sheet</h2>
+      <sc-for list="{{recon}}" as="x" hint-placeholder-count="4">
+        <div style="display: flex; gap: 8px; align-items: flex-start; font-size: 12px; line-height: 1.5">
+          <span style="{{x.mark}}">{{x.icon}}</span>
+          <span><b>{{x.label}}</b> {{x.detail}}</span>
+        </div>
+      </sc-for>
+      <div style="font-size: 12px; color: #3A4452; line-height: 1.5; padding-top: 6px; border-top: 1px solid #EEF0F3">Diabaikan otomatis: <b>1.996 baris</b> tanpa NO REGISTRASI dan <b>8 slot item</b> tanpa judul (kolom AR–AY).</div>
+    </section>
+
+    <section style="display: flex; flex-direction: column; gap: 8px">
+      <h3 style="margin: 0; font-size: 14px">Temuan validasi</h3>
+      <sc-for list="{{errors}}" as="e" hint-placeholder-count="3">
+        <div style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px">
+          <div style="display: flex; justify-content: space-between; gap: 8px; font-size: 12px"><span>Baris {{e.row}} · <span style="font-family: 'JetBrains Mono', monospace">{{e.no}}</span></span><b>{{e.result}}</b></div>
+          <div style="font-size: 13px">{{e.reason}}</div>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #5B6573">{{e.field}}</div>
+        </div>
+      </sc-for>
+    </section>
+  </div>
+
+  <div style="position: absolute; left: 0; right: 0; bottom: 64px; padding: 10px 16px; background: #FFFFFF; border-top: 1px solid #E2E5EA; display: flex; gap: 8px">
+    <button type="button" style="flex: 0 0 auto; min-height: 48px; padding: 0 16px; border-radius: 8px; border: 1px solid #CBD2DC; background: #FFFFFF; font: inherit; font-size: 14px; font-weight: 600">Batal</button>
+    <button type="button" style="flex: 1; min-height: 48px; border-radius: 8px; border: 0; background: #1F4FD1; color: #FFFFFF; font: inherit; font-size: 14px; font-weight: 600">Commit 41 baris</button>
+  </div>
+
+  <nav aria-label="Menu utama" style="position: absolute; left: 0; right: 0; bottom: 0; height: 64px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); background: #FFFFFF; border-top: 1px solid #E2E5EA">
+    <sc-for list="{{tabs}}" as="t" hint-placeholder-count="5">
+      <a href="{{t.href}}" style="{{t.style}}">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{t.d}}"></path></svg>
+        <span>{{t.label}}</span>
+      </a>
+    </sc-for>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { mode: 'sheets' }; }
+  renderVals() {
+    const ACTIVE = 'Pelatihan';
+    const TABS = [
+      ['Dashboard', 'M-Dashboard.dc.html', 'M3 3h7v9H3zM14 3h7v5h-7zM14 12h7v9h-7zM3 16h7v5H3z'],
+      ['Pelatihan', 'M-Pelatihan.dc.html', 'M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14zM4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5'],
+      ['Risiko', 'M-Risiko.dc.html', 'M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01'],
+      ['Laporan', 'M-Laporan.dc.html', 'M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM14 2v6h6M8 13h8M8 17h8'],
+      ['Lainnya', 'M-Lainnya.dc.html', 'M3 6h18M3 12h18M3 18h18']
+    ];
+    const tabs = TABS.map(([label, href, d]) => ({ label, href, d, style: { display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '2px', textDecoration: 'none', fontSize: '11px', fontWeight: 600, color: label === ACTIVE ? '#1F4FD1' : '#5B6573' } }));
+    const mode = this.state.mode;
+    const M = [['sheets', 'Sheets', 'Google Sheets (utama): sinkronkan tab ALL PENDAFTAR WEB dari sumber terkonfigurasi.'], ['csv', 'CSV', 'CSV (cadangan pertama): unggah file dengan header asli.'], ['xlsx', 'XLSX', 'XLSX (cadangan kedua): pilih sheet dan petakan kolom. Formula tidak dieksekusi.']];
+    const modes = M.map(([id, label]) => ({ label, checked: mode === id ? 'true' : 'false', pick: () => this.setState({ mode: id }), style: { minHeight: '40px', border: 0, borderRadius: '8px', font: 'inherit', fontSize: '13px', fontWeight: 600, background: mode === id ? '#FFFFFF' : 'transparent', color: '#1B2430', boxShadow: mode === id ? '0 1px 2px rgba(16,24,40,0.12)' : 'none', cursor: 'pointer' } }));
+    const num = (c) => ({ fontSize: '20px', fontWeight: 700, color: c });
+    const mark = (ok) => ({ flex: '0 0 18px', width: '18px', height: '18px', borderRadius: '50%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 700, background: ok ? '#DCFAE6' : '#FEF0C7', color: ok ? '#085D3A' : '#93370D' });
+    const recon = [
+      [false, 'TOTAL PENDAFTAR 41 vs 42 baris:', 'selisih 1 baris Pembatalan (ditolak).'],
+      [true, 'TOTAL ONBOARDING 35:', 'cocok dengan hitung ulang.'],
+      [true, 'TOTAL SELESAI per item:', '34 dari 34 kolom cocok.'],
+      [true, 'UPDATE TERAKHIR:', '28 Okt 2026, 10.00 WIB (tahun dari periode).']
+    ];
+    return {
+      tabs, modes,
+      modeHint: M.find((m) => m[0] === mode)[2],
+      counts: [
+        { label: 'Baru', n: '0', numStyle: num('#1B2430') },
+        { label: 'Berubah', n: '23', numStyle: num('#1B2430') },
+        { label: 'Tidak berubah', n: '18', numStyle: num('#5B6573') },
+        { label: 'Duplikat', n: '0', numStyle: num('#5B6573') },
+        { label: 'Ditolak', n: '1', numStyle: num('#B42318') },
+        { label: 'Perlu dicek', n: '1', numStyle: num('#93370D') }
+      ],
+      recon: recon.map(([ok, label, detail]) => ({ label, detail, icon: ok ? '✓' : '!', mark: mark(ok) })),
+      errors: [
+        { row: '44', no: 'P-0042', field: 'STATUS, PERSENTASE LMS, Cek Sync', reason: 'Pembatalan, LMS 100% tetapi 0 item selesai', result: 'Ditolak' },
+        { row: '17', no: 'P-0015', field: 'Cek Sync', reason: 'Galat formula #REF!', result: 'Ditandai' },
+        { row: '2', no: '—', field: 'Judul kolom AD, AO', reason: 'Entitas HTML &AMP; pada judul item', result: 'Didekode' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

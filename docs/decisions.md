@@ -1,0 +1,28 @@
+# Keputusan Proyek
+
+Sumber: spesifikasi §15.1. Perbarui kolom Status dan Catatan setiap ada keputusan baru; agen wajib membaca file ini sebelum mengerjakan tugas.
+
+| No | Keputusan | Status | Isi / usulan bawaan | Catatan |
+|---|---|---|---|---|
+| 1 | Cakupan akses role per tim kerja | **Penghambat — belum** | Pengelola Pelatihan dan Viewer dibatasi ke tim kerjanya lewat RLS; Admin dan Pengelola PK lintas tim | Migration awal memakai usulan ini |
+| 2 | Identitas peserta lintas pelatihan | **Penghambat — belum** | `NO REGISTRASI` per pendaftaran; tidak digabung lintas pelatihan | |
+| 3 | Masa simpan data peserta | **Penghambat — belum** | Identitas dianonimkan 12 bulan setelah tahun anggaran berakhir | |
+| 4 | Indikator PK dan pemetaan tim | Sebagian selesai | IKSK 1.1 DTA, 2.1 GTA, 3.1 KDD, 3.2 lintas tim (spesifikasi §8.7) | Lengkapi spreadsheet PK dan target antara IKSK 3.2 |
+| 5 | Definisi lulus dan "mengikuti" | Sebagian selesai | Per indikator PK | Format sheet GTA/KDD dan `STATUS` saat berjalan belum diverifikasi |
+| 6 | Metode login | Selesai | Supabase Auth email + kata sandi, akun manual, MFA ditunda (RR-04) | |
+| 7 | Topologi produksi | **Penghambat untuk data riil** | Prototipe Vercel + Supabase Cloud data sintetis; produksi pilihan A (server instansi) | |
+| 8 | Akun dan akses (GitHub, Vercel, GCP, Shared Drive) | **Penghambat untuk deploy** | Atas nama instansi | |
+| 9 | Provider AI pertama | Bawaan | Gemini, batas biaya bulanan | |
+| 10 | Sumber rencana belajar | Bawaan | Diisi Pengelola Pelatihan | |
+| 11 | Template laporan per pelatihan | Bawaan | Belum ada; MVP bulanan dan tahunan | |
+| 12 | Bentuk mobile | Bawaan | Web responsif (PWA) | |
+| 13 | Notifikasi otomatis | Bawaan | Di luar MVP | |
+| 14 | Zona waktu dan format | Bawaan | WIB, format Indonesia | |
+| 15 | Desain kanvas sebagai acuan UI | Bawaan | Disetujui | |
+
+## Keputusan teknis starter pack
+
+| Tanggal | Keputusan | Alasan |
+|---|---|---|
+| 2026-10-31 | pnpm `minimumReleaseAge` 14 hari | Mengurangi risiko paket berbahaya yang baru terbit (SH-SUPPLY) |
+| 2026-10-31 | Kriteria lulus dan target antara disimpan sebagai data (`pk_indicators`, `pk_indicator_targets`), bukan konstanta | Spesifikasi §8.7 |

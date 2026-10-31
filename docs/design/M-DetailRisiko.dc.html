@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Detail Assessment (mobile) — EWS</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1F4FD1}a:hover{color:#163A9C}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; display: flex; flex-direction: column; overflow: hidden; position: relative; background: #F5F6F8; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #1B2430">
+  <header style="display: flex; align-items: center; gap: 6px; padding: 8px 8px 8px 4px; background: #FFFFFF; border-bottom: 1px solid #E2E5EA">
+    <a href="M-Risiko.dc.html" aria-label="Kembali" style="width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; color: #1B2430">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>
+    </a>
+    <div style="flex: 1; min-width: 0">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #5B6573">ASM-3301 · IKSK 3.2 · lintas tim</div>
+      <h1 style="margin: 0; font-size: 16px">Detail assessment</h1>
+    </div>
+  </header>
+
+  <div style="flex: 1; overflow-y: auto; padding: 14px 16px 90px; display: flex; flex-direction: column; gap: 14px">
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <span style="align-self: flex-start; padding: 3px 12px; border-radius: 999px; font-size: 13px; font-weight: 700; background: #FEE4E2; color: #B42318">Kritis</span>
+      <h2 style="margin: 0; font-size: 19px; line-height: 1.3">Proyeksi peserta kumulatif di bawah target PK</h2>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+      <div style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 10px; padding: 10px"><div style="font-size: 11px; color: #5B6573">Target (T)</div><div style="font-size: 18px; font-weight: 700">78.319</div></div>
+      <div style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 10px; padding: 10px"><div style="font-size: 11px; color: #5B6573">Realisasi (Rₜ)</div><div style="font-size: 18px; font-weight: 700">74.210</div></div>
+      <div style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 10px; padding: 10px"><div style="font-size: 11px; color: #5B6573">Capaian (Aₜ)</div><div style="font-size: 18px; font-weight: 700">94,8%</div></div>
+      <div style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 10px; padding: 10px"><div style="font-size: 11px; color: #5B6573">Gap (Gₜ)</div><div style="font-size: 18px; font-weight: 700; color: #B42318">−1.759</div></div>
+      <div style="grid-column: 1 / -1; background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 10px; padding: 10px"><div style="font-size: 11px; color: #5B6573">Proyeksi akhir periode</div><div style="font-size: 18px; font-weight: 700">77.400 peserta</div></div>
+    </div>
+
+    <p style="margin: 0; font-size: 14px; line-height: 1.55">Realisasi 74.210 berada 1.759 di bawah target antara Oktober (75.969). Proyeksi akhir 77.400, di bawah target resmi 78.319.</p>
+
+    <details style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 10px; padding: 12px">
+      <summary style="font-size: 14px; font-weight: 600; cursor: pointer; min-height: 24px">Bukti &amp; jejak audit</summary>
+      <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 10px; font-size: 13px">
+        <div><span style="color: #5B6573">Rule terpicu: </span><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">TARGET_GAP, TARGET_UNLIKELY</span></div>
+        <div><span style="color: #5B6573">Versi aturan: </span>1.0</div>
+        <div><span style="color: #5B6573">Snapshot: </span><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">IMP-0142</span></div>
+        <div><span style="color: #5B6573">Kualitas data: </span><span style="color: #085D3A; font-weight: 600">Valid</span></div>
+        <div><span style="color: #5B6573">Dinilai: </span>28 Okt 2026, 10.05 WIB</div>
+      </div>
+    </details>
+
+    <div style="background: #F5F8FF; border: 1px solid #C7D3F5; border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 8px">
+      <div style="display: flex; gap: 8px; align-items: baseline"><b style="font-size: 14px">Rekomendasi AI Agent</b><span style="font-size: 12px; color: #2A3FA0; font-weight: 600">Perlu persetujuan</span></div>
+      <div style="font-size: 14px; line-height: 1.5">Aktivasi 5 peserta TRN-001 yang belum mulai, lalu dampingi 7 peserta yang berhenti di M15 KUIS 1.</div>
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px">
+        <button type="button" style="min-height: 44px; border-radius: 8px; border: 0; background: #1F4FD1; color: #FFFFFF; font: inherit; font-size: 13px; font-weight: 600">Setujui</button>
+        <button type="button" style="min-height: 44px; border-radius: 8px; border: 1px solid #CBD2DC; background: #FFFFFF; font: inherit; font-size: 13px; font-weight: 600">Ubah</button>
+        <button type="button" style="min-height: 44px; border-radius: 8px; border: 1px solid #CBD2DC; background: #FFFFFF; font: inherit; font-size: 13px; font-weight: 600">Tolak</button>
+      </div>
+    </div>
+
+    <section style="display: flex; flex-direction: column; gap: 8px">
+      <h3 style="margin: 0; font-size: 15px">Tindak lanjut</h3>
+      <div style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 4px">
+        <div style="font-weight: 600; font-size: 14px">Aktivasi peserta yang belum mulai</div>
+        <div style="font-size: 12px; color: #5B6573">PIC [Nama] · Tenggat 29 Okt 2026</div>
+        <span style="align-self: flex-start; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; background: #EEF2FF; color: #2A3FA0">Terbuka</span>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 4px">
+        <div style="font-weight: 600; font-size: 14px">Jadwalkan pendampingan M15 KUIS 1</div>
+        <div style="font-size: 12px; color: #5B6573">PIC [Nama] · Tenggat 30 Okt 2026</div>
+        <span style="align-self: flex-start; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; background: #FEF0C7; color: #93370D">Dalam proses</span>
+      </div>
+    </section>
+  </div>
+
+  <div style="position: absolute; left: 0; right: 0; bottom: 0; padding: 10px 16px 14px; background: #FFFFFF; border-top: 1px solid #E2E5EA; display: flex; gap: 8px">
+    <a href="M-AgenAI.dc.html" style="flex: 1; display: flex; align-items: center; justify-content: center; min-height: 48px; border-radius: 8px; border: 1px solid #CBD2DC; text-decoration: none; color: #1B2430; font-weight: 600; font-size: 14px">Tanya AI Agent</a>
+    <button type="button" style="flex: 1; min-height: 48px; border-radius: 8px; border: 0; background: #1F4FD1; color: #FFFFFF; font: inherit; font-size: 14px; font-weight: 600">Tambah tindak lanjut</button>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

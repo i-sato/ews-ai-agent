@@ -1,0 +1,1 @@
+Hanya data **sintetis**. Golden dataset (tugas F2-05) meniru struktur dua sheet contoh di spesifikasi §3.2.3: baris tanpa identitas, slot item kosong, `#REF!`, `Pembatalan`, judul item ganda, `&AMP;`. Jangan menyalin nama atau `NO REGISTRASI` peserta riil.

@@ -1,0 +1,37 @@
+{
+  "full": [
+    "src/app/(dashboard)/layout.tsx",
+    "src/components/ui/**",
+    "src/lib/auth/**",
+    "src/middleware.ts",
+    "package.json",
+    "pnpm-lock.yaml",
+    "playwright.config.ts",
+    "supabase/migrations/**"
+  ],
+  "app": ["src/**", "next.config.ts"],
+  "tags": {
+    "@dashboard": ["src/app/(dashboard)/dashboard/**", "src/components/dashboard/**"],
+    "@pelatihan": ["src/app/(dashboard)/trainings/**", "src/modules/ingestion/**"],
+    "@impor": [
+      "src/app/(dashboard)/trainings/*/import/**",
+      "src/modules/ingestion/**",
+      "src/components/forms/**"
+    ],
+    "@peserta": ["src/app/(dashboard)/participants/**"],
+    "@risiko": [
+      "src/app/(dashboard)/risk-monitoring/**",
+      "src/modules/risk-engine/**",
+      "src/components/risk/**"
+    ],
+    "@pk": ["src/app/(dashboard)/pk-indicators/**", "src/modules/pk/**"],
+    "@laporan": [
+      "src/app/(dashboard)/reports/**",
+      "src/modules/reporting/**",
+      "src/components/reports/**"
+    ],
+    "@agen": ["src/modules/agent/**", "src/components/agent/**", "src/app/api/v1/agent/**"],
+    "@pengaturan": ["src/app/(dashboard)/settings/**", "src/app/api/v1/admin/**"],
+    "@login": ["src/app/(auth)/**"]
+  }
+}

@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Detail Pelatihan (mobile) — EWS</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#1F4FD1}a:hover{color:#163A9C}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; display: flex; flex-direction: column; overflow: hidden; position: relative; background: #F5F6F8; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #1B2430">
+  <header style="display: flex; align-items: center; gap: 6px; padding: 8px 12px 8px 4px; background: #FFFFFF; border-bottom: 1px solid #E2E5EA">
+    <a href="M-Pelatihan.dc.html" aria-label="Kembali ke daftar pelatihan" style="width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; color: #1B2430">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg>
+    </a>
+    <div style="flex: 1; min-width: 0">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #5B6573">TRN-001 · hari ke-8 dari 11</div>
+      <h1 style="margin: 0; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Pemrograman Web (IAWD)</h1>
+    </div>
+    <span style="padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 700; background: #FEE4E2; color: #B42318">Kritis</span>
+  </header>
+
+  <div style="flex: 1; overflow-y: auto; padding: 14px 16px 96px; display: flex; flex-direction: column; gap: 14px">
+    <div style="font-size: 12px; color: #3A4452; line-height: 1.5">Dicek 30 Okt 10.00 · isi berubah 29 Okt 16.20 · <span style="font-family: 'JetBrains Mono', monospace">IMP-0142</span></div>
+    <div style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 6px; font-size: 13px">
+      <div style="display: flex; justify-content: space-between; gap: 8px; align-items: baseline"><b>Jadwal</b><a href="#" style="font-size: 12px; font-weight: 600">Halaman pelatihan ↗</a></div>
+      <div>Pendaftaran 6–17 Okt 2026 · Pelaksanaan 21–31 Okt 2026</div>
+      <div style="font-size: 12px; color: #085D3A; font-weight: 600">Manual dari halaman pelatihan · diverifikasi 20 Okt</div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+      <sc-for list="{{funnel}}" as="f" hint-placeholder-count="6">
+        <div style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 10px; padding: 8px 10px">
+          <div style="font-size: 11px; color: #5B6573; font-weight: 600">{{f.label}}</div>
+          <div style="font-size: 18px; font-weight: 700">{{f.n}}</div>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 8px">
+      <div style="font-size: 13px; font-weight: 700">Kategori penyelesaian item</div>
+      <div role="img" aria-label="5 belum mulai, 23 sebagian, 12 tuntas, 1 perlu dicek" style="display: flex; gap: 2px; height: 10px; border-radius: 5px; overflow: hidden">
+        <div style="flex: 5 1 0px; background: #D0D5DD"></div>
+        <div style="flex: 23 1 0px; background: #9DB4F5"></div>
+        <div style="flex: 12 1 0px; background: #1F4FD1"></div>
+        <div style="flex: 1 1 0px; min-width: 4px; background: #F79009"></div>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 10px; font-size: 12px; color: #3A4452">
+        <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 2px; background: #D0D5DD"></span><b>5</b> belum mulai</span>
+        <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 2px; background: #9DB4F5"></span><b>23</b> sebagian</span>
+        <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 2px; background: #1F4FD1"></span><b>12</b> tuntas</span>
+        <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 2px; background: #F79009"></span><b>1</b> perlu dicek</span>
+      </div>
+    </div>
+
+    <div role="tablist" aria-label="Rincian pelatihan" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; padding: 4px; background: #E9ECF1; border-radius: 10px">
+      <button type="button" role="tab" aria-selected="{{selM}}" onClick="{{showM}}" style="{{styleM}}">Modul · 34</button>
+      <button type="button" role="tab" aria-selected="{{selP}}" onClick="{{showP}}" style="{{styleP}}">Peserta · 41</button>
+    </div>
+
+    <sc-if value="{{isModul}}" hint-placeholder-val="{{ true }}">
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <div style="display: flex; gap: 6px">
+          <button type="button" aria-pressed="{{selStop}}" onClick="{{byStop}}" style="{{chipStop}}">Paling banyak berhenti</button>
+          <button type="button" aria-pressed="{{selSeq}}" onClick="{{bySeq}}" style="{{chipSeq}}">Urutan item</button>
+        </div>
+        <sc-for list="{{items}}" as="r" hint-placeholder-count="10">
+          <div style="{{r.cardStyle}}">
+            <div style="display: flex; gap: 8px; align-items: center">
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500">{{r.code}}</span>
+              <span style="{{r.tag.style}}">{{r.tag.label}}</span>
+              <sc-if value="{{r.hasStop}}" hint-placeholder-val="{{ false }}"><span style="{{r.stopStyle}}">{{r.stopText}}</span></sc-if>
+            </div>
+            <div style="font-size: 13px; font-weight: 600; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden">{{r.title}}</div>
+            <div style="display: flex; align-items: center; gap: 8px">
+              <div style="flex: 1; height: 6px; border-radius: 3px; background: #EAECF0"><div style="{{r.bar}}"></div></div>
+              <span style="font-size: 12px; font-weight: 600; white-space: nowrap">{{r.done}} selesai</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{isPeserta}}" hint-placeholder-val="{{ false }}">
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <sc-for list="{{people}}" as="p" hint-placeholder-count="8">
+          <div style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 6px">
+            <div style="display: flex; justify-content: space-between; gap: 8px; align-items: center">
+              <div style="min-width: 0"><div style="font-weight: 600; font-size: 14px">{{p.name}}</div><div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #5B6573">{{p.no}}</div></div>
+              <span style="{{p.risk.style}}">{{p.risk.label}}</span>
+            </div>
+            <div role="img" aria-label="{{p.aria}}" style="display: flex; gap: 2px">
+              <sc-for list="{{p.cells}}" as="k" hint-placeholder-count="34"><span style="{{k.style}}"></span></sc-for>
+            </div>
+            <div style="font-size: 12px; color: #3A4452">{{p.line}}</div>
+            <sc-if value="{{p.hasSub}}" hint-placeholder-val="{{ false }}"><div style="font-size: 12px; color: #5B6573; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{p.sub}}</div></sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+  </div>
+
+  <div style="position: absolute; left: 0; right: 0; bottom: 0; padding: 10px 16px 14px; background: #FFFFFF; border-top: 1px solid #E2E5EA">
+    <a href="M-AgenAI.dc.html" style="display: flex; align-items: center; justify-content: center; min-height: 48px; border-radius: 8px; background: #1F4FD1; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 14px">Tanya AI Agent tentang pelatihan ini</a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { tab: 'modul', sort: 'stop' }; }
+  renderVals() {
+    const s = this.state;
+    const CG = 'MENERAPKAN CODING-GUIDELINES DAN BEST PRACTICES DALAM PENULISAN PROGRAM (';
+    const ITEMS = [
+      ['overview', 'OVERVIEW'],
+      ['materi', CG + 'CODING-STANDARD HTML (1))'],
+      ['materi', CG + 'CODING-STANDARD HTML (2))'],
+      ['materi', CG + 'CODING-STANDARD UNTUK CSS)'],
+      ['materi', CG + 'CODING STANDARD UNTUK PHP (1))'],
+      ['materi', CG + 'CODING STANDARD UNTUK PHP (2))'],
+      ['materi', CG + 'CODING STANDARD UNTUK PHP (3))'],
+      ['materi', CG + 'CODING STANDARD UNTUK PHP (4))'],
+      ['materi', CG + 'CODING STANDARD UNTUK PHP (5))'],
+      ['materi', CG + 'CODING STANDARD UNTUK PHP (6))'],
+      ['materi', CG + 'CODING STANDARD UNTUK PHP (7))'],
+      ['materi', CG + 'CODING STANDARD UNTUK PHP (8))'],
+      ['materi', 'MENGGUNAKAN TIPE DATA DAN CONTROL PROGRAM'],
+      ['video', 'VIDEO: README'],
+      ['kuis', 'KUIS 1'],
+      ['materi', 'MEMBUAT PROGRAM SEDERHANA'],
+      ['materi', 'MEMBUAT PROGRAM MENGGUNAKAN PROSEDUR DAN FUNGSI'],
+      ['materi', 'MEMBUAT PROGRAM MENGGUNAKAN ARRAY'],
+      ['materi', 'MEMBUAT DAN MENAMPILKAN ISI ARRAY'],
+      ['video', 'VIDEO: PERULANGAN WHILE - DO WHILE'],
+      ['video', 'VIDEO: FOR & FOREACH'],
+      ['materi', 'MENGHAPUS DAN MENAMBAHKAN ISI ARRAY'],
+      ['materi', 'ARRAY ASOSIATIF DAN ARRAY MULTI DIMENSI'],
+      ['video', 'VIDEO: NESTED LOOP'],
+      ['materi', 'MEMBUAT PROGRAM UNTUK AKSES FILE'],
+      ['materi', 'MENGKOMPILASI PROGRAM'],
+      ['kuis', 'KUIS 2'],
+      ['materi', 'MENGENAL LIBRARY'],
+      ['materi', 'MENDAPATKAN LIBRARY'],
+      ['materi', 'INSTALASI LIBARY'],
+      ['materi', 'UPDATE LIBRARY'],
+      ['video', 'VIDEO: MEMILIH LIBRARY PRE EXISTING & PUBLIKASI WEBSITE VIA GITHUB PAGES'],
+      ['kuis', 'KUIS 3'],
+      ['final', 'FINAL ASSESSMENT']
+    ];
+    const DONE = [35, 35, 34, 34, 33, 33, 32, 32, 31, 31, 30, 30, 29, 29, 22, 21, 18, 17, 17, 16, 16, 15, 15, 15, 14, 14, 13, 13, 13, 13, 12, 12, 12, 12];
+    const BASE = 40;
+    const code = (i) => 'M' + String(i + 1).padStart(2, '0');
+    const TYPE = { overview: ['Overview', '#F2F4F7', '#344054'], materi: ['Materi', '#F2F4F7', '#344054'], video: ['Video', '#F2F4F7', '#344054'], kuis: ['Kuis', '#EEF2FF', '#2A3FA0'], final: ['Final', '#EEF2FF', '#2A3FA0'] };
+    const all = ITEMS.map(([k, title], i) => {
+      const d = DONE[i];
+      const stop = i === 0 ? 0 : DONE[i - 1] - d;
+      const hot = stop >= 3;
+      return {
+        seq: i, stopN: stop,
+        code: code(i),
+        title,
+        tag: { label: TYPE[k][0], style: { padding: '1px 6px', borderRadius: '6px', fontSize: '11px', fontWeight: 600, background: TYPE[k][1], color: TYPE[k][2] } },
+        hasStop: stop > 0,
+        stopText: stop + ' berhenti di sini',
+        stopStyle: { marginLeft: 'auto', padding: '1px 8px', borderRadius: '999px', fontSize: '11px', fontWeight: 700, whiteSpace: 'nowrap', background: hot ? '#FEF0C7' : '#F2F4F7', color: hot ? '#93370D' : '#344054' },
+        done: d + '/' + BASE,
+        bar: { width: Math.round(d / BASE * 100) + '%', height: '6px', borderRadius: '3px', background: '#1F4FD1' },
+        cardStyle: { display: 'flex', flexDirection: 'column', gap: '6px', padding: '10px 12px', borderRadius: '10px', background: hot ? '#FFFAEB' : '#FFFFFF', border: hot ? '1px solid #FEDF89' : '1px solid #E2E5EA' }
+      };
+    });
+    const items = s.sort === 'stop' ? all.slice().sort((a, b) => (b.stopN - a.stopN) || (a.seq - b.seq)) : all;
+    const RISK = { kritis: ['Kritis', '#FEE4E2', '#B42318'], waspada: ['Waspada', '#FEF0C7', '#93370D'], normal: ['Normal', '#DCFAE6', '#085D3A'], invalid: ['Data tidak valid', '#EAECF0', '#344054'] };
+    const pill = (k) => ({ label: RISK[k][0], style: { display: 'inline-block', padding: '2px 8px', borderRadius: '999px', fontSize: '11px', fontWeight: 600, background: RISK[k][1], color: RISK[k][2], whiteSpace: 'nowrap' } });
+    const P = [
+      ['P-0001', 'Peserta Contoh 01', 'completed', 34, 'normal'],
+      ['P-0004', 'Peserta Contoh 04', 'partial', 14, 'waspada'],
+      ['P-0007', 'Peserta Contoh 07', 'partial', 6, 'kritis'],
+      ['P-0009', 'Peserta Contoh 09', 'partial', 16, 'waspada'],
+      ['P-0012', 'Peserta Contoh 12', 'not_started', 0, 'kritis'],
+      ['P-0015', 'Peserta Contoh 15', 'check', 0, 'invalid'],
+      ['P-0018', 'Peserta Contoh 18', 'partial', 26, 'normal'],
+      ['P-0021', 'Peserta Contoh 21', 'partial', 19, 'waspada']
+    ];
+    const LINE = { completed: '34/34 item · tuntas', not_started: '0/34 item · belum mulai, belum onboarding', check: 'Cek Sync #REF! · perlu dicek' };
+    const people = P.map(([no, name, cat, d, risk]) => ({
+      no, name, risk: pill(risk),
+      line: cat === 'partial' ? d + '/34 item · berhenti di ' + code(d) : LINE[cat],
+      hasSub: cat === 'partial',
+      sub: cat === 'partial' ? ITEMS[d][1] : '',
+      aria: d + ' dari 34 item selesai',
+      cells: ITEMS.map((_, i) => ({ style: { width: '7px', height: '14px', flex: '0 0 7px', borderRadius: '2px', background: i < d ? '#1F4FD1' : (cat === 'partial' && i === d ? '#F79009' : '#E4E7EC') } }))
+    }));
+    const seg = (on) => ({ minHeight: '40px', border: 0, borderRadius: '8px', font: 'inherit', fontSize: '13px', fontWeight: 600, background: on ? '#FFFFFF' : 'transparent', color: '#1B2430', boxShadow: on ? '0 1px 2px rgba(16,24,40,0.12)' : 'none', cursor: 'pointer' });
+    const chip = (on) => ({ minHeight: '36px', padding: '0 12px', borderRadius: '999px', border: on ? '1px solid #1B2430' : '1px solid #CBD2DC', background: on ? '#1B2430' : '#FFFFFF', color: on ? '#FFFFFF' : '#1B2430', font: 'inherit', fontSize: '12px', fontWeight: 600, cursor: 'pointer' });
+    return {
+      funnel: [
+        { label: 'Pendaftar', n: '41' }, { label: 'Diterima', n: '41' }, { label: 'Onboarding', n: '35' },
+        { label: 'Mulai', n: '35' }, { label: 'Tuntas', n: '12' }, { label: 'Lulus', n: '—' }
+      ],
+      items, people,
+      isModul: s.tab === 'modul', isPeserta: s.tab === 'peserta',
+      selM: s.tab === 'modul' ? 'true' : 'false', selP: s.tab === 'peserta' ? 'true' : 'false',
+      styleM: seg(s.tab === 'modul'), styleP: seg(s.tab === 'peserta'),
+      showM: () => this.setState({ tab: 'modul' }), showP: () => this.setState({ tab: 'peserta' }),
+      selStop: s.sort === 'stop' ? 'true' : 'false', selSeq: s.sort === 'seq' ? 'true' : 'false',
+      chipStop: chip(s.sort === 'stop'), chipSeq: chip(s.sort === 'seq'),
+      byStop: () => this.setState({ sort: 'stop' }), bySeq: () => this.setState({ sort: 'seq' })
+    };
+  }
+}
+</script>
+</body>
+</html>

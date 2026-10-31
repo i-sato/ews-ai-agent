@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Detail Pelatihan — EWS AI Agent</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F5F6F8}
+a{color:#1F4FD1}a:hover{color:#163A9C}
+.nav{display:flex;flex-direction:column;gap:2px}
+@media (max-width:760px){.nav{flex-direction:row;flex-wrap:wrap}}
+</style>
+</helmet>
+<div style="display: flex; flex-wrap: wrap; min-height: 100vh; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #1B2430; background: #F5F6F8">
+  <aside style="flex: 1 1 224px; background: #0F1B33; color: #E6EAF2; padding: 20px 14px; box-sizing: border-box; display: flex; flex-direction: column; gap: 24px">
+    <div style="display: flex; align-items: center; gap: 10px; padding: 0 8px">
+      <div style="width: 36px; height: 36px; border-radius: 9px; background: #1F4FD1; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; color: #FFFFFF; letter-spacing: 0.5px">EWS</div>
+      <div>
+        <div style="font-weight: 700; font-size: 15px; color: #FFFFFF">EWS AI Agent</div>
+        <div style="font-size: 12px; color: #A9B4C8">Early Warning System Pelatihan</div>
+      </div>
+    </div>
+    <nav class="nav" aria-label="Menu utama">
+      <sc-for list="{{nav}}" as="n" hint-placeholder-count="7">
+        <a href="{{n.href}}" style="{{n.style}}">{{n.label}}</a>
+      </sc-for>
+    </nav>
+    <div style="margin-top: auto; padding: 12px; border-radius: 10px; background: #18284A; font-size: 12px; line-height: 1.5">
+      <div style="color: #FFFFFF; font-weight: 600">[Nama Pengguna]</div>
+      <div style="color: #A9B4C8">Role: Pengelola Pelatihan</div>
+    </div>
+    <a href="Web-Login.dc.html" style="padding: 0 8px; font-size: 12px; color: #A9B4C8">Pernyataan kepatuhan</a>
+  </aside>
+  <main style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <header style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding: 16px 32px; background: #FFFFFF; border-bottom: 1px solid #E2E5EA">
+      <div style="flex: 1 1 320px; min-width: 0">
+        <div style="font-size: 13px; color: #5B6573"><a href="Web-Pelatihan.dc.html" style="text-decoration: none">Pelatihan</a> › TRN-001</div>
+        <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+          <h1 style="margin: 0; font-size: 22px; font-weight: 700">Pemrograman Web (IAWD)</h1>
+          <span style="padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; background: #FEE4E2; color: #B42318">Kritis</span>
+        </div>
+        <div style="font-size: 13px; color: #5B6573">21–31 Okt 2026 · Berlangsung · hari ke-8 dari 11 · 34 item modul</div>
+      </div>
+      <a href="#" style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border: 1px solid #CBD2DC; border-radius: 8px; color: #1B2430; text-decoration: none; font-size: 14px; font-weight: 600; background: #FFFFFF">Halaman pelatihan ↗</a>
+      <a href="Web-Impor.dc.html" style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border: 1px solid #CBD2DC; border-radius: 8px; color: #1B2430; text-decoration: none; font-size: 14px; font-weight: 600; background: #FFFFFF">Impor data</a>
+      <a href="Web-AgenAI.dc.html" style="display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border-radius: 8px; background: #1F4FD1; color: #FFFFFF; text-decoration: none; font-size: 14px; font-weight: 600">Tanya AI Agent</a>
+    </header>
+
+    <div style="padding: 24px 32px 40px; display: flex; flex-direction: column; gap: 20px; max-width: 1280px; box-sizing: border-box; width: 100%">
+      <div style="display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; padding: 12px 16px; background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 10px; font-size: 13px; color: #3A4452">
+        <span>Google Sheets · tab <b>ALL PENDAFTAR WEB</b></span>
+        <span>Dicek <b>30 Okt, 10.00</b> · isi berubah <b>29 Okt, 16.20</b></span>
+        <span style="color: #93370D">Label UPDATE TERAKHIR: 28 Okt (tidak diperbarui)</span>
+        <span>Batch <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">IMP-0142</span></span>
+        <span style="color: #085D3A; font-weight: 600">Rekonsiliasi baris 1 cocok</span>
+        <span style="margin-left: auto; color: #5B6573">8 slot item tanpa judul diabaikan</span>
+      </div>
+
+      <section aria-label="Jadwal pelatihan" style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px">
+        <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 12px">
+          <h2 style="margin: 0; font-size: 16px">Jadwal &amp; halaman pelatihan</h2>
+          <a href="#" style="font-size: 13px; font-weight: 600">digitalent.komdigi.go.id/pelatihan/[ID] ↗</a>
+          <button type="button" style="margin-left: auto; min-height: 36px; padding: 0 12px; border-radius: 8px; border: 1px solid #CBD2DC; background: #FFFFFF; font: inherit; font-size: 13px; font-weight: 600">Ubah jadwal</button>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px">
+          <div style="background: #F9FAFB; border-radius: 10px; padding: 12px"><div style="font-size: 12px; color: #5B6573; font-weight: 600">Pendaftaran</div><div style="font-size: 16px; font-weight: 700">6–17 Okt 2026</div></div>
+          <div style="background: #F9FAFB; border-radius: 10px; padding: 12px"><div style="font-size: 12px; color: #5B6573; font-weight: 600">Pelaksanaan</div><div style="font-size: 16px; font-weight: 700">21–31 Okt 2026</div></div>
+          <div style="background: #F9FAFB; border-radius: 10px; padding: 12px"><div style="font-size: 12px; color: #5B6573; font-weight: 600">Sumber jadwal</div><div style="font-size: 14px; font-weight: 600">Manual dari halaman pelatihan</div><div style="font-size: 12px; color: #085D3A; font-weight: 600">Diverifikasi [Nama] · 20 Okt 2026</div></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          <sc-for list="{{scheduleChecks}}" as="x" hint-placeholder-count="4">
+            <div style="display: flex; gap: 8px; align-items: flex-start; padding: 4px 0; font-size: 13px; line-height: 1.5"><span style="{{x.mark}}">{{x.icon}}</span><span>{{x.text}}</span></div>
+          </sc-for>
+        </div>
+        <div style="font-size: 12px; color: #5B6573; line-height: 1.5">Jadwal tidak diambil otomatis: halaman Digitalent dirender di browser dan API-nya mengembalikan data terenkripsi. Tautan disimpan sebagai rujukan sampai tersedia akses data resmi.</div>
+      </section>
+
+      <section aria-label="Funnel peserta" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px">
+        <sc-for list="{{funnel}}" as="f" hint-placeholder-count="6">
+          <div style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px">
+            <div style="font-size: 12px; color: #5B6573; font-weight: 600">{{f.label}}</div>
+            <div style="font-size: 26px; font-weight: 700">{{f.n}}</div>
+            <div style="font-size: 12px; color: #3A4452">{{f.note}}</div>
+          </div>
+        </sc-for>
+      </section>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 20px">
+        <section style="flex: 3 1 460px; min-width: 0; background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px; padding: 18px 20px; display: flex; flex-direction: column; gap: 14px">
+          <div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 12px">
+            <h2 style="margin: 0; font-size: 16px">Kategori penyelesaian item</h2>
+            <span style="font-size: 13px; color: #5B6573">41 peserta · 40 masuk penyebut</span>
+          </div>
+          <div role="img" aria-label="5 belum mulai, 23 sebagian, 12 tuntas, 1 perlu dicek" style="display: flex; gap: 2px; height: 14px; border-radius: 7px; overflow: hidden">
+            <div style="flex: 5 1 0px; background: #D0D5DD"></div>
+            <div style="flex: 23 1 0px; background: #9DB4F5"></div>
+            <div style="flex: 12 1 0px; background: #1F4FD1"></div>
+            <div style="flex: 1 1 0px; min-width: 4px; background: #F79009"></div>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px">
+            <div style="display: flex; gap: 8px; align-items: flex-start"><span style="width: 12px; height: 12px; border-radius: 3px; background: #D0D5DD; margin-top: 5px; flex: 0 0 12px"></span><div><div style="font-weight: 700; font-size: 18px">5</div><div style="font-size: 12px; color: #3A4452">Belum mulai · 0 item</div></div></div>
+            <div style="display: flex; gap: 8px; align-items: flex-start"><span style="width: 12px; height: 12px; border-radius: 3px; background: #9DB4F5; margin-top: 5px; flex: 0 0 12px"></span><div><div style="font-weight: 700; font-size: 18px">23</div><div style="font-size: 12px; color: #3A4452">Sebagian · berhenti di tengah</div></div></div>
+            <div style="display: flex; gap: 8px; align-items: flex-start"><span style="width: 12px; height: 12px; border-radius: 3px; background: #1F4FD1; margin-top: 5px; flex: 0 0 12px"></span><div><div style="font-weight: 700; font-size: 18px">12</div><div style="font-size: 12px; color: #3A4452">Tuntas · 34 dari 34 item</div></div></div>
+            <div style="display: flex; gap: 8px; align-items: flex-start"><span style="width: 12px; height: 12px; border-radius: 3px; background: #F79009; margin-top: 5px; flex: 0 0 12px"></span><div><div style="font-weight: 700; font-size: 18px">1</div><div style="font-size: 12px; color: #3A4452">Perlu dicek · Cek Sync #REF!</div></div></div>
+          </div>
+        </section>
+
+        <section style="flex: 2 1 340px; min-width: 0; background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px">
+          <h2 style="margin: 0; font-size: 16px">Titik berhenti terbanyak</h2>
+          <div style="display: flex; gap: 12px; align-items: center">
+            <span style="min-width: 40px; text-align: center; padding: 4px 8px; border-radius: 8px; background: #FEF0C7; color: #93370D; font-weight: 700; font-size: 16px">7</span>
+            <div style="min-width: 0"><div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #5B6573">M15 · Kuis</div><div style="font-weight: 600; font-size: 14px">KUIS 1</div></div>
+          </div>
+          <div style="display: flex; gap: 12px; align-items: center">
+            <span style="min-width: 40px; text-align: center; padding: 4px 8px; border-radius: 8px; background: #FEF0C7; color: #93370D; font-weight: 700; font-size: 16px">3</span>
+            <div style="min-width: 0"><div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #5B6573">M17 · Materi</div><div style="font-weight: 600; font-size: 14px">MEMBUAT PROGRAM MENGGUNAKAN PROSEDUR DAN FUNGSI</div></div>
+          </div>
+          <div style="font-size: 13px; color: #3A4452">13 peserta lain berhenti di 13 item berbeda.</div>
+          <a href="Web-AgenAI.dc.html" style="font-size: 13px; font-weight: 600">Minta rekomendasi per kelompok peserta</a>
+        </section>
+      </div>
+
+      <section style="background: #FFFFFF; border: 1px solid #E2E5EA; border-radius: 12px">
+        <div role="tablist" aria-label="Rincian pelatihan" style="display: flex; flex-wrap: wrap; gap: 4px; padding: 0 16px; border-bottom: 1px solid #E2E5EA">
+          <button type="button" role="tab" aria-selected="{{selModul}}" onClick="{{showModul}}" style="{{styleModul}}">Modul · 34 item</button>
+          <button type="button" role="tab" aria-selected="{{selPeserta}}" onClick="{{showPeserta}}" style="{{stylePeserta}}">Peserta · 41</button>
+        </div>
+
+        <sc-if value="{{isModul}}" hint-placeholder-val="{{ true }}">
+          <div>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 14px 20px">
+              <span style="font-size: 13px; font-weight: 600; margin-right: 4px">Jenis item</span>
+              <sc-for list="{{typeChips}}" as="c" hint-placeholder-count="6">
+                <button type="button" aria-pressed="{{c.sel}}" onClick="{{c.pick}}" style="{{c.style}}">{{c.label}}</button>
+              </sc-for>
+            </div>
+            <div style="overflow-x: auto">
+              <table style="width: 100%; min-width: 980px; border-collapse: collapse; font-size: 13px">
+                <thead>
+                  <tr style="text-align: left; color: #5B6573; background: #F9FAFB">
+                    <th style="padding: 10px 20px; font-weight: 600; width: 64px">Kode</th>
+                    <th style="padding: 10px 12px; font-weight: 600">Item</th>
+                    <th style="padding: 10px 12px; font-weight: 600; width: 90px">Jenis</th>
+                    <th style="padding: 10px 12px; font-weight: 600; width: 230px">Selesai</th>
+                    <th style="padding: 10px 12px; font-weight: 600; width: 120px; text-align: right">Belum selesai</th>
+                    <th style="padding: 10px 20px; font-weight: 600; width: 140px; text-align: right">Berhenti di sini</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <sc-for list="{{items}}" as="r" hint-placeholder-count="34">
+                    <tr style="{{r.rowStyle}}">
+                      <td style="padding: 9px 20px; font-family: 'JetBrains Mono', monospace; font-size: 12px">{{r.code}}</td>
+                      <td style="padding: 9px 12px; max-width: 0"><div title="{{r.title}}" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 500">{{r.title}}</div></td>
+                      <td style="padding: 9px 12px"><span style="{{r.tag.style}}">{{r.tag.label}}</span></td>
+                      <td style="padding: 9px 12px">
+                        <div style="display: flex; align-items: center; gap: 10px">
+                          <div style="flex: 1; height: 6px; border-radius: 3px; background: #EAECF0"><div style="{{r.bar}}"></div></div>
+                          <span style="font-weight: 600; min-width: 44px; text-align: right">{{r.done}}</span>
+                        </div>
+                      </td>
+                      <td style="padding: 9px 12px; text-align: right">{{r.left}}</td>
+                      <td style="padding: 9px 20px; text-align: right"><span style="{{r.stopStyle}}">{{r.stop}}</span></td>
+                    </tr>
+                  </sc-for>
+                </tbody>
+              </table>
+            </div>
+            <div style="padding: 12px 20px; border-top: 1px solid #E2E5EA; font-size: 12px; color: #5B6573; line-height: 1.5">Selesai dan belum selesai dihitung dari 40 peserta valid. “Berhenti di sini” = peserta yang sudah mulai dan menuntaskan item sebelumnya, tetapi belum menyelesaikan item ini.</div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{isPeserta}}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 14px 20px">
+              <span style="font-size: 13px; font-weight: 600; margin-right: 4px">Kategori</span>
+              <sc-for list="{{catChips}}" as="c" hint-placeholder-count="5">
+                <button type="button" aria-pressed="{{c.sel}}" onClick="{{c.pick}}" style="{{c.style}}">{{c.label}}</button>
+              </sc-for>
+            </div>
+            <div style="overflow-x: auto">
+              <table style="width: 100%; min-width: 1160px; border-collapse: collapse; font-size: 13px">
+                <thead>
+                  <tr style="text-align: left; color: #5B6573; background: #F9FAFB">
+                    <th style="padding: 10px 20px; font-weight: 600">No. peserta</th>
+                    <th style="padding: 10px 12px; font-weight: 600">Nama</th>
+                    <th style="padding: 10px 12px; font-weight: 600">Kategori</th>
+                    <th style="padding: 10px 12px; font-weight: 600; text-align: right">Selesai</th>
+                    <th style="padding: 10px 12px; font-weight: 600">Titik berhenti</th>
+                    <th style="padding: 10px 12px; font-weight: 600">Item M01–M34</th>
+                    <th style="padding: 10px 20px; font-weight: 600">Status risiko</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <sc-for list="{{people}}" as="p" hint-placeholder-count="8">
+                    <tr style="border-top: 1px solid #EEF0F3">
+                      <td style="padding: 10px 20px; font-family: 'JetBrains Mono', monospace; font-size: 12px">{{p.no}}</td>
+                      <td style="padding: 10px 12px"><a href="Web-Peserta.dc.html" style="font-weight: 600; text-decoration: none">{{p.name}}</a></td>
+                      <td style="padding: 10px 12px"><span style="{{p.cat.style}}">{{p.cat.label}}</span></td>
+                      <td style="padding: 10px 12px; text-align: right; font-weight: 600">{{p.done}}</td>
+                      <td style="padding: 10px 12px"><div title="{{p.stop}}" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 220px">{{p.stop}}</div></td>
+                      <td style="padding: 10px 12px">
+                        <div role="img" aria-label="{{p.aria}}" style="display: flex; gap: 2px">
+                          <sc-for list="{{p.cells}}" as="k" hint-placeholder-count="34">
+                            <span style="{{k.style}}"></span>
+                          </sc-for>
+                        </div>
+                      </td>
+                      <td style="padding: 10px 20px"><span style="{{p.risk.style}}">{{p.risk.label}}</span><div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #5B6573; margin-top: 2px">{{p.rule}}</div></td>
+                    </tr>
+                  </sc-for>
+                </tbody>
+              </table>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; padding: 12px 20px; border-top: 1px solid #E2E5EA; font-size: 12px; color: #3A4452">
+              <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 9px; height: 14px; border-radius: 2px; background: #1F4FD1"></span>Selesai</span>
+              <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 9px; height: 14px; border-radius: 2px; background: #F79009"></span>Titik berhenti</span>
+              <span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 9px; height: 14px; border-radius: 2px; background: #E4E7EC"></span>Belum selesai</span>
+              <span style="margin-left: auto; color: #5B6573">Menampilkan 1–8 dari 41 peserta</span>
+            </div>
+          </div>
+        </sc-if>
+      </section>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2720}}'>
+class Component extends DCLogic {
+  constructor(props) { super(props); this.state = { tab: 'modul', type: 'all', cat: 'all' }; }
+  renderVals() {
+    const ACTIVE = 'Pelatihan';
+    const NAV = [['Dashboard','Main.dc.html'],['Pelatihan','Web-Pelatihan.dc.html'],['Peserta','Web-Peserta.dc.html'],['Pemantauan Risiko','Web-Risiko.dc.html'],['Indikator PK','Web-IndikatorPK.dc.html'],['Laporan','Web-Laporan.dc.html'],['Pengaturan','Web-Pengaturan.dc.html']];
+    const nav = NAV.map(([label, href]) => ({ label, href, style: { display: 'block', padding: '10px 12px', borderRadius: '8px', fontSize: '14px', fontWeight: label === ACTIVE ? 600 : 500, textDecoration: 'none', color: label === ACTIVE ? '#FFFFFF' : '#C9D1E0', background: label === ACTIVE ? '#1F4FD1' : 'transparent' } }));
+    const s = this.state;
+    const CG = 'MENERAPKAN CODING-GUIDELINES DAN BEST PRACTICES DALAM PENULISAN PROGRAM (';
+    const ITEMS = [
+      ['overview', 'OVERVIEW'],
+      ['materi', CG + 'CODING-STANDARD HTML (1))'],
+      ['materi', CG + 'CODING-STANDARD HTML (2))'],
+      ['materi', CG + 'CODING-STANDARD UNTUK CSS)'],
+      ['materi', CG + 'CODING STANDARD UNTUK PHP (1))'],
+      ['materi', CG + 'CODING STANDARD UNTUK PHP (2))'],
+      ['materi', CG + 'CODING STANDARD UNTUK PHP (3))'],
+      ['materi', CG + 'CODING STANDARD UNTUK PHP (4))'],
+      ['materi', CG + 'CODING STANDARD UNTUK PHP (5))'],
+      ['materi', CG + 'CODING STANDARD UNTUK PHP (6))'],
+      ['materi', CG + 'CODING STANDARD UNTUK PHP (7))'],
+      ['materi', CG + 'CODING STANDARD UNTUK PHP (8))'],
+      ['materi', 'MENGGUNAKAN TIPE DATA DAN CONTROL PROGRAM'],
+      ['video', 'VIDEO: README'],
+      ['kuis', 'KUIS 1'],
+      ['materi', 'MEMBUAT PROGRAM SEDERHANA'],
+      ['materi', 'MEMBUAT PROGRAM MENGGUNAKAN PROSEDUR DAN FUNGSI'],
+      ['materi', 'MEMBUAT PROGRAM MENGGUNAKAN ARRAY'],
+      ['materi', 'MEMBUAT DAN MENAMPILKAN ISI ARRAY'],
+      ['video', 'VIDEO: PERULANGAN WHILE - DO WHILE'],
+      ['video', 'VIDEO: FOR & FOREACH'],
+      ['materi', 'MENGHAPUS DAN MENAMBAHKAN ISI ARRAY'],
+      ['materi', 'ARRAY ASOSIATIF DAN ARRAY MULTI DIMENSI'],
+      ['video', 'VIDEO: NESTED LOOP'],
+      ['materi', 'MEMBUAT PROGRAM UNTUK AKSES FILE'],
+      ['materi', 'MENGKOMPILASI PROGRAM'],
+      ['kuis', 'KUIS 2'],
+      ['materi', 'MENGENAL LIBRARY'],
+      ['materi', 'MENDAPATKAN LIBRARY'],
+      ['materi', 'INSTALASI LIBARY'],
+      ['materi', 'UPDATE LIBRARY'],
+      ['video', 'VIDEO: MEMILIH LIBRARY PRE EXISTING & PUBLIKASI WEBSITE VIA GITHUB PAGES'],
+      ['kuis', 'KUIS 3'],
+      ['final', 'FINAL ASSESSMENT']
+    ];
+    const DONE = [35, 35, 34, 34, 33, 33, 32, 32, 31, 31, 30, 30, 29, 29, 22, 21, 18, 17, 17, 16, 16, 15, 15, 15, 14, 14, 13, 13, 13, 13, 12, 12, 12, 12];
+    const BASE = 40;
+    const code = (i) => 'M' + String(i + 1).padStart(2, '0');
+    const TYPE = { overview: ['Overview', '#F2F4F7', '#344054'], materi: ['Materi', '#F2F4F7', '#344054'], video: ['Video', '#F2F4F7', '#344054'], kuis: ['Kuis', '#EEF2FF', '#2A3FA0'], final: ['Final', '#EEF2FF', '#2A3FA0'] };
+    const tag = (k) => ({ label: TYPE[k][0], style: { display: 'inline-block', padding: '1px 8px', borderRadius: '6px', fontSize: '12px', fontWeight: 600, background: TYPE[k][1], color: TYPE[k][2], whiteSpace: 'nowrap' } });
+    const chip = (on) => ({ minHeight: '36px', padding: '0 12px', borderRadius: '999px', border: on ? '1px solid #1B2430' : '1px solid #CBD2DC', background: on ? '#1B2430' : '#FFFFFF', color: on ? '#FFFFFF' : '#1B2430', font: 'inherit', fontSize: '13px', fontWeight: 600, cursor: 'pointer' });
+    const all = ITEMS.map(([k, title], i) => {
+      const d = DONE[i];
+      const stop = i === 0 ? 0 : DONE[i - 1] - d;
+      const hot = stop >= 3;
+      return {
+        kind: k,
+        code: code(i),
+        title,
+        tag: tag(k),
+        done: d + '/' + BASE,
+        bar: { width: Math.round(d / BASE * 100) + '%', height: '6px', borderRadius: '3px', background: '#1F4FD1' },
+        left: String(BASE - d),
+        stop: stop ? String(stop) : '—',
+        stopStyle: hot
+          ? { display: 'inline-block', minWidth: '28px', textAlign: 'center', padding: '2px 8px', borderRadius: '999px', fontWeight: 700, background: '#FEF0C7', color: '#93370D' }
+          : { display: 'inline-block', minWidth: '28px', textAlign: 'center', padding: '2px 8px', color: stop ? '#1B2430' : '#667085' },
+        rowStyle: { borderTop: '1px solid #EEF0F3', background: hot ? '#FFFAEB' : 'transparent' }
+      };
+    });
+    const TF = [['all', 'Semua', 34], ['materi', 'Materi', 24], ['video', 'Video', 5], ['kuis', 'Kuis', 3], ['final', 'Final', 1], ['overview', 'Overview', 1]];
+    const typeChips = TF.map(([id, label, n]) => ({ label: label + ' · ' + n, sel: s.type === id ? 'true' : 'false', pick: () => this.setState({ type: id }), style: chip(s.type === id) }));
+    const items = all.filter((r) => s.type === 'all' || r.kind === s.type);
+
+    const CAT = { not_started: ['Belum mulai', '#F2F4F7', '#344054'], partial: ['Sebagian', '#EEF2FF', '#2A3FA0'], completed: ['Tuntas', '#DCFAE6', '#085D3A'], check: ['Perlu dicek', '#FEF0C7', '#93370D'] };
+    const RISK = { kritis: ['Kritis', '#FEE4E2', '#B42318'], waspada: ['Waspada', '#FEF0C7', '#93370D'], normal: ['Normal', '#DCFAE6', '#085D3A'], invalid: ['Data tidak valid', '#EAECF0', '#344054'] };
+    const pill = (m, k) => ({ label: m[k][0], style: { display: 'inline-block', padding: '2px 10px', borderRadius: '999px', fontSize: '12px', fontWeight: 600, background: m[k][1], color: m[k][2], whiteSpace: 'nowrap' } });
+    const P = [
+      ['P-0001', 'Peserta Contoh 01', 'completed', 34, 'normal', '—'],
+      ['P-0004', 'Peserta Contoh 04', 'partial', 14, 'waspada', 'PROGRESS_STAGNANT'],
+      ['P-0007', 'Peserta Contoh 07', 'partial', 6, 'kritis', 'COMPLETION_AT_RISK'],
+      ['P-0009', 'Peserta Contoh 09', 'partial', 16, 'waspada', 'BEHIND_SCHEDULE'],
+      ['P-0012', 'Peserta Contoh 12', 'not_started', 0, 'kritis', 'NOT_STARTED'],
+      ['P-0015', 'Peserta Contoh 15', 'check', 0, 'invalid', 'DATA_INVALID'],
+      ['P-0018', 'Peserta Contoh 18', 'partial', 26, 'normal', '—'],
+      ['P-0021', 'Peserta Contoh 21', 'partial', 19, 'waspada', 'BEHIND_SCHEDULE']
+    ];
+    const people = P.filter((p) => s.cat === 'all' || p[2] === s.cat).map(([no, name, cat, d, risk, rule]) => ({
+      no, name, rule,
+      cat: pill(CAT, cat),
+      done: d + '/34',
+      stop: cat === 'partial' ? code(d) + ' · ' + ITEMS[d][1] : (cat === 'check' ? 'Cek Sync: #REF!' : '—'),
+      aria: d + ' dari 34 item selesai',
+      risk: pill(RISK, risk),
+      cells: ITEMS.map((_, i) => ({ style: { width: '9px', height: '16px', flex: '0 0 9px', borderRadius: '2px', background: i < d ? '#1F4FD1' : (cat === 'partial' && i === d ? '#F79009' : '#E4E7EC') } }))
+    }));
+    const CF = [['all', 'Semua', 41], ['not_started', 'Belum mulai', 5], ['partial', 'Sebagian', 23], ['completed', 'Tuntas', 12], ['check', 'Perlu dicek', 1]];
+    const catChips = CF.map(([id, label, n]) => ({ label: label + ' · ' + n, sel: s.cat === id ? 'true' : 'false', pick: () => this.setState({ cat: id }), style: chip(s.cat === id) }));
+    const tabStyle = (on) => ({ minHeight: '48px', padding: '0 16px', border: 0, borderBottom: on ? '3px solid #1F4FD1' : '3px solid transparent', background: 'transparent', font: 'inherit', fontSize: '15px', fontWeight: 700, color: on ? '#1F4FD1' : '#3A4452', cursor: 'pointer' });
+    return {
+      nav, items, typeChips, people, catChips,
+      scheduleChecks: [
+        [true, 'Pendaftaran ditutup (17 Okt) sebelum pelaksanaan dimulai (21 Okt).'],
+        [true, 'Periode pelaksanaan cocok dengan judul spreadsheet.'],
+        [true, 'Tidak ada peserta baru setelah pendaftaran ditutup.'],
+        [false, 'Label UPDATE TERAKHIR di sheet (28 Okt) tidak diperbarui, padahal isi berubah 29 Okt. Kesegaran memakai waktu perubahan isi.']
+      ].map(([ok, text]) => ({ icon: ok ? '✓' : '!', text, mark: { flex: '0 0 20px', width: '20px', height: '20px', borderRadius: '50%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: 700, background: ok ? '#DCFAE6' : '#FEF0C7', color: ok ? '#085D3A' : '#93370D' } })),
+      funnel: [
+        { label: '1 · Pendaftar', n: '41', note: 'TOTAL PENDAFTAR di sheet' },
+        { label: '2 · Diterima', n: '41', note: '100% dari pendaftar' },
+        { label: '3 · Onboarding', n: '35', note: '85% dari pendaftar' },
+        { label: '4 · Mulai mengerjakan', n: '35', note: 'Minimal 1 item selesai' },
+        { label: '5 · Tuntas semua item', n: '12', note: '29% dari pendaftar' },
+        { label: '6 · Lulus (STATUS)', n: '—', note: 'Belum ditetapkan di sheet' }
+      ],
+      isModul: s.tab === 'modul', isPeserta: s.tab === 'peserta',
+      selModul: s.tab === 'modul' ? 'true' : 'false', selPeserta: s.tab === 'peserta' ? 'true' : 'false',
+      styleModul: tabStyle(s.tab === 'modul'), stylePeserta: tabStyle(s.tab === 'peserta'),
+      showModul: () => this.setState({ tab: 'modul' }), showPeserta: () => this.setState({ tab: 'peserta' })
+    };
+  }
+}
+</script>
+</body>
+</html>
