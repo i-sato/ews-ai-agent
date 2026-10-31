@@ -26,3 +26,4 @@ Sumber: spesifikasi §15.1. Perbarui kolom Status dan Catatan setiap ada keputus
 |---|---|---|
 | 2026-10-31 | pnpm `minimumReleaseAge` 14 hari | Mengurangi risiko paket berbahaya yang baru terbit (SH-SUPPLY) |
 | 2026-10-31 | Kriteria lulus dan target antara disimpan sebagai data (`pk_indicators`, `pk_indicator_targets`), bukan konstanta | Spesifikasi §8.7 |
+| 2026-10-31 | Supabase CLI dipasang sebagai devDependency `supabase@2.121.0` (versi tepat), dijalankan lewat `pnpm db:reset`, `pnpm db:test`, atau `pnpm exec supabase` | Versi sama di lokal dan CI tanpa instalasi global; versi ≥ 14 hari (SH-SUPPLY-01) |
