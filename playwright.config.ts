@@ -20,7 +20,13 @@ export default defineConfig({
     { name: "desktop", use: { ...devices["Desktop Chrome"] } },
     { name: "mobile", use: { ...devices["Pixel 7"] } },
   ],
+  // CI memakai build produksi agar CSP produksi (tanpa unsafe-*) ikut diuji (SH-HDR-01).
   webServer: process.env.E2E_BASE_URL
     ? undefined
-    : { command: "pnpm dev", url: "http://localhost:3000/api/health", reuseExistingServer: true },
+    : {
+        command: process.env.CI ? "pnpm build && pnpm start" : "pnpm dev",
+        url: "http://localhost:3000/api/health",
+        reuseExistingServer: !process.env.CI,
+        timeout: 180_000,
+      },
 });

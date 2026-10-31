@@ -108,10 +108,10 @@ Status yang dipakai:
 
 | ID | Kontrol | Acuan | Penerapan di EWS | Verifikasi | Status | Bukti |
 |---|---|---|---|---|---|---|
-| SH-HDR-01 | Content Security Policy | ASVS (konfigurasi), A05 | CSP dengan nonce dari middleware; `default-src 'self'`; `frame-ancestors 'none'`; tanpa `unsafe-inline` untuk skrip | Uji header otomatis; ZAP baseline | Belum | |
-| SH-HDR-02 | HSTS dan HTTPS | A02 | `Strict-Transport-Security: max-age=31536000; includeSubDomains` | Uji header | Belum | |
-| SH-HDR-03 | Header lain | A05 | `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy` minimum | Uji header | Belum | |
-| SH-HDR-04 | CORS ketat | A05 | Hanya origin aplikasi; tanpa wildcard dengan kredensial | Integration test | Belum | |
+| SH-HDR-01 | Content Security Policy | ASVS (konfigurasi), A05 | CSP dengan nonce dari middleware; `default-src 'self'`; `frame-ancestors 'none'`; tanpa `unsafe-inline` untuk skrip | Uji header otomatis; ZAP baseline | Diimplementasi | `src/lib/security/csp.ts` + `src/proxy.ts`: nonce 128 bit per request, `strict-dynamic`, tanpa `unsafe-*` di produksi; semua rute dinamis; 404 sendiri tanpa style inline; `tests/unit/csp.test.ts`, `tests/e2e/security-headers.spec.ts` (tanpa pelanggaran CSP), lulus lokal pada build produksi; Terverifikasi setelah CI hijau (F1-07) dan ZAP baseline |
+| SH-HDR-02 | HSTS dan HTTPS | A02 | `Strict-Transport-Security: max-age=31536000; includeSubDomains` | Uji header | Diimplementasi | `next.config.ts`; E2E `security-headers.spec.ts`, lulus lokal pada build produksi; Terverifikasi setelah CI hijau (F1-07) dan ZAP baseline |
+| SH-HDR-03 | Header lain | A05 | `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy` minimum | Uji header | Diimplementasi | `next.config.ts` (nosniff, Referrer-Policy, Permissions-Policy, X-Frame-Options, tanpa `X-Powered-By`); E2E, lulus lokal pada build produksi; Terverifikasi setelah CI hijau (F1-07) dan ZAP baseline |
+| SH-HDR-04 | CORS ketat | A05 | Hanya origin aplikasi; tanpa wildcard dengan kredensial | Integration test | Diimplementasi | Tidak ada header CORS; origin asing dan preflight tanpa `Access-Control-Allow-Origin`; E2E, lulus lokal pada build produksi; Terverifikasi setelah CI hijau (F1-07) dan ZAP baseline. Tinjau ulang bila ada klien lintas origin |
 | SH-HDR-05 | Perlindungan CSRF | A01 | Pemeriksaan origin pada Server Action; token CSRF untuk form non-Server Action | Integration test | Belum | |
 
 ### 4.7 Kriptografi dan secret
@@ -198,7 +198,7 @@ Status yang dipakai:
 
 ## 7. Contoh konfigurasi
 
-Header keamanan di `next.config.ts` (CSP dengan nonce disetel di `middleware.ts`):
+Header keamanan di `next.config.ts` (CSP dengan nonce disetel di `src/proxy.ts`, pengganti `middleware.ts` di Next.js 16):
 
 ```ts
 const securityHeaders = [
@@ -238,6 +238,7 @@ Isi satu baris setiap ada perubahan yang memengaruhi keamanan.
 | 31 Okt 2026 | 0.1.0 (F1-02) | `supabase init`; pendaftaran mandiri dimatikan dan kebijakan kata sandi lokal (12 karakter, huruf besar, huruf kecil, angka); Supabase CLI dipin sebagai devDependency | SH-AUTH-03, SH-AUTH-05, SH-SUPPLY-01 | `supabase/config.toml`; `POST /auth/v1/signup` lokal ditolak `422 signup_disabled`; `supabase test db` 9/9 lulus | Pengaturan yang sama wajib diterapkan di proyek Cloud (F0-02) |
 | 31 Okt 2026 | 0.1.0 (F1-04) | Login email + kata sandi lewat Server Action `@supabase/ssr`; cookie sesi dipaksa HttpOnly (bawaan pustaka tidak); `src/proxy.ts` memperbarui sesi dan mengalihkan ke login; `getUser()` divalidasi ke Supabase Auth; logout server-side; pesan galat login generik; parameter `next` hanya path relatif (cegah open redirect); `[auth.email] enable_signup` dikembalikan `true` karena opsi itu mematikan login email, pendaftaran tetap ditutup `[auth] enable_signup = false` | SH-AUTH-01, SH-AUTH-03, SH-AUTH-05, SH-SESS-01, SH-SESS-03 | `tests/integration/auth.test.ts` 3/3, `tests/e2e/login.spec.ts` desktop + mobile, `tests/unit/auth-paths.test.ts`, `tests/unit/login-input.test.ts` | Belum: idle/absolute timeout (SH-SESS-02), lockout (SH-AUTH-04), audit log login (SH-LOG-01) |
 | 31 Okt 2026 | 0.1.0 (F1-05) | Role dan tim kerja dibaca dari `profiles`/`profile_work_teams` dengan sesi pengguna setelah `getUser()`; `requireRole`/`requireUser` untuk halaman, `requireApiRole` dengan galat 401/403 format §7.3 untuk route handler; profil nonaktif ditolak saat login (sesi langsung dicabut) dan saat akses; menu Pengaturan hanya untuk Admin dan halaman `/settings` memeriksa role di server; pgTAP: klien tidak dapat mengubah role atau tim sendiri | SH-AUTHZ-01, SH-AUTHZ-02 | `tests/integration/authorization.test.ts` 18/18, `supabase/tests/rls.test.sql` 13/13, `tests/e2e/authorization.spec.ts`, `tests/unit/auth-roles.test.ts` | Halaman yang memuat data wajib memanggil `requireRole` sendiri; uji BOLA/BFLA per endpoint di F6-01 |
+| 31 Okt 2026 | 0.1.0 (F1-06) | CSP bernonce di `src/proxy.ts` (`default-src 'self'`, `script-src 'nonce' 'strict-dynamic'`, `style-src 'nonce'`, `object-src 'none'`, `base-uri`, `form-action`, `frame-ancestors 'none'`, `upgrade-insecure-requests`); CSP juga pada response redirect; root layout `connection()` agar semua rute dinamis; halaman 404 sendiri karena 404 bawaan Next memakai style inline yang diblokir; E2E CI memakai build produksi | SH-HDR-01, SH-HDR-02, SH-HDR-03, SH-HDR-04 | `tests/unit/csp.test.ts`, `tests/e2e/security-headers.spec.ts` 49/49 di dev dan produksi | Dev memakai `unsafe-eval` dan style `unsafe-inline` untuk alat Next.js (bukan produksi); belum ZAP baseline; belum `report-uri` |
 
 ## 9. Risiko tersisa dan pengecualian
 

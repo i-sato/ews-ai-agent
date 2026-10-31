@@ -1,11 +1,17 @@
-import type { NextRequest } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { HOME_PATH, LOGIN_PATH, isPublicPath, loginUrlFor } from "@/lib/auth/paths";
+import { CSP_HEADER, buildCsp, createNonce } from "@/lib/security/csp";
 import { redirectWithSession, updateSession } from "@/lib/supabase/proxy-session";
 
-// Next.js 16: pengganti middleware.ts. Hanya pemeriksaan awal; otorisasi sebenarnya di server
-// (layout dan route handler), bukan di sini.
+// Next.js 16: pengganti middleware.ts. Memasang CSP bernonce (SH-HDR-01) dan memperbarui sesi.
+// Hanya pemeriksaan awal; otorisasi sebenarnya di server (layout dan route handler).
 export async function proxy(request: NextRequest) {
-  const { response, signedIn } = await updateSession(request);
+  const csp = buildCsp({ nonce: createNonce(), dev: process.env.NODE_ENV === "development" });
+  const { response, signedIn } = await updateSession(request, { [CSP_HEADER]: csp });
+  return withCsp(route(request, response, signedIn), csp);
+}
+
+function route(request: NextRequest, response: NextResponse, signedIn: boolean) {
   const { pathname, search } = request.nextUrl;
   if (pathname.startsWith("/api/")) return response;
   if (!signedIn && !isPublicPath(pathname)) {
@@ -14,6 +20,11 @@ export async function proxy(request: NextRequest) {
   if (signedIn && pathname === LOGIN_PATH) {
     return redirectWithSession(new URL(HOME_PATH, request.url), response);
   }
+  return response;
+}
+
+function withCsp(response: NextResponse, csp: string) {
+  response.headers.set(CSP_HEADER, csp);
   return response;
 }
 

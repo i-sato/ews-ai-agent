@@ -35,3 +35,6 @@ Sumber: spesifikasi §15.1. Perbarui kolom Status dan Catatan setiap ada keputus
 | 2026-10-31 | `experimental.turbopackFileSystemCacheForDev: false` dan indikator dev di kanan atas | Next 16.4.2 memicu loop muat ulang saat cache dev dipakai ulang; indikator kiri bawah menutupi tombol Keluar. Tinjau ulang saat Next diperbarui |
 | 2026-10-31 | Menu Pengaturan hanya tampil untuk Admin; `/settings` memeriksa role di server dan menampilkan "Akses ditolak" untuk role lain | Catatan desain `M-Lainnya.dc.html` dan spesifikasi §11.1 |
 | 2026-10-31 | Halaman menolak akses dengan komponen "Akses ditolak", bukan `forbidden()` Next.js | `forbidden()` masih eksperimental (`authInterrupts`) di Next 16.4; kontrol keamanan tidak bergantung pada fitur eksperimental |
+| 2026-10-31 | Semua rute dirender dinamis (`connection()` di root layout) | CSP bernonce SH-HDR-01 hanya berlaku pada render dinamis; semua halaman sudah dinamis karena cek sesi (keputusan pemilik) |
+| 2026-10-31 | Halaman 404 sendiri berbahasa Indonesia (`src/app/not-found.tsx`) | 404 bawaan Next.js memakai style inline yang diblokir CSP produksi |
+| 2026-10-31 | E2E di CI berjalan pada `pnpm build && pnpm start`, lokal tetap `pnpm dev` | Kebijakan CSP dev lebih longgar; regresi CSP hanya tertangkap pada build produksi |
