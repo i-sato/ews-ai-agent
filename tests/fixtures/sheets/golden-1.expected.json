@@ -1,0 +1,61 @@
+{
+  "spreadsheetTitle": "Mirror DTA VBL 90109 SNWD 23 - 30 Sept",
+  "tab": "ALL PENDAFTAR WEB",
+  "participants": 41,
+  "ignoredRows": 25,
+  "items": 34,
+  "emptySlots": 8,
+  "itemRange": {
+    "from": "J",
+    "to": "AY",
+    "cekSync": "AZ"
+  },
+  "itemTypes": {
+    "overview": 1,
+    "material": 24,
+    "video": 5,
+    "quiz": 3,
+    "final_assessment": 1
+  },
+  "duplicateTitleColumns": [],
+  "entityTitles": 2,
+  "titleLength": {
+    "min": 6,
+    "max": 103
+  },
+  "status": {
+    "passed": 33,
+    "not_passed": 8,
+    "cancelled": 0,
+    "unmapped": 0
+  },
+  "notPassed": {
+    "notStarted": 6,
+    "stoppedMidway": 2,
+    "stopAtItems": [
+      15,
+      17
+    ]
+  },
+  "lmsConflicts": 0,
+  "cekSync": {
+    "formulaError": 1,
+    "errorSync": 0
+  },
+  "totalsRow1": {
+    "pendaftar": 41,
+    "diterima": 41,
+    "onboarding": 33,
+    "selesai": 33
+  },
+  "titleProposal": {
+    "teamCode": "DTA",
+    "portalTrainingId": "90109",
+    "schemeCode": "SNWD"
+  },
+  "updateLabel": {
+    "day": 13,
+    "month": 10,
+    "time": "11:43"
+  }
+}

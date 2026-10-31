@@ -16,6 +16,7 @@
     "test:integration": "vitest run --project integration --passWithNoTests",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
+    "fixtures:golden": "node tests/fixtures/golden/golden-sheets.ts",
     "check:duplication": "jscpd src --threshold 3",
     "db:reset": "supabase db reset",
     "db:test": "supabase test db",

@@ -1,0 +1,63 @@
+{
+  "spreadsheetTitle": "MIRROR - DTA VBL 90107 SNAT 10 -31 Agustus",
+  "tab": "ALL PENDAFTAR WEB",
+  "participants": 51,
+  "ignoredRows": 25,
+  "items": 28,
+  "emptySlots": 14,
+  "itemRange": {
+    "from": "J",
+    "to": "AY",
+    "cekSync": "AZ"
+  },
+  "itemTypes": {
+    "overview": 0,
+    "material": 24,
+    "video": 0,
+    "quiz": 3,
+    "final_assessment": 1
+  },
+  "duplicateTitleColumns": [
+    "AE",
+    "AF"
+  ],
+  "entityTitles": 0,
+  "titleLength": {
+    "min": 6,
+    "max": 164
+  },
+  "status": {
+    "passed": 45,
+    "not_passed": 5,
+    "cancelled": 1,
+    "unmapped": 0
+  },
+  "notPassed": {
+    "notStarted": 4,
+    "stoppedMidway": 1,
+    "stopAtItems": [
+      3
+    ]
+  },
+  "lmsConflicts": 1,
+  "cekSync": {
+    "formulaError": 0,
+    "errorSync": 1
+  },
+  "totalsRow1": {
+    "pendaftar": 50,
+    "diterima": 50,
+    "onboarding": 45,
+    "selesai": 45
+  },
+  "titleProposal": {
+    "teamCode": "DTA",
+    "portalTrainingId": "90107",
+    "schemeCode": "SNAT"
+  },
+  "updateLabel": {
+    "day": 2,
+    "month": 9,
+    "time": "11:00"
+  }
+}

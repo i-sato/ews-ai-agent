@@ -7,3 +7,6 @@ src/types/database.ts
 docs/
 .agent/
 *.md
+
+# Dibangkitkan oleh `pnpm fixtures:golden`; jangan diformat ulang.
+tests/fixtures/sheets/
