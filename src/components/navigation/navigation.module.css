@@ -79,6 +79,32 @@
   outline-offset: 2px;
 }
 
+.userCard {
+  margin-top: auto;
+  padding: 12px;
+  border-radius: 10px;
+  background: #18284a;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.logout {
+  margin-top: 8px;
+  min-height: 32px;
+  padding: 0 10px;
+  border: 1px solid #3a4a6b;
+  border-radius: 6px;
+  background: transparent;
+  color: #e6eaf2;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.logout:hover {
+  background: #22345c;
+}
+
 .tabs {
   display: none;
 }

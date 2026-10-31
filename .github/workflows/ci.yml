@@ -55,6 +55,7 @@ jobs:
       - run: supabase start -x studio,imgproxy,edge-runtime
       - run: supabase db reset
       - run: supabase test db
+      - run: pnpm db:env
       - run: pnpm test:integration
 
   build:
@@ -98,6 +99,7 @@ jobs:
         run: |
           supabase start -x studio,imgproxy,edge-runtime
           supabase db reset
+          pnpm db:env
           pnpm exec playwright install --with-deps chromium
       - if: steps.scope.outputs.grep != ''
         env:

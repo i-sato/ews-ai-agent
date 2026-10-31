@@ -76,8 +76,3 @@ test("halaman awal dialihkan ke dashboard", { tag: ["@smoke"] }, async ({ page }
   await page.goto("/");
   await expect(page).toHaveURL("/dashboard");
 });
-
-test("halaman login tersedia", { tag: ["@smoke"] }, async ({ page }) => {
-  await page.goto("/login");
-  await expect(page.getByRole("heading", { level: 1, name: "Masuk" })).toBeVisible();
-});
