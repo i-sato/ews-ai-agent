@@ -50,7 +50,7 @@ jobs:
           cache: pnpm
       - uses: supabase/setup-cli@<SHA> # v1
         with:
-          version: <versi-cli-yang-dipin>
+          version: 2.121.0 # sama dengan devDependency `supabase`
       - run: pnpm install --frozen-lockfile
       - run: supabase start -x studio,imgproxy,edge-runtime
       - run: supabase db reset
@@ -93,7 +93,7 @@ jobs:
       - if: steps.scope.outputs.grep != ''
         uses: supabase/setup-cli@<SHA> # v1
         with:
-          version: <versi-cli-yang-dipin>
+          version: 2.121.0 # sama dengan devDependency `supabase`
       - if: steps.scope.outputs.grep != ''
         run: |
           supabase start -x studio,imgproxy,edge-runtime
