@@ -12,6 +12,9 @@ describe("pemetaan status", () => {
     ["Lulus Pelatihan - Nilai", "passed"],
     ["  tidak lulus pelatihan -  nilai ", "not_passed"],
     ["Pembatalan", "cancelled"],
+    ["Submit", "in_selection"],
+    ["Pelatihan", "in_progress"],
+    [" pelatihan ", "in_progress"],
     ["Sedang Berjalan", "unmapped"],
   ])("STATUS %s → %s", (raw, expected) => {
     expect(mapEnrollmentStatus(raw)).toBe(expected);

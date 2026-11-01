@@ -96,9 +96,17 @@ describe.each(GOLDEN_SHEETS)("$key", (sheet) => {
 
   it("jumlah peserta per status", () => {
     expect(participants).toHaveLength(expected.participants);
-    const status = { passed: 0, not_passed: 0, cancelled: 0, unmapped: 0 };
+    const status = {
+      passed: 0,
+      not_passed: 0,
+      cancelled: 0,
+      in_progress: 0,
+      in_selection: 0,
+      unmapped: 0,
+    };
     for (const r of participants) status[statusOf(r)]++;
-    expect(status).toEqual(expected.status);
+    // Kedua sheet contoh berasal dari kelas yang sudah selesai: tanpa Submit/Pelatihan.
+    expect(status).toEqual({ ...expected.status, in_progress: 0, in_selection: 0 });
   });
 
   it("peserta tidak lulus: belum mulai vs berhenti di item tertentu", () => {

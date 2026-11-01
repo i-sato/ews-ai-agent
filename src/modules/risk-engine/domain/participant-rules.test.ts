@@ -73,6 +73,9 @@ describe("assessParticipant", () => {
 
   it("peserta lulus atau batal tidak dinilai risiko", () => {
     expect(assessParticipant(snap({ enrollmentStatus: "passed" }), clock, cfg).rules).toEqual([]);
+    // Pendaftar dalam seleksi (STATUS "Submit") belum menjadi peserta: tidak dinilai.
+    const selection = snap({ enrollmentStatus: "in_selection", completedItems: 0 });
+    expect(assessParticipant(selection, clock, cfg)).toEqual({ status: "normal", rules: [] });
     expect(
       assessParticipant(
         snap({ enrollmentStatus: "cancelled", lmsPercentage: 100, completedItems: 0 }),

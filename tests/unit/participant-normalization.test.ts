@@ -181,3 +181,25 @@ describe("golden-2", () => {
     expect(rec.mismatches).toBe(0);
   });
 });
+
+describe("STATUS kelas berjalan (Submit, Pelatihan)", () => {
+  it("dipetakan tanpa bendera unmapped_status; status asing tetap ditandai", () => {
+    const [meta = [], headers = [], ...data] = parseCsv(
+      readFileSync(`${SHEETS_DIR}golden-1.csv`, "utf8"),
+    );
+    void meta;
+    const detected = detectLayout(headers);
+    if (!detected.ok) throw new Error(detected.error.code);
+    const status = detected.layout.identity.status;
+    const rows = data.slice(0, 3).map((r) => [...r]);
+    (rows[0] as string[])[status] = "Submit";
+    (rows[1] as string[])[status] = "Pelatihan";
+    (rows[2] as string[])[status] = "Ditolak";
+    const { participants } = normalizeParticipants(rows, detected.layout, OPTIONS);
+    expect(participants.map((p) => [p.enrollmentStatus, p.qualityFlags])).toEqual([
+      ["in_selection", []],
+      ["in_progress", []],
+      ["unmapped", ["unmapped_status"]],
+    ]);
+  });
+});

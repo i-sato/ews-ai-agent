@@ -20,7 +20,8 @@ export interface ParticipantSnapshot {
   totalItems: number;
   lmsPercentage: number | null;
   qualityFlags: string[];
-  enrollmentStatus: "passed" | "not_passed" | "cancelled" | "in_progress" | "unmapped";
+  enrollmentStatus:
+    "passed" | "not_passed" | "cancelled" | "in_progress" | "in_selection" | "unmapped";
   /** Sudah masuk penyebut indikator persentase (mis. progres ≥ 90%). */
   inDenominator: boolean;
   /** Hari sejak jumlah item selesai terakhir berubah; null bila belum ada snapshot sebelumnya. */
@@ -71,7 +72,8 @@ export function assessParticipant(
   clock: TrainingClock,
   cfg: RuleConfig,
 ): ParticipantAssessment {
-  if (s.enrollmentStatus === "cancelled" || s.enrollmentStatus === "passed") {
+  // Lulus, batal, atau masih seleksi penerimaan (belum menjadi peserta): tidak dinilai risiko.
+  if (["cancelled", "passed", "in_selection"].includes(s.enrollmentStatus)) {
     return { status: "normal", rules: [] };
   }
   if (isInvalid(s, cfg)) return { status: "invalid", rules: ["DATA_INVALID"] };
