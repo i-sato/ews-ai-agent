@@ -31,7 +31,7 @@ Status awal starter pack: tugas bertanda **(starter)** sudah tersedia dalam bent
 - [ ] F2-03 Domain: parser `UPDATE TERAKHIR` dan tiga waktu kesegaran. **(starter)**
 - [x] F2-04 Domain: normalisasi baris peserta (format lebar → panjang), baris tanpa identitas, galat formula, konsistensi `PERSENTASE LMS`, rekonsiliasi baris 1.
 - [x] F2-05 Golden dataset sintetis di `tests/fixtures/` meniru dua sheet contoh (§3.2.3).
-- [ ] F2-06 Application: use case `ParseTrainingSource`, `RegisterTraining` (konfirmasi admin wajib), `PreviewImport`, `CommitImport`, `SyncSheet` + port.
+- [x] F2-06 Application: use case `ParseTrainingSource`, `RegisterTraining` (konfirmasi admin wajib), `PreviewImport`, `CommitImport`, `SyncSheet` + port.
 - [ ] F2-07 Infrastructure: adapter Google Sheets (service account) + Drive `modifiedTime`; adapter CSV/XLSX; repository Supabase.
 - [ ] F2-08 API: `/trainings/parse-source`, `/trainings`, `/trainings/:id/schedule`, `/imports/preview`, `/imports/commit`, `/sync/google-sheets`, `/sync/runs/:id`.
 - [ ] F2-09 UI: Pelatihan (daftar, tambah, detail tab Modul/Peserta), Impor & Sinkronisasi. Tag E2E `@pelatihan`, `@impor`.
