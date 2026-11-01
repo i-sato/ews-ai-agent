@@ -46,6 +46,10 @@ Sumber: spesifikasi §15.1. Perbarui kolom Status dan Catatan setiap ada keputus
 | 2026-10-31 | `TOTAL DITERIMA` di baris 1 dibaca dan ditampilkan dengan status `not_reconciled`, tanpa selisih atau peringatan | Artinya belum dikonfirmasi (keputusan pemilik) |
 | 2026-10-31 | Rekonsiliasi `TOTAL PENDAFTAR`: selisih yang setara jumlah baris `Pembatalan` berstatus `explained`; `TOTAL SELESAI` dibandingkan dengan jumlah peserta lulus | Contoh §3.3 (50 vs 51); arti `TOTAL SELESAI` mengikuti asumsi baris 1 |
 | 2026-10-31 | Konsistensi `PERSENTASE LMS` tidak dinilai bila ada status item tak dikenal; baris tetap ditandai `unknown_item_status` | Rasio item selesai tidak dapat diverifikasi sehingga `lms_mismatch` akan menjadi tuduhan palsu |
+| 2026-11-01 | Aturan rilis minimal 14 hari juga berlaku untuk GitHub Actions (CodeQL dipin ke v4.39.0, bukan v4.39.1 yang baru 11 hari); Dependabot actions memakai cooldown 14 hari | Konsisten dengan `minimumReleaseAge` npm (SH-SUPPLY) (keputusan pemilik) |
+| 2026-11-01 | Action dinaikkan ke versi mayor terbaru (runtime Node 24) | Node 20 dihapus dari runner GitHub sejak 16 Sep 2026; versi lama di workflow tidak lagi berjalan. Tidak ada input yang dipakai proyek yang berubah |
+| 2026-11-01 | `persist-credentials: false` pada setiap `actions/checkout` | Tidak ada job yang melakukan push; token tidak perlu tersimpan di `.git/config` (SH-SUPPLY-03) |
+| 2026-11-01 | Allowlist gitleaks hanya untuk nilai placeholder `000000000001-01` di contoh kontrak §3.3 | Nilai bernilai nol yang terdokumentasi, bukan nomor peserta; pola lain tetap diblokir |
 
 ## Saran tertunda (belum diputuskan)
 

@@ -12,3 +12,8 @@ tags = ["pii"]
 
 [[rules.allowlists]]
 paths = ['''^tests/fixtures/''']
+
+# Placeholder bernilai nol pada contoh kontrak data spesifikasi §3.3; bukan nomor peserta.
+[[rules.allowlists]]
+regexTarget = "match"
+regexes = ['''^000000000001-01$''']

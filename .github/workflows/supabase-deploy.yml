@@ -24,10 +24,12 @@ jobs:
       SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
       SUPABASE_PROJECT_REF: ${{ vars.SUPABASE_PROJECT_REF }}
     steps:
-      - uses: actions/checkout@<SHA> # v5
-      - uses: supabase/setup-cli@<SHA> # v1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          version: <versi-cli-yang-dipin>
+          persist-credentials: false
+      - uses: supabase/setup-cli@45a513f8c64c0bc8e0e3dfe572b5c95be85f6359 # v3.0.1
+        with:
+          version: 2.121.0 # sama dengan devDependency `supabase`
       - run: supabase link --project-ref "$SUPABASE_PROJECT_REF"
       - run: supabase db push --dry-run
       - run: supabase db push
