@@ -1,7 +1,7 @@
 export const LOGIN_PATH = "/login";
 export const HOME_PATH = "/dashboard";
 
-const PUBLIC_PATHS = [LOGIN_PATH, "/api/health"];
+const PUBLIC_PATHS = [LOGIN_PATH, "/compliance", "/api/health"];
 const BASE = "http://ews.invalid";
 
 export function isPublicPath(pathname: string): boolean {

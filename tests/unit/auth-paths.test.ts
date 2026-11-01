@@ -26,8 +26,9 @@ describe("safeNextPath (cegah open redirect)", () => {
 });
 
 describe("isPublicPath", () => {
-  it("hanya login dan health yang publik", () => {
+  it("hanya login, pernyataan kepatuhan, dan health yang publik", () => {
     expect(isPublicPath("/login")).toBe(true);
+    expect(isPublicPath("/compliance")).toBe(true);
     expect(isPublicPath("/api/health")).toBe(true);
     expect(isPublicPath("/dashboard")).toBe(false);
     expect(isPublicPath("/login-admin")).toBe(false);

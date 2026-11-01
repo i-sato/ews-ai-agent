@@ -10,7 +10,25 @@
   flex-direction: column;
 }
 
+/* Web: tautan kepatuhan ada di bawah sidebar; mobile: di akhir konten setiap halaman. */
+.mobileFooter {
+  display: none;
+}
+
 @media (max-width: 767px) {
+  .mobileFooter {
+    display: block;
+    margin-top: auto;
+    padding: 16px;
+    font-size: 12px;
+  }
+
+  .mobileFooter a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
   .main {
     /* Ruang untuk tab bawah setinggi 64px. */
     padding-bottom: 80px;

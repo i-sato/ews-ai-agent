@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { ComplianceLink } from "@/components/compliance/ComplianceLink";
 import type { Role } from "@/lib/auth/roles";
 import { MAIN_MENU, visibleFor } from "./menu";
 import { NavLink } from "./NavLink";
@@ -25,6 +26,7 @@ export function Sidebar({ role, footer }: { role: Role; footer?: ReactNode }) {
         ))}
       </nav>
       {footer}
+      <ComplianceLink className={styles.complianceLink} />
     </aside>
   );
 }
