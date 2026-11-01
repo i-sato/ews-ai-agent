@@ -28,7 +28,7 @@ test("CSP bernonce baru setiap request", { tag: ["@smoke"] }, async ({ request }
 test("skrip dari server memakai nonce dari header", { tag: ["@smoke"] }, async ({ request }) => {
   const res = await request.get("/dashboard");
   const nonce = nonceOf(res.headers()["content-security-policy"] ?? "");
-  const tags = (await res.text()).match(/<script\b[^>]*>/g) ?? [];
+  const tags = (await res.text()).match(/<script\b[^>]*>/gi) ?? [];
   expect(tags.length).toBeGreaterThan(0);
   for (const tag of tags) expect(tag).toContain(`nonce="${nonce}"`);
 });
