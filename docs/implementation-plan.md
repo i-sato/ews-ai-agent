@@ -35,6 +35,9 @@ Status awal starter pack: tugas bertanda **(starter)** sudah tersedia dalam bent
 - [x] F2-07 Infrastructure: adapter Google Sheets (service account) + Drive `modifiedTime`; adapter CSV/XLSX; repository Supabase.
 - [x] F2-08 API: `/trainings/parse-source`, `/trainings`, `/trainings/:id/schedule`, `/imports/preview`, `/imports/commit`, `/sync/google-sheets`, `/sync/runs/:id`.
 - [ ] F2-09 UI: Pelatihan (daftar, tambah, detail tab Modul/Peserta), Impor & Sinkronisasi. Tag E2E `@pelatihan`, `@impor`.
+  - [x] F2-09a Daftar dan detail pelatihan (funnel, kategori, titik berhenti, tab Modul/Peserta, ubah jadwal), web dan mobile, E2E `@pelatihan`.
+  - [ ] F2-09b Impor & Sinkronisasi (pratinjau, rekonsiliasi, sinkron manual, dua waktu kesegaran, SH-PDP-04), E2E `@impor`.
+  - [ ] F2-09c Tambah pelatihan (cek sheet, konfirmasi Admin, validasi jadwal §3.6, SH-PDP-04).
 - [ ] F2-10 Katalog item: versi, persetujuan, saran AI (setelah Fase 5).
 
 ## Fase 3 — PK dan rules engine (spesifikasi §8)

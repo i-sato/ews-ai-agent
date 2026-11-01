@@ -7,6 +7,7 @@ import type { ImportDeps } from "@/modules/ingestion/application/preview-import"
 import type { UploadDeps } from "@/modules/ingestion/application/preview-upload";
 import type { RegisterDeps } from "@/modules/ingestion/application/register-training";
 import type { ScheduleDeps } from "@/modules/ingestion/application/update-schedule";
+import type { ViewDeps } from "@/modules/ingestion/application/view-ports";
 import {
   FileSheetSource,
   SupabaseFileStore,
@@ -20,6 +21,7 @@ import {
 } from "@/modules/ingestion/infrastructure/google/sheets";
 import { SupabaseImportRepository } from "@/modules/ingestion/infrastructure/supabase/import-repository";
 import { activeLmsTolerance } from "@/modules/ingestion/infrastructure/supabase/settings";
+import { SupabaseTrainingViewRepository } from "@/modules/ingestion/infrastructure/supabase/training-view-repository";
 import {
   SupabaseAuditLog,
   SupabaseTrainingRepository,
@@ -79,5 +81,14 @@ export async function ingestionDeps(session: SupabaseClient | null): Promise<Ing
       manualSyncMinIntervalMinutes: env.MANUAL_SYNC_MIN_INTERVAL_MINUTES,
       maxUploadBytes: FILE_LIMITS.maxBytes,
     },
+  };
+}
+
+/** Dependensi baca layar Pelatihan: pelatihan lewat sesi (RLS), progres lewat service role. */
+export function trainingViewDeps(session: SupabaseClient): ViewDeps {
+  const writer = createSupabaseServiceClient();
+  return {
+    views: new SupabaseTrainingViewRepository({ reader: session, writer }),
+    clock: systemClock,
   };
 }

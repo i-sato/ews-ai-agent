@@ -11,6 +11,9 @@ const MENU = [
   ["Pengaturan", "/settings"],
 ] as const;
 
+/** Menu yang halamannya sudah diimplementasikan (tidak lagi berstatus "Belum diimplementasi"). */
+const IMPLEMENTED: readonly string[] = ["/trainings"];
+
 test.describe("navigasi web (admin)", () => {
   test.skip(({ isMobile }) => isMobile, "khusus layar lebar");
   test.use({ storageState: AUTH_STATES.admin });
@@ -38,7 +41,9 @@ test.describe("navigasi web (admin)", () => {
       await nav.getByRole("link", { name: label, exact: true }).click();
       await expect(page).toHaveURL(href);
       await expect(page.getByRole("heading", { level: 1, name: label })).toBeVisible();
-      await expect(page.getByRole("status")).toHaveText("Belum diimplementasi");
+      if (!IMPLEMENTED.includes(href)) {
+        await expect(page.getByRole("status")).toHaveText("Belum diimplementasi");
+      }
       await expect(nav.locator('[aria-current="page"]')).toHaveText(label);
     }
   });

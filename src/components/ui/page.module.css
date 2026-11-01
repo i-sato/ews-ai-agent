@@ -13,6 +13,23 @@
 
 .titles {
   min-width: 0;
+  flex: 1 1 auto;
+}
+
+.eyebrow {
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.eyebrow a {
+  color: inherit;
+}
+
+.extra {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
 }
 
 .title {
@@ -70,7 +87,8 @@
     font-size: 18px;
   }
 
-  .subtitle {
+  .subtitle,
+  .eyebrow {
     color: #c9d1e0;
   }
 
