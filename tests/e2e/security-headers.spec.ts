@@ -1,5 +1,6 @@
-// SH-HDR-01..04: header keamanan pada halaman, redirect, dan API.
+// SH-HDR-01..05: header keamanan pada halaman, redirect, dan API; CSRF Server Action.
 import { type Page, expect, test } from "@playwright/test";
+import { TEST_PASSWORD, TEST_USERS } from "../support/local-supabase";
 
 const nonceOf = (csp: string) => /'nonce-([^']+)'/.exec(csp)?.[1];
 
@@ -77,4 +78,29 @@ test("CORS: origin asing tidak diizinkan (SH-HDR-04)", { tag: ["@smoke"] }, asyn
     headers: { Origin: "https://contoh.invalid", "Access-Control-Request-Method": "POST" },
   });
   expect(preflight.headers()["access-control-allow-origin"]).toBeUndefined();
+});
+
+test.describe("CSRF Server Action (SH-HDR-05)", () => {
+  test.use({ storageState: { cookies: [], origins: [] } });
+
+  test("logout dari origin asing ditolak", { tag: ["@login"] }, async ({ page }) => {
+    await page.goto("/login");
+    await page.getByLabel("Email").fill(TEST_USERS.trainingManager.email);
+    await page.getByLabel("Kata sandi").fill(TEST_PASSWORD);
+    await page.getByRole("button", { name: "Masuk" }).click();
+    await expect(page).toHaveURL("/dashboard");
+
+    const html = await (await page.request.get("/dashboard")).text();
+    const actionId = /name="\$ACTION_ID_([0-9a-f]+)"/.exec(html)?.[1];
+    expect(actionId).toBeTruthy();
+    const forged = await page.request.post("/dashboard", {
+      multipart: { [`$ACTION_ID_${actionId}`]: "" },
+      headers: { Origin: "https://contoh.invalid" },
+      maxRedirects: 0,
+    });
+    expect(forged.status()).toBeGreaterThanOrEqual(400);
+
+    await page.goto("/dashboard");
+    await expect(page).toHaveURL("/dashboard");
+  });
 });
