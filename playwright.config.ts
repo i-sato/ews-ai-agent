@@ -7,7 +7,10 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
   reporter: process.env.CI ? [["html", { open: "never" }], ["github"]] : "list",
+  // Akun uji sintetis dan sesi login di Supabase lokal (tests/e2e/global-setup.ts).
+  globalSetup: "./tests/e2e/global-setup.ts",
   use: {
+    storageState: "playwright/.auth/pengelola.json",
     baseURL: process.env.E2E_BASE_URL ?? "http://localhost:3000",
     trace: "retain-on-failure",
     locale: "id-ID",

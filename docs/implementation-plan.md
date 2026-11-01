@@ -18,9 +18,9 @@ Status awal starter pack: tugas bertanda **(starter)** sudah tersedia dalam bent
 - [x] F1-01 Instal dependensi dan pastikan `pnpm lint`, `pnpm typecheck`, `pnpm test:unit` lulus. **(starter)**
 - [x] F1-02 `supabase init` (membuat `supabase/config.toml`), jalankan `supabase start`, terapkan migration awal. **(starter: migration)**
 - [x] F1-03 Kerangka App Router: grup `(auth)` dan `(dashboard)`, layout dengan navigasi sesuai desain, halaman kosong per menu.
-- [ ] F1-04 Login Supabase Auth (email + kata sandi) dengan `@supabase/ssr`, middleware sesi, logout server-side. SH-AUTH-01/03, SH-SESS-01/03.
+- [x] F1-04 Login Supabase Auth (email + kata sandi) dengan `@supabase/ssr`, middleware sesi, logout server-side. SH-AUTH-01/03, SH-SESS-01/03.
 - [ ] F1-05 Role dari `profiles`, helper `requireRole`, RLS per tim kerja. SH-AUTHZ-01/02. **(starter: policy awal)**
-- [ ] F1-06 Header keamanan dan CSP nonce di middleware. SH-HDR-01..04.
+- [ ] F1-06 Header keamanan dan CSP nonce di `src/proxy.ts` (pengganti middleware di Next 16). SH-HDR-01..04.
 - [ ] F1-07 CI hijau di GitHub: ganti `<SHA>` pada workflow dengan SHA rilis yang dipin. **(starter: workflow)**
 - [ ] F1-08 `GET /api/health`, halaman pernyataan kepatuhan, footer tautan kepatuhan. **(starter: health)**
 

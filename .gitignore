@@ -16,3 +16,6 @@ supabase/.temp/
 *.xlsx
 *.csv
 !tests/fixtures/**/*.csv
+
+# Sesi login Playwright (berisi token)
+playwright/.auth/

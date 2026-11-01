@@ -28,3 +28,8 @@ Sumber: spesifikasi §15.1. Perbarui kolom Status dan Catatan setiap ada keputus
 | 2026-10-31 | Kriteria lulus dan target antara disimpan sebagai data (`pk_indicators`, `pk_indicator_targets`), bukan konstanta | Spesifikasi §8.7 |
 | 2026-10-31 | Supabase CLI dipasang sebagai devDependency `supabase@2.121.0` (versi tepat), dijalankan lewat `pnpm db:reset`, `pnpm db:test`, atau `pnpm exec supabase` | Versi sama di lokal dan CI tanpa instalasi global; versi ≥ 14 hari (SH-SUPPLY-01) |
 | 2026-10-31 | Layar mobile "Lainnya" (`M-Lainnya.dc.html`) memakai rute `/more` di grup `(dashboard)`; di layar ≥ 768px dialihkan ke `/dashboard` | Desain menampilkannya sebagai layar penuh dengan tab Lainnya aktif; tidak menambah menu web (keputusan pemilik) |
+| 2026-10-31 | Tautan "Lupa kata sandi?" pada desain login belum ditampilkan sampai alur reset kata sandi dibuat sebagai tugas terpisah (SH-AUTH-05) | Menghindari tautan mati (keputusan pemilik) |
+| 2026-10-31 | Tombol "Keluar" di web ditempatkan di kartu pengguna sidebar; di mobile pada layar Lainnya sesuai `M-Lainnya.dc.html` | Desain web tidak memiliki tombol logout (keputusan pemilik) |
+| 2026-10-31 | Login dan logout memakai Server Action, bukan endpoint `/api/v1` | §7.1 tidak memuat endpoint auth; Server Action diizinkan §4.2; cookie sesi tetap HttpOnly karena tidak ada klien Supabase di browser |
+| 2026-10-31 | Next.js 16: `src/proxy.ts` menggantikan `middleware.ts`; `scope-map.json` diperbarui | Konvensi Next.js 16 |
+| 2026-10-31 | `experimental.turbopackFileSystemCacheForDev: false` dan indikator dev di kanan atas | Next 16.4.2 memicu loop muat ulang saat cache dev dipakai ulang; indikator kiri bawah menutupi tombol Keluar. Tinjau ulang saat Next diperbarui |

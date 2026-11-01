@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { LogoutButton } from "@/components/auth/LogoutButton";
 import { DesktopRedirect } from "@/components/navigation/DesktopRedirect";
 import { MoreMenu } from "@/components/navigation/MoreMenu";
+import moreStyles from "@/components/navigation/more.module.css";
 import { PageHeader } from "@/components/ui/PageHeader";
 import styles from "@/components/ui/page.module.css";
 
@@ -14,6 +16,7 @@ export default function MorePage() {
       <PageHeader title="Lainnya" />
       <div className={styles.body}>
         <MoreMenu />
+        <LogoutButton className={moreStyles.logout} />
       </div>
     </>
   );
