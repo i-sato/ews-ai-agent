@@ -45,7 +45,7 @@ Status awal starter pack: tugas bertanda **(starter)** sudah tersedia dalam bent
 - [ ] F3-01 Domain: perhitungan persentase, capaian, gap, jumlah kumulatif. **(starter)**
 - [ ] F3-02 Domain: proyeksi peserta dan proyeksi indikator. **(starter: proyeksi peserta)**
 - [ ] F3-03 Domain: rule individu `DATA_INVALID`, `NOT_STARTED`, `PASS_PENDING`, `PROGRESS_STAGNANT`. **(starter)**
-- [ ] F3-04 Domain: rule berbasis jadwal (`BEHIND_SCHEDULE`, `COMPLETION_AT_RISK`, `MODULE_INCOMPLETE`) dengan status "tidak dapat dinilai".
+- [x] F3-04 Domain: rule berbasis jadwal (`BEHIND_SCHEDULE`, `COMPLETION_AT_RISK`, `MODULE_INCOMPLETE`) dengan status "tidak dapat dinilai".
 - [ ] F3-05 Domain: `DATA_STALE`, `TARGET_GAP`, `TARGET_UNLIKELY` memakai target antara bulanan.
 - [ ] F3-06 Seed indikator PK 2026 dan target antara; lengkapi bulan IKSK 3.2 dari Manual PK. **(starter: seed sebagian)**
 - [ ] F3-07 Application: `RecalculateRisks`, assessment berversi dengan bukti (§8.4); pemetaan pelatihan ↔ indikator dengan persetujuan.

@@ -94,4 +94,15 @@ insert into public.risk_rule_versions (version, configuration, effective_at) val
     "pass_pending_days_before_end": 7,
     "lms_consistency_tolerance_pp": 1,
     "freshness_threshold_hours": 72
-  }', '2026-10-01T00:00:00+07:00');
+  }', '2026-10-01T00:00:00+07:00'),
+  -- 1.2 (F3-04): menambah ambang BEHIND_SCHEDULE dan MODULE_INCOMPLETE. Tetap contoh, belum disetujui.
+  ('1.2', '{
+    "not_started_days": 3,
+    "not_started_critical_remaining_days": 3,
+    "stagnant_days": 5,
+    "pass_pending_days_before_end": 7,
+    "lms_consistency_tolerance_pp": 1,
+    "freshness_threshold_hours": 72,
+    "behind_schedule_tolerance_pp": 10,
+    "module_due_warning_days": 3
+  }', '2026-11-01T00:00:00+07:00');
