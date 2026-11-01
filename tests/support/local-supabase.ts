@@ -28,6 +28,12 @@ export const TEST_USERS = {
     teams: ["GTA"],
   },
   pkManager: { email: "e2e.pk@example.test", displayName: "Pengelola PK Uji", role: "pk_manager" },
+  gtaManager: {
+    email: "e2e.pengelola.gta@example.test",
+    displayName: "Pengelola GTA Uji",
+    role: "training_manager",
+    teams: ["GTA"],
+  },
   admin: { email: "e2e.admin@example.test", displayName: "Admin Uji", role: "admin" },
   inactive: {
     email: "e2e.nonaktif@example.test",

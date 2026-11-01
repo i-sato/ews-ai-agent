@@ -31,8 +31,10 @@ async function openRun(
   if (manual && (!actor || !IMPORT_ROLES.includes(actor.role))) {
     return fail("FORBIDDEN", "Anda tidak memiliki akses.");
   }
-  if (!(await deps.imports.findSource(input.sourceId))) {
-    return fail("NOT_FOUND", "Sumber data tidak ditemukan.");
+  const source = await deps.imports.findSource(input.sourceId);
+  if (!source) return fail("NOT_FOUND", "Sumber data tidak ditemukan.");
+  if (source.sourceType !== "google_sheets") {
+    return fail("VALIDATION_ERROR", "Sinkronisasi hanya untuk sumber Google Sheets.");
   }
   const run: SyncRun = {
     id: deps.ids.uuid(),
@@ -81,6 +83,7 @@ async function syncChanged(
     expiresAt: null,
     createdBy: run.requestedBy,
     summary,
+    uploadId: null,
     contentChangedAt: null,
   });
   await deps.imports.saveBatch(batch);
@@ -117,7 +120,7 @@ export async function syncSheet(
   const opened = await openRun(deps, input.value, actor);
   if (!opened.ok) return opened;
   const run = opened.value;
-  const loaded = await loadSnapshot(deps, run.sourceId);
+  const loaded = await loadSnapshot(deps, { sourceId: run.sourceId, uploadId: null });
   if (!loaded.ok) {
     await finish(deps, run, { status: "failed", batchId: null, error: loaded.error.message });
     return loaded;

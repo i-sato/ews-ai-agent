@@ -29,7 +29,7 @@ export interface RegisterDeps {
 
 /** Periksa tata letak sheet tanpa mengimpor (spesifikasi §7.1 `POST /trainings`). */
 async function checkSheet(deps: RegisterDeps, sheet: SpreadsheetRef): Promise<Result<string>> {
-  const rows = await deps.sheets.readRows({ sourceType: "google_sheets", reference: sheet });
+  const rows = await deps.sheets.readRows({ sourceType: "google_sheets", reference: sheet }, null);
   if (!rows.ok) {
     return fail("SOURCE_UNAVAILABLE", "Sheet tidak dapat dibaca untuk pemeriksaan tata letak.", {
       reason: rows.error,

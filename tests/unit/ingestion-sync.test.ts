@@ -2,7 +2,14 @@
 import { describe, expect, it } from "vitest";
 import { syncSheetOutput } from "@/modules/ingestion/application/schemas";
 import { syncSheet } from "@/modules/ingestion/application/sync-sheet";
-import { MANAGER, SOURCE_ID, VIEWER, goldenRows, importDeps } from "../support/ingestion-fakes";
+import {
+  MANAGER,
+  SOURCE_ID,
+  VIEWER,
+  goldenRows,
+  importDeps,
+  sourceConfig,
+} from "../support/ingestion-fakes";
 
 const scheduled = { sourceId: SOURCE_ID, trigger: "scheduled" };
 const manual = { sourceId: SOURCE_ID, trigger: "manual" };
@@ -136,6 +143,21 @@ describe("SyncSheet", () => {
     expect(await syncSheet(deps, { ...scheduled, trigger: "hourly" }, null)).toMatchObject({
       ok: false,
       error: { code: "VALIDATION_ERROR" },
+    });
+    expect(deps.imports.runs.size).toBe(0);
+  });
+});
+
+describe("SyncSheet untuk sumber file", () => {
+  it("hanya Google Sheets yang dapat disinkronkan", async () => {
+    const deps = importDeps();
+    deps.imports.sources.set(SOURCE_ID, sourceConfig({ sourceType: "csv", reference: null }));
+    expect(await syncSheet(deps, scheduled, null)).toMatchObject({
+      ok: false,
+      error: {
+        code: "VALIDATION_ERROR",
+        message: "Sinkronisasi hanya untuk sumber Google Sheets.",
+      },
     });
     expect(deps.imports.runs.size).toBe(0);
   });

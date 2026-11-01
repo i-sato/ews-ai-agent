@@ -31,17 +31,18 @@ export const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_I
 export const goldenRows = (key: string) =>
   parseCsv(readFileSync(`${SHEETS_DIR}${key}.csv`, "utf8"));
 
-const refKey = (ref: DataSourceConfig["reference"]) =>
-  "spreadsheetId" in ref ? ref.spreadsheetId : ref.storagePath;
-
 export class FakeSheets implements SheetSource {
   rows = new Map<string, SheetRead>();
   titles = new Map<string, string>();
   readError: SheetReadError | null = null;
 
-  async readRows(source: Pick<DataSourceConfig, "sourceType" | "reference">): Promise<SheetRead> {
+  async readRows(
+    source: Pick<DataSourceConfig, "sourceType" | "reference">,
+    fileKey: string | null,
+  ): Promise<SheetRead> {
     if (this.readError) return { ok: false, error: this.readError };
-    return this.rows.get(refKey(source.reference)) ?? { ok: false, error: "NOT_FOUND" };
+    const key = source.reference?.spreadsheetId ?? fileKey ?? "";
+    return this.rows.get(key) ?? { ok: false, error: "NOT_FOUND" };
   }
 
   async readTitle(spreadsheetId: string) {

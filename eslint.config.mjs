@@ -16,6 +16,15 @@ const limits = {
   "max-nested-callbacks": ["error", 3],
 };
 
+const NO_INNER_HTML = {
+  selector: "JSXAttribute[name.name='dangerouslySetInnerHTML']",
+  message: "Dilarang (SH-INPUT-03). Render teks sumber sebagai teks.",
+};
+const NO_SERVICE_ROLE_KEY = {
+  selector: "MemberExpression[property.name='SUPABASE_SERVICE_ROLE_KEY']",
+  message: "Service role key hanya dibaca di lapisan infrastructure (SH-SECRET-01).",
+};
+
 const element = (type) => ({ element: { type } });
 const layer = (from, to) => ({ from: element(from), allow: to.map((t) => ({ to: element(t) })) });
 
@@ -53,13 +62,7 @@ export default tseslint.config(
     },
     rules: {
       ...limits,
-      "no-restricted-syntax": [
-        "error",
-        {
-          selector: "JSXAttribute[name.name='dangerouslySetInnerHTML']",
-          message: "Dilarang (SH-INPUT-03). Render teks sumber sebagai teks.",
-        },
-      ],
+      "no-restricted-syntax": ["error", NO_INNER_HTML, NO_SERVICE_ROLE_KEY],
       "boundaries/dependencies": [
         "error",
         {
@@ -88,6 +91,10 @@ export default tseslint.config(
         },
       ],
     },
+  },
+  {
+    files: ["src/modules/*/infrastructure/**/*.ts"],
+    rules: { "no-restricted-syntax": ["error", NO_INNER_HTML] },
   },
   {
     files: ["src/**/*.tsx"],
