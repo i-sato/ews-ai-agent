@@ -18,6 +18,7 @@ Untuk acuan visual di Antigravity, ekspor tangkapan layar setiap layar dari kanv
 | `Web-Pengaturan.dc.html` | Web · Pengaturan | `/settings` |
 | `Web-AgenAI.dc.html` | Web · Panel AI Agent (laci kanan) | komponen global |
 | `Web-Login.dc.html` | Web · Login | `/login` |
+| `M-Lainnya.dc.html` | Mobile · Menu Lainnya | `/more` (khusus mobile) |
 | `M-*.dc.html` | Versi mobile layar di atas | rute yang sama, tata letak responsif |
 
 Angka pada desain (mis. IKSK 3.2 74.210 dari 78.319) adalah ilustrasi, bukan data resmi.

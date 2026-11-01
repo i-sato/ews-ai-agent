@@ -1,0 +1,42 @@
+/* Token warna dari docs/design/README.md. */
+:root {
+  --color-primary: #1f4fd1;
+  --color-primary-hover: #163a9c;
+  --color-nav-bg: #0f1b33;
+  --color-text: #1b2430;
+  --color-text-muted: #5b6573;
+  --color-border: #e2e5ea;
+  --color-bg: #f5f6f8;
+  --color-critical-bg: #fee4e2;
+  --color-critical: #b42318;
+  --color-warning-bg: #fef0c7;
+  --color-warning: #93370d;
+  --color-normal-bg: #dcfae6;
+  --color-normal: #085d3a;
+  --color-neutral-bg: #eaecf0;
+  --color-neutral: #344054;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+a {
+  color: var(--color-primary);
+}
+
+a:hover {
+  color: var(--color-primary-hover);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}

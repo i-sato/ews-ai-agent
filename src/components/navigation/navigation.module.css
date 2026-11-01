@@ -1,0 +1,125 @@
+/* Main.dc.html (web) dan M-Dashboard.dc.html (mobile). Breakpoint 768px. */
+.sidebar {
+  flex: 0 0 224px;
+  background: var(--color-nav-bg);
+  color: #e6eaf2;
+  padding: 20px 14px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-height: 100vh;
+  position: sticky;
+  top: 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 8px;
+}
+
+.logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  background: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 12px;
+  color: #fff;
+  letter-spacing: 0.5px;
+  flex: 0 0 auto;
+}
+
+.brandName {
+  font-weight: 700;
+  font-size: 15px;
+  color: #fff;
+}
+
+.brandTagline {
+  font-size: 12px;
+  color: #a9b4c8;
+}
+
+.sideNav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sideLink {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  color: #c9d1e0;
+}
+
+.sideLink:hover {
+  color: #fff;
+  background: #18284a;
+}
+
+.sideLink[aria-current="page"] {
+  font-weight: 600;
+  color: #fff;
+  background: var(--color-primary);
+}
+
+.sideLink:focus-visible,
+.tab:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.tabs {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .sidebar {
+    display: none;
+  }
+
+  .tabs {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    height: 64px;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    background: #fff;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    min-height: 44px;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+
+  .tab[aria-current="page"] {
+    color: var(--color-primary);
+  }
+
+  .tab:focus-visible {
+    outline-color: var(--color-primary);
+    outline-offset: -2px;
+  }
+}
