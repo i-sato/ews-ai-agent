@@ -17,3 +17,7 @@ paths = ['''^tests/fixtures/''']
 [[rules.allowlists]]
 regexTarget = "match"
 regexes = ['''^000000000001-01$''']
+
+# Nilai sintetis pada tes unit verifikasi CRON_SECRET (F2-08); bukan secret sungguhan.
+[[allowlists]]
+regexes = ['''^rahasia-cron-uji-0123456789$''']

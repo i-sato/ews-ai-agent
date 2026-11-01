@@ -50,6 +50,7 @@
     "eslint-import-resolver-typescript": "^4.4.5",
     "eslint-plugin-boundaries": "^7.2.0",
     "jscpd": "^5.4.1",
+    "msw": "^3.0.3",
     "prettier": "^3.9.10",
     "supabase": "2.121.0",
     "typescript": "~5.9.3",

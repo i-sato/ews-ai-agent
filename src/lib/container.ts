@@ -12,6 +12,12 @@ import {
   SupabaseFileStore,
 } from "@/modules/ingestion/infrastructure/files/file-sheet-source";
 import { FILE_LIMITS } from "@/modules/ingestion/infrastructure/files/limits";
+import { sharedGoogleTokens } from "@/modules/ingestion/infrastructure/google/service-account";
+import {
+  GoogleDriveMetadata,
+  GoogleSheetSource,
+  RoutingSheetSource,
+} from "@/modules/ingestion/infrastructure/google/sheets";
 import { SupabaseImportRepository } from "@/modules/ingestion/infrastructure/supabase/import-repository";
 import { activeLmsTolerance } from "@/modules/ingestion/infrastructure/supabase/settings";
 import {
@@ -55,10 +61,13 @@ export async function ingestionDeps(session: SupabaseClient | null): Promise<Ing
   const writer = createSupabaseServiceClient();
   const clients = { reader: session ?? writer, writer };
   const files = new SupabaseFileStore(writer);
+  // Tanpa kredensial service account, sumber Google mengembalikan NOT_CONFIGURED.
+  const tokens = sharedGoogleTokens();
+  const google = tokens ? new GoogleSheetSource(tokens, FILE_LIMITS) : null;
   return {
-    sheets: new FileSheetSource(files, FILE_LIMITS),
+    sheets: new RoutingSheetSource(google, new FileSheetSource(files, FILE_LIMITS)),
     uploads: files,
-    drive: unavailableDriveMetadata,
+    drive: tokens ? new GoogleDriveMetadata(tokens) : unavailableDriveMetadata,
     imports: new SupabaseImportRepository(clients),
     trainings: new SupabaseTrainingRepository(clients),
     audit: new SupabaseAuditLog(writer),

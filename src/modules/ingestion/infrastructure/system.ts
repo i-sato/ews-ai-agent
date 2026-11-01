@@ -4,5 +4,5 @@ export const systemClock: Clock = { now: () => new Date() };
 
 export const cryptoIds: IdGenerator = { uuid: () => crypto.randomUUID() };
 
-/** Metadata Drive belum tersedia selama adapter Google ditunda (docs/decisions.md). */
+/** Metadata Drive saat kredensial service account belum diisi. */
 export const unavailableDriveMetadata: DriveMetadata = { modifiedTime: async () => null };
