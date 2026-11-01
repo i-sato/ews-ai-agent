@@ -91,6 +91,8 @@ Sumber: spesifikasi §15.1. Perbarui kolom Status dan Catatan setiap ada keputus
 | 2026-11-02 | `MODULE_INCOMPLETE`: item wajib belum selesai dengan tenggat ≤ `module_due_warning_days` lagi → waspada; tenggat lewat → kritis. Tenggat hari ini belum lewat (tanggal WIB). Status item `unknown` tidak dihitung selesai dan dicatat di bukti | Usulan pelaksana, disetujui bersama rencana F3-04 |
 | 2026-11-02 | Bila rencana disetujui tetapi sebagian rule jadwal tidak dapat dinilai dan tidak ada yang terpicu, status peserta `not_assessable` (bukan `normal`); rincian per rule ada di `outcomes` | Keputusan pemilik |
 | 2026-11-02 | Versi aturan 1.2 di seed menambah `behind_schedule_tolerance_pp` = 10 dan `module_due_warning_days` = 3 (contoh, belum disetujui Pengelola PK). Versi tanpa kedua kunci membuat rule jadwal `NO_RULE_CONFIG`; ambang rule individu tetap wajib, tanpa nilai bawaan | Keputusan pemilik (nilai contoh) |
+| 2026-11-02 | ESLint 10 (PR Dependabot #2) dipertahankan: lint, aturan arsitektur, typecheck, unit, dan build lulus; alert `minimatch@3` hilang | Diperiksa setelah merge |
+| 2026-11-02 | `@types/node` dikembalikan ke `^22` (PR #3 menaikkannya ke 26) agar typecheck tidak menerima API yang belum ada di runtime Node 22 (`.nvmrc`, Vercel, CI). Dependabot mengabaikan naik versi mayor; naik mayor dikerjakan sebagai tugas tersendiri | Perbaikan lewat PR baru, bukan revert, karena lockfile sudah tumpang-tindih dengan ESLint 10 |
 
 ## Saran tertunda (belum diputuskan)
 

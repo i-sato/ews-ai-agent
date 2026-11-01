@@ -4,6 +4,11 @@ updates:
     directory: /
     schedule: { interval: weekly }
     cooldown: { default-days: 14 }
+    # Naik versi mayor dikerjakan sebagai tugas tersendiri dan diuji lengkap. `@types/node` harus
+    # sama dengan versi mayor Node di `.nvmrc`. Alert keamanan tetap muncul di tab Security.
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
     groups:
       minor-patch:
         update-types: [minor, patch]
