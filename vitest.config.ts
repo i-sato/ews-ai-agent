@@ -34,6 +34,8 @@ export default defineConfig({
           include: ["tests/integration/**/*.test.ts"],
           environment: "node",
           testTimeout: 30_000,
+          // Semua file berbagi satu Supabase lokal dan akun uji yang sama.
+          fileParallelism: false,
         },
       },
     ],

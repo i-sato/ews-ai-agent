@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { AUTH_STATES } from "./global-setup";
 
 const MENU = [
   ["Dashboard", "/dashboard"],
@@ -10,14 +11,25 @@ const MENU = [
   ["Pengaturan", "/settings"],
 ] as const;
 
-test.describe("navigasi web", () => {
+test.describe("navigasi web (admin)", () => {
   test.skip(({ isMobile }) => isMobile, "khusus layar lebar");
+  test.use({ storageState: AUTH_STATES.admin });
 
   test("sidebar berisi tujuh menu sesuai desain", { tag: ["@smoke"] }, async ({ page }) => {
     await page.goto("/dashboard");
     const nav = page.getByRole("navigation", { name: "Menu utama" });
     await expect(nav.getByRole("link")).toHaveText(MENU.map(([label]) => label));
   });
+
+  test(
+    "kartu pengguna menampilkan nama dan role dari server",
+    { tag: ["@smoke"] },
+    async ({ page }) => {
+      await page.goto("/dashboard");
+      await expect(page.getByText("Admin Uji")).toBeVisible();
+      await expect(page.getByText("Role: Admin")).toBeVisible();
+    },
+  );
 
   test("setiap menu membuka halamannya", { tag: ["@smoke"] }, async ({ page }) => {
     await page.goto("/dashboard");

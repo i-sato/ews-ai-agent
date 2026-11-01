@@ -27,9 +27,10 @@ export const LOGIN_MESSAGES = {
   invalid: "Email atau kata sandi salah.",
   rateLimited: "Terlalu banyak percobaan masuk. Coba lagi beberapa menit lagi.",
   unavailable: "Layanan masuk sedang tidak tersedia. Coba lagi nanti.",
+  inactive: "Akun Anda belum aktif atau belum memiliki role. Hubungi Admin.",
 } as const;
 
-export type LoginFailure = keyof typeof LOGIN_MESSAGES;
+export type LoginFailure = Exclude<keyof typeof LOGIN_MESSAGES, "inactive">;
 
 /** Petakan galat Supabase Auth ke pesan generik; tidak membedakan email tak terdaftar. */
 export function classifyAuthError(error: { status?: number; code?: string }): LoginFailure {

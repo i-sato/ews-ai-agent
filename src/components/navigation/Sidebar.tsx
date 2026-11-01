@@ -1,10 +1,11 @@
 import type { ReactNode } from "react";
-import { MAIN_MENU } from "./menu";
+import type { Role } from "@/lib/auth/roles";
+import { MAIN_MENU, visibleFor } from "./menu";
 import { NavLink } from "./NavLink";
 import styles from "./navigation.module.css";
 
 /** Sidebar web (Main.dc.html). Disembunyikan di layar sempit; diganti BottomTabs. */
-export function Sidebar({ footer }: { footer?: ReactNode }) {
+export function Sidebar({ role, footer }: { role: Role; footer?: ReactNode }) {
   return (
     <aside className={styles.sidebar}>
       <div className={styles.brand}>
@@ -17,7 +18,7 @@ export function Sidebar({ footer }: { footer?: ReactNode }) {
         </div>
       </div>
       <nav aria-label="Menu utama" className={styles.sideNav}>
-        {MAIN_MENU.map((m) => (
+        {visibleFor(MAIN_MENU, role).map((m) => (
           <NavLink key={m.href} href={m.href} className={styles.sideLink}>
             {m.label}
           </NavLink>

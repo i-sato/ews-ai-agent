@@ -1,5 +1,6 @@
 // Menu utama sesuai docs/design (Main.dc.html, M-Dashboard.dc.html, M-Lainnya.dc.html).
 // Jangan menambah menu di luar desain.
+import { type Role, hasRole } from "@/lib/auth/roles";
 import type { IconName } from "./icons";
 
 export type MenuItem = {
@@ -10,6 +11,8 @@ export type MenuItem = {
   tabLabel?: string;
   /** Item di layar "Lainnya" (mobile) beserta deskripsinya. */
   moreDescription?: string;
+  /** Hanya tampil untuk role ini (M-Lainnya.dc.html: Pengaturan hanya untuk Admin). */
+  roles?: readonly Role[];
 };
 
 export const MAIN_MENU: readonly MenuItem[] = [
@@ -34,6 +37,7 @@ export const MAIN_MENU: readonly MenuItem[] = [
     href: "/settings",
     icon: "settings",
     moreDescription: "Sumber data, provider AI, aturan, pengguna, audit log",
+    roles: ["admin"],
   },
 ];
 
@@ -63,4 +67,9 @@ export const MOBILE_TABS: readonly TabItem[] = [
 
 export function isActivePath(pathname: string, href: string): boolean {
   return pathname === href || pathname.startsWith(`${href}/`);
+}
+
+/** Menu yang boleh tampil untuk role yang diverifikasi di server. Bukan pengganti otorisasi. */
+export function visibleFor(items: readonly MenuItem[], role: Role): MenuItem[] {
+  return items.filter((m) => !m.roles || hasRole(role, m.roles));
 }

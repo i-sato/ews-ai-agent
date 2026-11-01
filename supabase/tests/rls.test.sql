@@ -1,8 +1,9 @@
--- pgTAP: RLS aktif dan akses lintas tim ditolak (SH-AUTHZ-02, SH-AUTHZ-03).
+-- pgTAP: RLS aktif, akses lintas tim ditolak, role tidak dapat diubah klien
+-- (SH-AUTHZ-01, SH-AUTHZ-02, SH-AUTHZ-03).
 -- Jalankan: supabase test db
 begin;
 create extension if not exists pgtap with schema extensions;
-select plan(9);
+select plan(13);
 
 select is(
   (select count(*)::int from pg_tables t join pg_class c on c.relname = t.tablename
@@ -45,12 +46,23 @@ create function pg_temp.login(uid uuid) returns void language sql as $$
   select set_config('request.jwt.claims', json_build_object('sub', uid, 'role', 'authenticated')::text, true);
 $$;
 
+-- Jumlah profil sebenarnya (termasuk akun uji lain di database lokal), dibaca sebelum RLS berlaku.
+select set_config('test.total_profiles', (select count(*) from public.profiles)::text, true);
+
 set local role authenticated;
 
 select pg_temp.login('00000000-0000-0000-0000-0000000000a1');
 select is((select count(*)::int from public.trainings), 1, 'pengelola DTA melihat pelatihan DTA');
 select is((select count(*)::int from public.participants), 1, 'pengelola DTA melihat peserta DTA');
 select is((select count(*)::int from public.pk_indicators), 4, 'indikator PK terbaca semua role');
+select is((select count(*)::int from public.profiles), 1, 'pengguna hanya membaca profilnya sendiri');
+select throws_ok(
+  $$ update public.profiles set role = 'admin' where id = '00000000-0000-0000-0000-0000000000a1' $$,
+  '42501', null, 'pengguna tidak dapat menaikkan role sendiri');
+select throws_ok(
+  $$ insert into public.profile_work_teams (profile_id, work_team_id)
+     select '00000000-0000-0000-0000-0000000000a1', id from public.work_teams where code = 'GTA' $$,
+  '42501', null, 'pengguna tidak dapat menambah tim kerja sendiri');
 
 select pg_temp.login('00000000-0000-0000-0000-0000000000a2');
 select is((select count(*)::int from public.trainings), 0, 'viewer GTA tidak melihat pelatihan DTA');
@@ -61,6 +73,8 @@ select throws_ok(
 
 select pg_temp.login('00000000-0000-0000-0000-0000000000a3');
 select is((select count(*)::int from public.trainings), 1, 'admin melihat semua pelatihan');
+select is((select count(*)::int from public.profiles),
+  current_setting('test.total_profiles')::int, 'admin membaca semua profil');
 
 select * from finish();
 rollback;

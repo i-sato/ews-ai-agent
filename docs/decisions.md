@@ -4,7 +4,7 @@ Sumber: spesifikasi §15.1. Perbarui kolom Status dan Catatan setiap ada keputus
 
 | No | Keputusan | Status | Isi / usulan bawaan | Catatan |
 |---|---|---|---|---|
-| 1 | Cakupan akses role per tim kerja | **Penghambat — belum** | Pengelola Pelatihan dan Viewer dibatasi ke tim kerjanya lewat RLS; Admin dan Pengelola PK lintas tim | Migration awal memakai usulan ini |
+| 1 | Cakupan akses role per tim kerja | **Penghambat — belum** | Pengelola Pelatihan dan Viewer dibatasi ke tim kerjanya lewat RLS; Admin dan Pengelola PK lintas tim | Migration awal memakai usulan ini. 31 Okt 2026: pemilik menyetujui usulan ini untuk prototipe data sintetis (F1-05); tetap penghambat untuk data riil |
 | 2 | Identitas peserta lintas pelatihan | **Penghambat — belum** | `NO REGISTRASI` per pendaftaran; tidak digabung lintas pelatihan | |
 | 3 | Masa simpan data peserta | **Penghambat — belum** | Identitas dianonimkan 12 bulan setelah tahun anggaran berakhir | |
 | 4 | Indikator PK dan pemetaan tim | Sebagian selesai | IKSK 1.1 DTA, 2.1 GTA, 3.1 KDD, 3.2 lintas tim (spesifikasi §8.7) | Lengkapi spreadsheet PK dan target antara IKSK 3.2 |
@@ -33,3 +33,5 @@ Sumber: spesifikasi §15.1. Perbarui kolom Status dan Catatan setiap ada keputus
 | 2026-10-31 | Login dan logout memakai Server Action, bukan endpoint `/api/v1` | §7.1 tidak memuat endpoint auth; Server Action diizinkan §4.2; cookie sesi tetap HttpOnly karena tidak ada klien Supabase di browser |
 | 2026-10-31 | Next.js 16: `src/proxy.ts` menggantikan `middleware.ts`; `scope-map.json` diperbarui | Konvensi Next.js 16 |
 | 2026-10-31 | `experimental.turbopackFileSystemCacheForDev: false` dan indikator dev di kanan atas | Next 16.4.2 memicu loop muat ulang saat cache dev dipakai ulang; indikator kiri bawah menutupi tombol Keluar. Tinjau ulang saat Next diperbarui |
+| 2026-10-31 | Menu Pengaturan hanya tampil untuk Admin; `/settings` memeriksa role di server dan menampilkan "Akses ditolak" untuk role lain | Catatan desain `M-Lainnya.dc.html` dan spesifikasi §11.1 |
+| 2026-10-31 | Halaman menolak akses dengan komponen "Akses ditolak", bukan `forbidden()` Next.js | `forbidden()` masih eksperimental (`authInterrupts`) di Next 16.4; kontrol keamanan tidak bergantung pada fitur eksperimental |
