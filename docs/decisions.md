@@ -8,7 +8,7 @@ Sumber: spesifikasi §15.1. Perbarui kolom Status dan Catatan setiap ada keputus
 | 2 | Identitas peserta lintas pelatihan | **Penghambat — belum** | `NO REGISTRASI` per pendaftaran; tidak digabung lintas pelatihan | |
 | 3 | Masa simpan data peserta | **Penghambat — belum** | Identitas dianonimkan 12 bulan setelah tahun anggaran berakhir | |
 | 4 | Indikator PK dan pemetaan tim | Sebagian selesai | IKSK 1.1 DTA, 2.1 GTA, 3.1 KDD, 3.2 lintas tim (spesifikasi §8.7) | Lengkapi spreadsheet PK dan target antara IKSK 3.2 |
-| 5 | Definisi lulus dan "mengikuti" | Sebagian selesai | Per indikator PK | Format sheet GTA/KDD dan `STATUS` saat berjalan belum diverifikasi |
+| 5 | Definisi lulus dan "mengikuti" | Sebagian selesai | Per indikator PK | Format sheet GTA/KDD belum diverifikasi. Nilai `STATUS` dikonfirmasi pemilik 1 Nov 2026: `Submit`, `Pelatihan`, `Lulus Pelatihan - Nilai`, `Tidak Lulus Pelatihan - Nilai`, `Pembatalan` |
 | 6 | Metode login | Selesai | Supabase Auth email + kata sandi, akun manual, MFA ditunda (RR-04) | |
 | 7 | Topologi produksi | **Penghambat untuk data riil** | Prototipe Vercel + Supabase Cloud data sintetis; produksi pilihan A (server instansi) | |
 | 8 | Akun dan akses (GitHub, Vercel, GCP, Shared Drive) | **Penghambat untuk deploy** | Atas nama instansi | |
@@ -65,6 +65,9 @@ Sumber: spesifikasi §15.1. Perbarui kolom Status dan Catatan setiap ada keputus
 | 2026-11-01 | Repository ingestion: pembacaan yang menentukan akses (sumber, batch) memakai klien sesi pengguna sehingga RLS `read_team` membatasi per tim; penulisan memakai service role setelah use case lolos; sinkron terjadwal memakai service role penuh | Mencegah BOLA tanpa mengubah use case F2-06 (keputusan pemilik) |
 | 2026-11-01 | Sumber CSV/XLSX: pratinjau menerima `uploadId`; file disimpan di `imports/<sourceId>/<uploadId>.<csv|xlsx>` (path disusun server); batch menyimpan `uploadId` di `source_reference` agar commit membaca ulang file yang sama. Sinkronisasi hanya untuk Google Sheets | `import_batches` tidak menyimpan isi; klien tidak menentukan path |
 | 2026-11-01 | `IMPORT_STAGING_TTL_MINUTES` dan `MANUAL_SYNC_MIN_INTERVAL_MINUTES` wajib diisi di environment (tanpa nilai bawaan; aplikasi menolak merakit dependensi impor bila kosong). Toleransi LMS dari versi `risk_rule_versions` dengan `effective_at` terbaru; syarat persetujuan versi aturan ditegakkan di F3-07 | Keputusan F2-06: angka tidak ditetapkan di kode |
+| 2026-11-01 | `STATUS` `Submit` (sheet tersedia saat periode pendaftaran, peserta dalam seleksi penerimaan) → `in_selection` (status baru, migration `20261101000002`); `Pelatihan` (sedang mengikuti pelatihan) → `in_progress`; `Pembatalan` tetap → `cancelled` | Konfirmasi pemilik |
+| 2026-11-01 | Pendaftar `in_selection` tidak dinilai rules engine (tanpa `NOT_STARTED` dsb.) karena belum menjadi peserta. Perlakuan dalam penyebut indikator PK diputuskan di F3 | Usulan pelaksana; dapat diubah |
+| 2026-11-01 | Nilai `STATUS` lain di luar daftar hanya diberi bendera `unmapped_status`; commit tidak ditahan. Berbeda dengan teks §3.2.2 ("ditahan untuk ditinjau"); usulkan penyesuaian spesifikasi | Konfirmasi pemilik |
 
 ## Saran tertunda (belum diputuskan)
 

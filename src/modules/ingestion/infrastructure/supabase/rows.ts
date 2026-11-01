@@ -8,7 +8,14 @@ import type {
 } from "../../application/ports";
 
 const sourceType = z.enum(["google_sheets", "csv", "xlsx"]);
-const enrollmentStatus = z.enum(["passed", "not_passed", "cancelled", "unmapped"]);
+const enrollmentStatus = z.enum([
+  "passed",
+  "not_passed",
+  "cancelled",
+  "in_progress",
+  "in_selection",
+  "unmapped",
+]);
 const nullableTime = z.string().nullable();
 
 export const dataSourceRow = z.object({

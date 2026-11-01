@@ -2,7 +2,7 @@
 -- commit menulis peserta, snapshot ber-hash, dan progres item; commit ganda ditolak (F2-07).
 begin;
 create extension if not exists pgtap with schema extensions;
-select plan(12);
+select plan(13);
 
 select ok(not has_function_privilege('authenticated', 'public.ingestion_commit_import(jsonb)', 'execute'),
   'authenticated tidak dapat menjalankan commit impor');
@@ -78,6 +78,9 @@ select is((select row_hash || ':' || array_to_string(quality_flags, ',')
   'snapshot menyimpan hash baris dan bendera kualitas');
 select is((select count(*)::int from public.participant_module_progress
   where import_batch_id = '00000000-0000-0000-0000-0000000000e3'), 2, 'progres per item tersimpan');
+select lives_ok($$ update public.training_enrollments set enrollment_status = 'in_selection'
+  where training_id = '00000000-0000-0000-0000-0000000000e1' $$,
+  'status in_selection (STATUS Submit) diterima');
 select throws_ok($$ select public.ingestion_commit_import((select p from commit_payload)) $$,
   'P0001', null, 'commit ulang batch yang sudah committed ditolak');
 

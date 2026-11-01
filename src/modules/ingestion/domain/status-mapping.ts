@@ -1,6 +1,8 @@
 import { headerKey } from "./text";
 
-export type EnrollmentStatus = "passed" | "not_passed" | "cancelled" | "unmapped";
+/** `in_selection` = STATUS "Submit" (seleksi penerimaan); `in_progress` = "Pelatihan". */
+export type EnrollmentStatus =
+  "passed" | "not_passed" | "cancelled" | "in_progress" | "in_selection" | "unmapped";
 export type ItemStatus = "completed" | "not_started" | "unknown";
 
 /** Pemetaan bawaan template DTA; konfigurasi sumber boleh menimpanya (spesifikasi §3.2.2). */
@@ -8,6 +10,8 @@ export const DEFAULT_STATUS_MAPPING: Readonly<Record<string, EnrollmentStatus>> 
   "lulus pelatihan - nilai": "passed",
   "tidak lulus pelatihan - nilai": "not_passed",
   pembatalan: "cancelled",
+  submit: "in_selection",
+  pelatihan: "in_progress",
 };
 
 export function mapEnrollmentStatus(
