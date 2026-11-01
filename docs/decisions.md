@@ -83,6 +83,7 @@ Sumber: spesifikasi §15.1. Perbarui kolom Status dan Catatan setiap ada keputus
 | 2026-11-01 | Kolom "Status risiko" menampilkan "Belum dinilai" sampai rules engine (F3); tombol AI Agent belum ditampilkan (F5); nama peserta belum ditautkan ke profil (F3-09); tombol "Impor data"/"Tambah pelatihan" menyusul di F2-09b/c | Tidak menampilkan fitur yang belum ada |
 | 2026-11-01 | Kode pelatihan memakai kode sistem (`DTA-xxxxxx`), bukan `TRN-xxx` dari mockup; pemeriksaan jadwal yang ditampilkan hanya yang dapat dihitung dari data tersimpan (pendaftaran ditutup sebelum mulai, label UPDATE TERAKHIR) | Dua pemeriksaan lain di mockup (judul sheet, peserta baru setelah tutup) belum ada datanya |
 | 2026-11-01 | Detail pelatihan di mobile memakai tata letak responsif yang sama (tabel bergulir horizontal), bukan kartu terpisah seperti M-PelatihanDetail; tab dan filter memakai query string (`?tab=`, `?type=`, `?category=`) agar tanpa JavaScript klien | Penyederhanaan; dapat disesuaikan bila pemilik meminta kartu mobile |
+| 2026-11-01 | Override pnpm `handlebars >=4.7.10` (GHSA-8r5x-fm3f-whwj, GHSA-p8wg-vrv2-v86f, kritis) karena `eslint-plugin-boundaries` 7.2.0 masih memakai 4.7.9; 4.7.10 sudah lewat 14 hari. Hapus override saat plugin diperbarui | Gerbang `pnpm audit --audit-level=high` di CI; hanya devDependency (lint), tidak masuk bundel aplikasi |
 
 ## Saran tertunda (belum diputuskan)
 

@@ -4,3 +4,7 @@ onlyBuiltDependencies:
   - esbuild
   - sharp
   - unrs-resolver
+# GHSA-8r5x-fm3f-whwj, GHSA-p8wg-vrv2-v86f: handlebars ≤ 4.7.9 (lewat eslint-plugin-boundaries,
+# hanya devDependency). Hapus override setelah plugin memakai ≥ 4.7.10.
+overrides:
+  handlebars: ">=4.7.10"
