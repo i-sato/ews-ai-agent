@@ -54,7 +54,10 @@ export async function planImport(deps: ImportDeps, snapshot: SourceSnapshot) {
   return { previous, summary };
 }
 
-type BatchFields = Pick<ImportBatch, "id" | "status" | "expiresAt" | "createdBy" | "summary"> & {
+type BatchFields = Pick<
+  ImportBatch,
+  "id" | "status" | "expiresAt" | "createdBy" | "summary" | "uploadId"
+> & {
   contentChangedAt: string | null;
 };
 
@@ -63,6 +66,7 @@ export function newBatch(snapshot: SourceSnapshot, fields: BatchFields): ImportB
   return {
     ...rest,
     sourceId: snapshot.source.id,
+    sourceType: snapshot.source.sourceType,
     trainingId: snapshot.source.trainingId,
     contentHash: snapshot.contentHash,
     idempotencyKey: null,
@@ -80,7 +84,8 @@ export async function previewImport(
   if (!input.ok)
     return fail("VALIDATION_ERROR", "Permintaan tidak valid.", { fields: input.fields });
   if (!IMPORT_ROLES.includes(actor.role)) return fail("FORBIDDEN", "Anda tidak memiliki akses.");
-  const loaded = await loadSnapshot(deps, input.value.sourceId);
+  const { sourceId, uploadId = null } = input.value;
+  const loaded = await loadSnapshot(deps, { sourceId, uploadId });
   if (!loaded.ok) return loaded;
   const snapshot = loaded.value;
   const { previous, summary } = await planImport(deps, snapshot);
@@ -92,6 +97,7 @@ export async function previewImport(
     expiresAt: new Date(deps.clock.now().getTime() + ttlMs).toISOString(),
     createdBy: actor.id,
     summary,
+    uploadId,
     contentChangedAt: contentChangedAt(snapshot, previous),
   });
   await deps.imports.saveBatch(batch);

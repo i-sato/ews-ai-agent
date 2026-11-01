@@ -3,7 +3,14 @@ import { describe, expect, it } from "vitest";
 import { commitImport } from "@/modules/ingestion/application/commit-import";
 import { previewImport } from "@/modules/ingestion/application/preview-import";
 import { commitImportOutput, previewImportOutput } from "@/modules/ingestion/application/schemas";
-import { MANAGER, SOURCE_ID, VIEWER, goldenRows, importDeps } from "../support/ingestion-fakes";
+import {
+  MANAGER,
+  SOURCE_ID,
+  VIEWER,
+  goldenRows,
+  importDeps,
+  sourceConfig,
+} from "../support/ingestion-fakes";
 
 const KEY = "commit-key-0001";
 
@@ -232,5 +239,47 @@ describe("CommitImport", () => {
     expect(
       await commitImport(deps, { batchId: SOURCE_ID, idempotencyKey: KEY }, MANAGER),
     ).toMatchObject({ ok: false, error: { code: "NOT_FOUND" } });
+  });
+});
+
+describe("sumber CSV/XLSX (F2-07)", () => {
+  const UPLOAD = "00000000-0000-4000-8000-000000000321";
+
+  function csvDeps() {
+    const deps = importDeps();
+    deps.imports.sources.set(SOURCE_ID, sourceConfig({ sourceType: "csv", reference: null }));
+    deps.sheets.rows.set(`${SOURCE_ID}/${UPLOAD}.csv`, { ok: true, rows: goldenRows("golden-1") });
+    return deps;
+  }
+
+  it("pratinjau wajib menyebut unggahan; path file disusun server dari ID", async () => {
+    const deps = csvDeps();
+    expect(await previewImport(deps, { sourceId: SOURCE_ID }, MANAGER)).toMatchObject({
+      ok: false,
+      error: { code: "VALIDATION_ERROR" },
+    });
+    const traversal = { sourceId: SOURCE_ID, uploadId: "../../rahasia" };
+    expect(await previewImport(deps, traversal, MANAGER)).toMatchObject({
+      ok: false,
+      error: { code: "VALIDATION_ERROR" },
+    });
+    const result = await previewImport(deps, { sourceId: SOURCE_ID, uploadId: UPLOAD }, MANAGER);
+    expect(result).toMatchObject({ ok: true, value: { summary: { participants: 41 } } });
+  });
+
+  it("batch menyimpan unggahan sehingga commit membaca ulang file yang sama", async () => {
+    const deps = csvDeps();
+    const preview = await previewImport(deps, { sourceId: SOURCE_ID, uploadId: UPLOAD }, MANAGER);
+    if (!preview.ok) throw new Error(preview.error.message);
+    expect(deps.imports.batches.get(preview.value.batchId)).toMatchObject({
+      uploadId: UPLOAD,
+      sourceType: "csv",
+    });
+    const result = await commitImport(
+      deps,
+      { batchId: preview.value.batchId, idempotencyKey: KEY },
+      MANAGER,
+    );
+    expect(result).toMatchObject({ ok: true, value: { participants: 41 } });
   });
 });

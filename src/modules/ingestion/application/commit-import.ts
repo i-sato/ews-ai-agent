@@ -73,6 +73,21 @@ async function openBatch(deps: ImportDeps, batchId: string): Promise<Result<Impo
   return ok(batch);
 }
 
+/** Key yang sudah dipakai: hasil sebelumnya untuk batch yang sama, konflik untuk batch lain. */
+async function replayed(
+  deps: ImportDeps,
+  key: string,
+  batchId: string,
+): Promise<Result<CommitImportOutput> | null> {
+  const replay = await deps.imports.findBatchByIdempotencyKey(key);
+  if (!replay) return null;
+  if (replay.id !== batchId) {
+    return fail("CONFLICT", "idempotency_key sudah dipakai permintaan lain.");
+  }
+  const participants = Number(replay.summary.participants ?? 0);
+  return ok({ batchId, status: "committed", replayed: true, participants });
+}
+
 /** Simpan impor yang sudah dipratinjau: idempoten, validasi ulang, transaksional (§3.4, §7.4). */
 export async function commitImport(
   deps: ImportDeps,
@@ -84,16 +99,12 @@ export async function commitImport(
     return fail("VALIDATION_ERROR", "Permintaan tidak valid.", { fields: input.fields });
   if (!IMPORT_ROLES.includes(actor.role)) return fail("FORBIDDEN", "Anda tidak memiliki akses.");
   const { batchId, idempotencyKey } = input.value;
-  const replay = await deps.imports.findBatchByIdempotencyKey(idempotencyKey);
-  if (replay) {
-    if (replay.id !== batchId)
-      return fail("CONFLICT", "idempotency_key sudah dipakai permintaan lain.");
-    const participants = Number(replay.summary.participants ?? 0);
-    return ok({ batchId, status: "committed", replayed: true, participants });
-  }
+  const replay = await replayed(deps, idempotencyKey, batchId);
+  if (replay) return replay;
   const opened = await openBatch(deps, batchId);
   if (!opened.ok) return opened;
-  const loaded = await loadSnapshot(deps, opened.value.sourceId);
+  const { sourceId, uploadId } = opened.value;
+  const loaded = await loadSnapshot(deps, { sourceId, uploadId });
   if (!loaded.ok) return loaded;
   if (loaded.value.contentHash !== opened.value.contentHash) {
     await deps.imports.setBatchStatus(batchId, "rejected");

@@ -46,7 +46,16 @@ const READ_ERRORS: Record<SheetReadError, string> = {
   NOT_FOUND: "Sheet atau file sumber tidak ditemukan.",
   UNAVAILABLE: "Layanan sumber data sedang tidak tersedia. Coba lagi nanti.",
   INVALID_FILE: "File sumber tidak valid atau rusak.",
+  FILE_TOO_LARGE: "Ukuran file melebihi batas impor.",
+  TOO_MANY_ROWS: "Jumlah baris melebihi batas impor.",
+  NOT_CONFIGURED: "Integrasi sumber ini belum diaktifkan.",
 };
+
+/** Path file di bucket privat; disusun dari ID, bukan dari masukan klien. */
+export function fileKeyFor(source: DataSourceConfig, uploadId: string | null): string | null {
+  if (source.sourceType === "google_sheets" || uploadId === null) return null;
+  return `${source.id}/${uploadId}.${source.sourceType}`;
+}
 
 const UPDATE_LABEL = /UPDATE\s+TERAKHIR/i;
 
@@ -80,11 +89,14 @@ async function sourceTimes(deps: SnapshotDeps, source: DataSourceConfig, meta: s
 
 export async function loadSnapshot(
   deps: SnapshotDeps,
-  sourceId: string,
+  target: { sourceId: string; uploadId: string | null },
 ): Promise<Result<SourceSnapshot>> {
-  const source = await deps.imports.findSource(sourceId);
+  const source = await deps.imports.findSource(target.sourceId);
   if (!source) return fail("NOT_FOUND", "Sumber data tidak ditemukan.");
-  const read = await deps.sheets.readRows(source);
+  if (source.sourceType !== "google_sheets" && target.uploadId === null) {
+    return fail("VALIDATION_ERROR", "Unggah file CSV/XLSX terlebih dahulu.");
+  }
+  const read = await deps.sheets.readRows(source, fileKeyFor(source, target.uploadId));
   if (!read.ok) {
     return fail("SOURCE_UNAVAILABLE", READ_ERRORS[read.error], { reason: read.error });
   }

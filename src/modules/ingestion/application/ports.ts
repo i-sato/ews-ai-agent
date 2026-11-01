@@ -18,8 +18,8 @@ export interface DataSourceConfig {
   id: string;
   trainingId: string;
   sourceType: SourceType;
-  /** Google Sheets: `spreadsheetId` + `gid`; CSV/XLSX: path file di bucket privat. */
-  reference: { spreadsheetId: string; gid: string | null } | { storagePath: string };
+  /** Google Sheets: `spreadsheetId` + `gid`. CSV/XLSX: null; file per unggahan (`uploadId`). */
+  reference: { spreadsheetId: string; gid: string | null } | null;
   driveFileId: string | null;
   headerAliases: Partial<Record<IdentityField, string[]>>;
   statusMapping: Readonly<Record<string, EnrollmentStatus>>;
@@ -28,13 +28,27 @@ export interface DataSourceConfig {
   freshnessThresholdHours: number;
 }
 
-export type SheetReadError = "PERMISSION_DENIED" | "NOT_FOUND" | "UNAVAILABLE" | "INVALID_FILE";
+export type SheetReadError =
+  | "PERMISSION_DENIED"
+  | "NOT_FOUND"
+  | "UNAVAILABLE"
+  | "INVALID_FILE"
+  | "FILE_TOO_LARGE"
+  | "TOO_MANY_ROWS"
+  | "NOT_CONFIGURED";
 
 export type SheetRead = { ok: true; rows: string[][] } | { ok: false; error: SheetReadError };
 
 export interface SheetSource {
   /** Nilai sel sebagai teks; formula tidak pernah dieksekusi (SH-UPLOAD-02). */
-  readRows(source: Pick<DataSourceConfig, "sourceType" | "reference">): Promise<SheetRead>;
+  /**
+   * `fileKey` = `<sourceId>/<uploadId>.<csv|xlsx>` untuk sumber file (disusun di server, bukan dari
+   * klien); null untuk Google Sheets.
+   */
+  readRows(
+    source: Pick<DataSourceConfig, "sourceType" | "reference">,
+    fileKey: string | null,
+  ): Promise<SheetRead>;
   readTitle(
     spreadsheetId: string,
   ): Promise<{ ok: true; title: string } | { ok: false; error: SheetReadError }>;
@@ -75,6 +89,9 @@ export interface Freshness {
 export interface ImportBatch {
   id: string;
   sourceId: string;
+  sourceType: SourceType;
+  /** Unggahan CSV/XLSX yang dipratinjau (`source_reference`); null untuk Google Sheets. */
+  uploadId: string | null;
   trainingId: string;
   status: BatchStatus;
   contentHash: string;

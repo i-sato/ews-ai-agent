@@ -27,7 +27,10 @@ export const registerTrainingInput = z
   })
   .strict();
 
-export const previewImportInput = z.object({ sourceId: z.uuid() }).strict();
+/** `uploadId` wajib untuk sumber CSV/XLSX: file yang sudah diunggah ke bucket privat. */
+export const previewImportInput = z
+  .object({ sourceId: z.uuid(), uploadId: z.uuid().optional() })
+  .strict();
 
 export const commitImportInput = z
   .object({

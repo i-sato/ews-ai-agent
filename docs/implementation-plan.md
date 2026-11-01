@@ -32,7 +32,7 @@ Status awal starter pack: tugas bertanda **(starter)** sudah tersedia dalam bent
 - [x] F2-04 Domain: normalisasi baris peserta (format lebar → panjang), baris tanpa identitas, galat formula, konsistensi `PERSENTASE LMS`, rekonsiliasi baris 1.
 - [x] F2-05 Golden dataset sintetis di `tests/fixtures/` meniru dua sheet contoh (§3.2.3).
 - [x] F2-06 Application: use case `ParseTrainingSource`, `RegisterTraining` (konfirmasi admin wajib), `PreviewImport`, `CommitImport`, `SyncSheet` + port.
-- [ ] F2-07 Infrastructure: adapter Google Sheets (service account) + Drive `modifiedTime`; adapter CSV/XLSX; repository Supabase.
+- [ ] F2-07 Infrastructure: adapter Google Sheets (service account) + Drive `modifiedTime`; adapter CSV/XLSX; repository Supabase. CSV/XLSX, repository Supabase, dan container selesai (1 Nov 2026); adapter Google Sheets/Drive menunggu keputusan allowlist (saran S15).
 - [ ] F2-08 API: `/trainings/parse-source`, `/trainings`, `/trainings/:id/schedule`, `/imports/preview`, `/imports/commit`, `/sync/google-sheets`, `/sync/runs/:id`.
 - [ ] F2-09 UI: Pelatihan (daftar, tambah, detail tab Modul/Peserta), Impor & Sinkronisasi. Tag E2E `@pelatihan`, `@impor`.
 - [ ] F2-10 Katalog item: versi, persetujuan, saran AI (setelah Fase 5).

@@ -1,4 +1,5 @@
--- pgTAP: RLS aktif, akses lintas tim ditolak, role tidak dapat diubah klien
+-- pgTAP: RLS aktif, akses lintas tim ditolak, role tidak dapat diubah klien. Hitungan dibatasi
+-- ke data tes ini agar tidak bergantung pada isi database lokal.
 -- (SH-AUTHZ-01, SH-AUTHZ-02, SH-AUTHZ-03).
 -- Jalankan: supabase test db
 begin;
@@ -52,8 +53,10 @@ select set_config('test.total_profiles', (select count(*) from public.profiles):
 set local role authenticated;
 
 select pg_temp.login('00000000-0000-0000-0000-0000000000a1');
-select is((select count(*)::int from public.trainings), 1, 'pengelola DTA melihat pelatihan DTA');
-select is((select count(*)::int from public.participants), 1, 'pengelola DTA melihat peserta DTA');
+select is((select count(*)::int from public.trainings where id = '00000000-0000-0000-0000-0000000000b1'), 1,
+  'pengelola DTA melihat pelatihan DTA');
+select is((select count(*)::int from public.participants where id = '00000000-0000-0000-0000-0000000000c1'), 1,
+  'pengelola DTA melihat peserta DTA');
 select is((select count(*)::int from public.pk_indicators), 4, 'indikator PK terbaca semua role');
 select is((select count(*)::int from public.profiles), 1, 'pengguna hanya membaca profilnya sendiri');
 select throws_ok(
@@ -65,14 +68,16 @@ select throws_ok(
   '42501', null, 'pengguna tidak dapat menambah tim kerja sendiri');
 
 select pg_temp.login('00000000-0000-0000-0000-0000000000a2');
-select is((select count(*)::int from public.trainings), 0, 'viewer GTA tidak melihat pelatihan DTA');
+select is((select count(*)::int from public.trainings where code like 'DTA-%'), 0,
+  'viewer GTA tidak melihat pelatihan DTA mana pun');
 select is((select count(*)::int from public.participants), 0, 'viewer tidak membaca data peserta');
 select throws_ok(
   $$ insert into public.audit_logs (action, resource_type) values ('x', 'y') $$,
   '42501', null, 'audit log tidak dapat ditulis dari klien');
 
 select pg_temp.login('00000000-0000-0000-0000-0000000000a3');
-select is((select count(*)::int from public.trainings), 1, 'admin melihat semua pelatihan');
+select is((select count(*)::int from public.trainings where id = '00000000-0000-0000-0000-0000000000b1'), 1,
+  'admin melihat pelatihan tim lain');
 select is((select count(*)::int from public.profiles),
   current_setting('test.total_profiles')::int, 'admin membaca semua profil');
 
