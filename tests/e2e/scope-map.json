@@ -5,6 +5,8 @@
     "src/lib/auth/**",
     "src/proxy.ts",
     "src/lib/supabase/**",
+    "src/lib/security/**",
+    "src/app/layout.tsx",
     "package.json",
     "pnpm-lock.yaml",
     "playwright.config.ts",

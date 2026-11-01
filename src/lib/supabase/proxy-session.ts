@@ -6,9 +6,15 @@ import { SESSION_COOKIE_OPTIONS, hardenCookie } from "./cookies";
 /**
  * Memperbarui token sesi di proxy dan mengembalikan respons yang membawa cookie baru.
  * `getUser()` memvalidasi token ke Supabase Auth, sehingga sesi yang sudah dicabut ditolak.
+ * `forwardHeaders` diteruskan ke render (mis. CSP agar Next.js memakai nonce yang sama).
  */
-export async function updateSession(request: NextRequest) {
-  let response = NextResponse.next({ request });
+export async function updateSession(request: NextRequest, forwardHeaders: Record<string, string>) {
+  const next = () => {
+    const headers = new Headers(request.headers);
+    for (const [key, value] of Object.entries(forwardHeaders)) headers.set(key, value);
+    return NextResponse.next({ request: { headers } });
+  };
+  let response = next();
   const { url, anonKey } = supabasePublicConfig();
   const supabase = createServerClient(url, anonKey, {
     cookieOptions: SESSION_COOKIE_OPTIONS,
@@ -16,7 +22,7 @@ export async function updateSession(request: NextRequest) {
       getAll: () => request.cookies.getAll(),
       setAll: (list, headers) => {
         for (const c of list) request.cookies.set(c.name, c.value);
-        response = NextResponse.next({ request });
+        response = next();
         for (const c of list) response.cookies.set(c.name, c.value, hardenCookie(c.options));
         for (const [key, value] of Object.entries(headers)) response.headers.set(key, value);
       },
