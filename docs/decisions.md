@@ -40,6 +40,8 @@ Sumber: spesifikasi §15.1. Perbarui kolom Status dan Catatan setiap ada keputus
 | 2026-10-31 | E2E di CI berjalan pada `pnpm build && pnpm start`, lokal tetap `pnpm dev` | Kebijakan CSP dev lebih longgar; regresi CSP hanya tertangkap pada build produksi |
 | 2026-10-31 | Teks pernyataan kepatuhan §11.3 berversi sebagai konstanta di `src/modules/shared/domain/compliance-statement.ts` (versi, tanggal berlaku, status draf); riwayat lewat git/PR | Belum ada UI Pengaturan untuk mengubahnya; dapat dipindah ke tabel bila diperlukan (keputusan pemilik) |
 | 2026-10-31 | Halaman `/compliance` publik (tanpa login); tautan "Pernyataan kepatuhan" di bawah sidebar (web, sesuai `Main.dc.html`) dan di akhir konten setiap halaman (mobile) | §11.3 meminta tautan di setiap halaman; desain mobile belum memuatnya (keputusan pemilik) |
+| 2026-10-31 | Golden dataset F2-05: 25 baris tanpa identitas per sheet (bukan 1.996/1.986); nomor registrasi fiktif `SINTn-nnn` | Fixture kecil dan mudah ditinjau; tidak berpola nomor registrasi riil (keputusan pemilik) |
+| 2026-10-31 | Asumsi format baris 1 sheet: label dan angka di sel terpisah (A1 `UPDATE TERAKHIR`, B1–I1 pasangan label/angka, jumlah selesai di atas kolom item); `TOTAL DITERIMA` disamakan dengan `TOTAL PENDAFTAR` | Format persis dan arti `TOTAL DITERIMA` belum dikonfirmasi; verifikasi dengan sheet asli sebelum F2-04 dianggap final (keputusan pemilik) |
 
 ## Saran tertunda (belum diputuskan)
 
