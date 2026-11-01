@@ -4,7 +4,9 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 import { z } from "zod";
 import type { ParseSourceDeps } from "@/modules/ingestion/application/parse-training-source";
 import type { ImportDeps } from "@/modules/ingestion/application/preview-import";
+import type { UploadDeps } from "@/modules/ingestion/application/preview-upload";
 import type { RegisterDeps } from "@/modules/ingestion/application/register-training";
+import type { ScheduleDeps } from "@/modules/ingestion/application/update-schedule";
 import {
   FileSheetSource,
   SupabaseFileStore,
@@ -42,7 +44,7 @@ function importEnvironment() {
   return parsed.data;
 }
 
-export type IngestionDeps = ImportDeps & RegisterDeps & ParseSourceDeps;
+export type IngestionDeps = ImportDeps & UploadDeps & RegisterDeps & ParseSourceDeps & ScheduleDeps;
 
 /**
  * Dependensi ingestion. `session` = klien sesi pengguna (RLS) untuk pembacaan yang menentukan
@@ -51,11 +53,14 @@ export type IngestionDeps = ImportDeps & RegisterDeps & ParseSourceDeps;
 export async function ingestionDeps(session: SupabaseClient | null): Promise<IngestionDeps> {
   const env = importEnvironment();
   const writer = createSupabaseServiceClient();
+  const clients = { reader: session ?? writer, writer };
+  const files = new SupabaseFileStore(writer);
   return {
-    sheets: new FileSheetSource(new SupabaseFileStore(writer), FILE_LIMITS),
+    sheets: new FileSheetSource(files, FILE_LIMITS),
+    uploads: files,
     drive: unavailableDriveMetadata,
-    imports: new SupabaseImportRepository({ reader: session ?? writer, writer }),
-    trainings: new SupabaseTrainingRepository(writer),
+    imports: new SupabaseImportRepository(clients),
+    trainings: new SupabaseTrainingRepository(clients),
     audit: new SupabaseAuditLog(writer),
     clock: systemClock,
     ids: cryptoIds,
@@ -63,6 +68,7 @@ export async function ingestionDeps(session: SupabaseClient | null): Promise<Ing
       lmsTolerancePp: await activeLmsTolerance(writer, systemClock.now()),
       stagingTtlMinutes: env.IMPORT_STAGING_TTL_MINUTES,
       manualSyncMinIntervalMinutes: env.MANUAL_SYNC_MIN_INTERVAL_MINUTES,
+      maxUploadBytes: FILE_LIMITS.maxBytes,
     },
   };
 }

@@ -1,5 +1,10 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
-import type { DataSourceConfig, SheetRead, SheetSource } from "../../application/ports";
+import type {
+  DataSourceConfig,
+  SheetRead,
+  SheetSource,
+  UploadStore,
+} from "../../application/ports";
 import { parseCsvFile } from "./csv-file";
 import type { FileLimits } from "./limits";
 import { parseXlsxFile } from "./xlsx-file";
@@ -12,8 +17,15 @@ export interface FileStore {
 }
 
 /** Bucket privat `imports` lewat klien service role (SH-UPLOAD-03). */
-export class SupabaseFileStore implements FileStore {
+export class SupabaseFileStore implements FileStore, UploadStore {
   constructor(private readonly client: SupabaseClient) {}
+
+  async save(path: string, bytes: Uint8Array, contentType: string): Promise<void> {
+    const { error } = await this.client.storage
+      .from(IMPORT_BUCKET)
+      .upload(path, bytes, { contentType, upsert: false });
+    if (error) throw new Error(`Unggah file impor gagal (${error.name})`);
+  }
 
   async download(path: string): Promise<Uint8Array | null> {
     const { data, error } = await this.client.storage.from(IMPORT_BUCKET).download(path);

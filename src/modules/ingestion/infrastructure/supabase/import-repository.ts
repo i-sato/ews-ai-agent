@@ -9,13 +9,16 @@ import type {
   ImportRepository,
   SyncRun,
   SyncRunStatus,
+  SyncRunView,
 } from "../../application/ports";
 import {
   BATCH_COLUMNS,
   DATA_SOURCE_COLUMNS,
   fromBatch,
+  SYNC_RUN_COLUMNS,
   moduleRow,
   snapshotHashRow,
+  toSyncRun,
   toBatch,
   toDataSource,
 } from "./rows";
@@ -145,6 +148,27 @@ export class SupabaseImportRepository implements ImportRepository {
       .update({ status })
       .eq("id", batchId);
     if (error) failed("setBatchStatus", error);
+  }
+
+  async findSyncRun(runId: string): Promise<SyncRunView | null> {
+    const { data, error } = await this.db.reader
+      .from("sync_runs")
+      .select(SYNC_RUN_COLUMNS)
+      .eq("id", runId)
+      .maybeSingle();
+    if (error) failed("findSyncRun", error);
+    return data ? toSyncRun(data) : null;
+  }
+
+  async syncableSources(): Promise<string[]> {
+    const { data, error } = await this.db.writer
+      .from("data_sources")
+      .select("id")
+      .eq("source_type", "google_sheets")
+      .eq("enabled", true)
+      .order("id");
+    if (error) failed("syncableSources", error);
+    return (data ?? []).map((r) => String(r.id));
   }
 
   async commit(payload: CommitPayload): Promise<void> {

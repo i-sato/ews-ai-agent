@@ -5,6 +5,7 @@ import type {
   DataSourceConfig,
   ImportBatch,
   SourceType,
+  SyncRunView,
 } from "../../application/ports";
 
 const sourceType = z.enum(["google_sheets", "csv", "xlsx"]);
@@ -151,3 +152,31 @@ export const snapshotHashRow = z.object({
     participants: z.object({ participant_number: z.string() }),
   }),
 });
+
+export const SYNC_RUN_COLUMNS =
+  "id, source_id, trigger, status, started_at, finished_at, import_batch_id, error_summary";
+
+const syncRunRow = z.object({
+  id: z.string(),
+  source_id: z.string(),
+  trigger: z.enum(["scheduled", "manual"]),
+  status: z.enum(["running", "succeeded", "unchanged", "failed"]),
+  started_at: z.string(),
+  finished_at: nullableTime,
+  import_batch_id: z.string().nullable(),
+  error_summary: z.string().nullable(),
+});
+
+export function toSyncRun(raw: unknown): SyncRunView {
+  const row = syncRunRow.parse(raw);
+  return {
+    id: row.id,
+    sourceId: row.source_id,
+    trigger: row.trigger,
+    status: row.status,
+    startedAt: row.started_at,
+    finishedAt: row.finished_at,
+    importBatchId: row.import_batch_id,
+    errorSummary: row.error_summary,
+  };
+}

@@ -11,6 +11,7 @@ export const AUTH_STATES = {
   trainingManager: "playwright/.auth/pengelola.json",
   admin: "playwright/.auth/admin.json",
   viewer: "playwright/.auth/viewer.json",
+  gtaManager: "playwright/.auth/pengelola-gta.json",
 } as const;
 
 async function saveSession(baseURL: string, user: TestUser, path: string) {

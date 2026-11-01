@@ -138,6 +138,10 @@ export interface ImportRepository {
   findBatch(batchId: string): Promise<ImportBatch | null>;
   findBatchByIdempotencyKey(key: string): Promise<ImportBatch | null>;
   setBatchStatus(batchId: string, status: BatchStatus): Promise<void>;
+  /** Lewat sesi pengguna (RLS): null bila tidak ada atau milik tim lain. */
+  findSyncRun(runId: string): Promise<SyncRunView | null>;
+  /** Sumber Google Sheets yang aktif, untuk sinkron terjadwal. */
+  syncableSources(): Promise<string[]>;
   /** Satu transaksi: katalog, peserta, enrollment, snapshot, progres item, status batch. */
   commit(payload: CommitPayload): Promise<void>;
   /** Hanya `last_fetched_at` dan `source_modified_at` di `data_sources`. */
@@ -180,6 +184,36 @@ export interface TrainingRepository {
   findByPortalTrainingId(portalTrainingId: string): Promise<{ id: string; code: string } | null>;
   /** Pelatihan dan sumber datanya dalam satu transaksi. */
   createWithSource(training: NewTraining, source: NewDataSource): Promise<void>;
+  /** Lewat sesi pengguna (RLS): null bila tidak ada atau milik tim lain. */
+  findTraining(trainingId: string): Promise<{ id: string; code: string } | null>;
+  updateSchedule(trainingId: string, schedule: TrainingSchedule): Promise<void>;
+}
+
+/** Jadwal §3.6. Diisi manual; verifikasi dari aktor dan jam server. */
+export interface TrainingSchedule {
+  registrationStart: string;
+  registrationEnd: string;
+  startDate: string;
+  endDate: string;
+  scheduleSource: "manual";
+  verifiedBy: string | null;
+  verifiedAt: string | null;
+}
+
+export interface SyncRunView {
+  id: string;
+  sourceId: string;
+  trigger: "scheduled" | "manual";
+  status: "running" | SyncRunStatus;
+  startedAt: string;
+  finishedAt: string | null;
+  importBatchId: string | null;
+  errorSummary: string | null;
+}
+
+/** Penyimpanan file impor di bucket privat (SH-UPLOAD-03). */
+export interface UploadStore {
+  save(fileKey: string, bytes: Uint8Array, contentType: string): Promise<void>;
 }
 
 export interface AuditEntry {
@@ -209,4 +243,6 @@ export interface ImportSettings {
   lmsTolerancePp: number;
   stagingTtlMinutes: number;
   manualSyncMinIntervalMinutes: number;
+  /** Batas ukuran unggahan (SH-UPLOAD-01), sama dengan batas parser file. */
+  maxUploadBytes: number;
 }
