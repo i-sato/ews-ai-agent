@@ -6,6 +6,8 @@ export const ALLOWED_HOSTS = new Set([
   "sheets.googleapis.com",
   "www.googleapis.com",
   "docs.google.com",
+  // Penukaran token service account Google (keputusan S15, 1 Nov 2026).
+  "oauth2.googleapis.com",
   "digitalent.komdigi.go.id",
 ]);
 

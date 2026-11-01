@@ -24,6 +24,8 @@ describe("isAllowedUrl (SH-API-02)", () => {
     ["https://sheets.googleapis.com:8443/", false],
     ["https://169.254.169.254/latest/meta-data", false],
     ["https://evil.test/?u=https://docs.google.com", false],
+    ["https://oauth2.googleapis.com/token", true],
+    ["https://oauth2.googleapis.com.evil.test/token", false],
     ["file:///etc/passwd", false],
     ["bukan url", false],
   ])("%s → %s", (url, expected) => {

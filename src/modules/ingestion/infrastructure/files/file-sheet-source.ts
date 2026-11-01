@@ -37,8 +37,8 @@ export class SupabaseFileStore implements FileStore, UploadStore {
 const NOT_CONFIGURED: SheetRead = { ok: false, error: "NOT_CONFIGURED" };
 
 /**
- * SheetSource untuk unggahan CSV/XLSX. Adapter Google Sheets ditunda sampai host token
- * `oauth2.googleapis.com` disetujui masuk allowlist SH-API-02 (docs/decisions.md).
+ * SheetSource untuk unggahan CSV/XLSX. Sumber Google Sheets dilayani `GoogleSheetSource`
+ * lewat `RoutingSheetSource`; tanpa kredensial service account dilaporkan NOT_CONFIGURED.
  */
 export class FileSheetSource implements SheetSource {
   constructor(

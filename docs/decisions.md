@@ -73,6 +73,9 @@ Sumber: spesifikasi §15.1. Perbarui kolom Status dan Catatan setiap ada keputus
 | 2026-11-01 | `/api/v1/sync/google-sheets`: `GET` untuk Vercel Cron (`Authorization: Bearer CRON_SECRET`, semua sumber Google aktif berurutan, service role); `POST` untuk sinkron manual satu sumber oleh pengguna | Vercel Cron hanya memanggil GET; antrean 202 menyusul bila durasi fungsi terlampaui (keputusan pemilik) |
 | 2026-11-01 | `POST /imports/preview` menerima multipart (`sourceId` + `file`) untuk CSV/XLSX, atau JSON `{ sourceId }` untuk Google Sheets | §7.1 tidak memuat endpoint unggah terpisah |
 | 2026-11-01 | `GET /sync/runs/:id` untuk semua role aktif; aksesnya dibatasi RLS `read_team` | Viewer tim terkait boleh melihat status sinkron |
+| 2026-11-01 | **S15 disetujui:** `oauth2.googleapis.com` masuk allowlist SH-API-02 khusus penukaran token service account | Keputusan pemilik; adapter Google Sheets/Drive diselesaikan |
+| 2026-11-01 | Token service account ditandatangani sendiri (`node:crypto`, JWT RS256) dan ditukar lewat jalur HTTP yang sama dengan panggilan Sheets/Drive; `googleapis` tidak dipakai untuk ingestion | Semua request Google (termasuk token) melewati allowlist, tanpa redirect, timeout, retry terbatas, dan validasi skema (SH-API-02/04). `googleapis` tetap tersedia untuk Docs API (F4) |
+| 2026-11-01 | MSW 3: opsi `onUnhandledRequest` diganti `onUnhandledFrame`; tes adapter memakai `"error"` agar permintaan tak terduga menggagalkan tes | Opsi lama diabaikan diam-diam oleh MSW 3 |
 
 ## Saran tertunda (belum diputuskan)
 
@@ -94,4 +97,4 @@ Dicatat 31 Okt 2026 atas permintaan pemilik. Belum dikerjakan; ambil sebagai tug
 | S12 | Cek kata sandi bocor dan kata sandi awal sekali pakai | F1-02 | Aktifkan leaked password protection di Cloud (bila paket mendukung); wajib ganti kata sandi saat login pertama | SH-AUTH-05 |
 | S13 | `pnpm` dan Supabase CLI belum terpasang global di mesin pengembang | F1-01 | `corepack enable`; CLI sudah tersedia lewat `pnpm exec supabase` | — |
 | S14 | `gh` CLI belum terpasang | F1-02 | `brew install gh` lalu `gh auth login` agar PR bisa dibuat dari terminal | — |
-| S15 | Tambahkan `oauth2.googleapis.com` ke allowlist SH-API-02 agar adapter Google Sheets/Drive (sisa F2-07) dapat dibuat | F2-07 | Tanpa ini, sumber utama (§3.1) dan RegisterTraining tidak dapat dipakai | SH-API-02, SH-API-04 |
+| S15 | Tambahkan `oauth2.googleapis.com` ke allowlist SH-API-02 | F2-07 | **Selesai 1 Nov 2026** (disetujui pemilik) | SH-API-02, SH-API-04 |
