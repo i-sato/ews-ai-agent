@@ -40,3 +40,24 @@ Sumber: spesifikasi §15.1. Perbarui kolom Status dan Catatan setiap ada keputus
 | 2026-10-31 | E2E di CI berjalan pada `pnpm build && pnpm start`, lokal tetap `pnpm dev` | Kebijakan CSP dev lebih longgar; regresi CSP hanya tertangkap pada build produksi |
 | 2026-10-31 | Teks pernyataan kepatuhan §11.3 berversi sebagai konstanta di `src/modules/shared/domain/compliance-statement.ts` (versi, tanggal berlaku, status draf); riwayat lewat git/PR | Belum ada UI Pengaturan untuk mengubahnya; dapat dipindah ke tabel bila diperlukan (keputusan pemilik) |
 | 2026-10-31 | Halaman `/compliance` publik (tanpa login); tautan "Pernyataan kepatuhan" di bawah sidebar (web, sesuai `Main.dc.html`) dan di akhir konten setiap halaman (mobile) | §11.3 meminta tautan di setiap halaman; desain mobile belum memuatnya (keputusan pemilik) |
+
+## Saran tertunda (belum diputuskan)
+
+Dicatat 31 Okt 2026 atas permintaan pemilik. Belum dikerjakan; ambil sebagai tugas terpisah setelah diputuskan.
+
+| No | Saran | Asal | Usulan | Kontrol/tugas |
+|---|---|---|---|---|
+| S1 | Push branch F1-01 s.d. `security/cek-keamanan-fase-1` dan buat PR bertumpuk | F1-01–F1-08 | Merge berurutan; PR F1-02 harus di-merge bersama F1-04 karena `[auth.email] enable_signup = false` di F1-02 mematikan login email (diperbaiki di F1-04) | — |
+| S2 | Batas waktu sesi | /cek-keamanan | Idle 30 menit, absolut 12 jam: `timebox`/`inactivity_timeout` di `supabase/config.toml` (Cloud: cek ketersediaan paket) dan umur cookie sesi disesuaikan | SH-SESS-02 |
+| S3 | Lockout login per akun | /cek-keamanan | Penghitung gagal per email di server dengan jeda bertahap, di samping rate limit Supabase per IP | SH-AUTH-04 |
+| S4 | Audit log login, logout, dan login gagal | /cek-keamanan | Tulis `audit_logs` dari server (tanpa email/PII di `details`) | SH-LOG-01, F6-03 |
+| S5 | Halaman "Akses ditolak" berstatus HTTP 200 | /cek-keamanan | Kembalikan 403 (mis. `forbidden()` bila `authInterrupts` stabil, atau rute khusus) agar terlihat oleh alert | SH-LOG-03 |
+| S6 | Kata sandi uji sintetis di `tests/support/local-supabase.ts` | /cek-keamanan | Biarkan (hanya Supabase lokal) dan tambahkan allowlist gitleaks, atau buat acak per run | SH-SECRET |
+| S7 | Halaman berdata wajib memanggil `requireRole` | /cek-keamanan | Aturan lint atau tes yang memeriksa setiap `page.tsx` di `(dashboard)` | SH-AUTHZ-01 |
+| S8 | Blok "nextjs-agent-rules" yang ditambahkan `next dev` ke `AGENTS.md` | F1-03 | Pilih: commit blok tersebut, atau `agentRules: false` di `next.config.ts` | — |
+| S9 | Next.js 16.4.3 tersedia | F1-04 | Perbarui setelah lolos `minimumReleaseAge`; uji ulang lalu aktifkan kembali `turbopackFileSystemCacheForDev` bila loop muat ulang sudah hilang | SH-SUPPLY |
+| S10 | `src/lib/container.ts` | F1-04 | Dibuat saat use case pertama butuh adapter (F2-06) | §4.2 |
+| S11 | Alur lupa kata sandi | F1-04 | Tugas terpisah: minta reset via email, atur ulang kata sandi | SH-AUTH-05 |
+| S12 | Cek kata sandi bocor dan kata sandi awal sekali pakai | F1-02 | Aktifkan leaked password protection di Cloud (bila paket mendukung); wajib ganti kata sandi saat login pertama | SH-AUTH-05 |
+| S13 | `pnpm` dan Supabase CLI belum terpasang global di mesin pengembang | F1-01 | `corepack enable`; CLI sudah tersedia lewat `pnpm exec supabase` | — |
+| S14 | `gh` CLI belum terpasang | F1-02 | `brew install gh` lalu `gh auth login` agar PR bisa dibuat dari terminal | — |
