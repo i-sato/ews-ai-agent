@@ -51,7 +51,8 @@ Sebelum menyatakan pekerjaan selesai: `pnpm lint`, `pnpm typecheck`, `pnpm test:
 ## Cara bekerja
 
 1. Ambil satu tugas dari `docs/implementation-plan.md` sesuai urutan fase.
-2. Buat rencana singkat, sebut bagian spesifikasi dan kontrol `SH-*` yang terkait.
-3. Tulis tes domain lebih dulu bila menyentuh aturan bisnis.
-4. Implementasikan dalam perubahan kecil; satu PR per tugas.
-5. Jalankan pemeriksaan, perbarui dokumen terkait, centang tugas di rencana implementasi.
+2. Buat branch baru untuk tugas itu (`.agent/rules/07-git.md`); jangan commit langsung ke `main`.
+3. Buat rencana singkat, sebut bagian spesifikasi dan kontrol `SH-*` yang terkait.
+4. Tulis tes domain lebih dulu bila menyentuh aturan bisnis.
+5. Implementasikan dalam perubahan kecil; satu branch dan satu PR per tugas.
+6. Jalankan pemeriksaan, perbarui dokumen terkait, centang tugas di rencana implementasi.
