@@ -4,6 +4,7 @@ export type AppErrorCode =
   | "FORBIDDEN" // 403
   | "NOT_FOUND" // 404
   | "CONFLICT" // 409
+  | "TOO_LARGE" // 413
   | "BLOCKED" // 422: ditahan aturan bisnis (duplikat, katalog berubah)
   | "RATE_LIMITED" // 429
   | "SOURCE_UNAVAILABLE"; // 502/503

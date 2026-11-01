@@ -136,3 +136,42 @@ export async function setUserMetadata(userId: string, metadata: Record<string, u
   });
   if (error) throw error;
 }
+
+/** Pelatihan sintetis tahun 2026 dengan sumber CSV (tanpa RegisterTraining, adapter Google ditunda). */
+export async function createCsvTraining(teamCode: string, confirmedBy: string) {
+  const admin = adminClient();
+  const { data: year, error } = await admin
+    .from("work_team_years")
+    .select("id, work_teams!inner(code)")
+    .eq("work_teams.code", teamCode)
+    .eq("year", 2026)
+    .single();
+  if (error) throw error;
+  const trainingId = crypto.randomUUID();
+  const sourceId = crypto.randomUUID();
+  const portal = String(100000 + Math.floor(Math.random() * 900000));
+  const training = await admin.from("trainings").insert({
+    id: trainingId,
+    work_team_year_id: year.id,
+    code: `${teamCode}-${portal}`,
+    name: "Pelatihan Sintetis Uji",
+    portal_training_id: portal,
+    id_confirmed_by: confirmedBy,
+    id_confirmed_at: new Date().toISOString(),
+    start_date: "2026-09-23",
+    end_date: "2026-09-30",
+  });
+  if (training.error) throw training.error;
+  const source = await admin
+    .from("data_sources")
+    .insert({ id: sourceId, training_id: trainingId, source_type: "csv" });
+  if (source.error) throw source.error;
+  return { trainingId, sourceId };
+}
+
+/** ID akun uji yang sudah ada, tanpa mengubahnya (mengubah kata sandi mencabut sesinya). */
+export async function existingUserId(user: TestUser): Promise<string> {
+  const id = await findUserId(adminClient(), user.email);
+  if (!id) throw new Error(`Akun uji belum dibuat: ${user.displayName}`);
+  return id;
+}

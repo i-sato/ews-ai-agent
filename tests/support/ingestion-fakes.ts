@@ -15,9 +15,11 @@ import type {
   SheetSource,
   SyncRun,
   SyncRunStatus,
+  SyncRunView,
   TrainingRepository,
+  TrainingSchedule,
 } from "@/modules/ingestion/application/ports";
-import type { ImportDeps } from "@/modules/ingestion/application/preview-import";
+import type { UploadDeps } from "@/modules/ingestion/application/preview-upload";
 import { SHEETS_DIR } from "../fixtures/golden/golden-sheets";
 import { parseCsv } from "./csv";
 
@@ -118,6 +120,25 @@ export class FakeImports implements ImportRepository {
         .at(-1) ?? null
     );
   }
+  async findSyncRun(id: string): Promise<SyncRunView | null> {
+    const run = this.runs.get(id);
+    if (!run) return null;
+    return {
+      id: run.id,
+      sourceId: run.sourceId,
+      trigger: run.trigger,
+      status: run.status ?? "running",
+      startedAt: run.startedAt,
+      finishedAt: null,
+      importBatchId: null,
+      errorSummary: run.errorSummary ?? null,
+    };
+  }
+  async syncableSources() {
+    return [...this.sources.values()]
+      .filter((s) => s.sourceType === "google_sheets")
+      .map((s) => s.id);
+  }
   async startSyncRun(run: SyncRun) {
     this.runs.set(run.id, { ...run });
   }
@@ -134,6 +155,8 @@ export class FakeTrainings implements TrainingRepository {
   teamYears = new Map([["DTA:2026", uuid(801)]]);
   byPortal = new Map<string, { id: string; code: string }>();
   created: { training: NewTraining; source: NewDataSource }[] = [];
+  visible = new Map<string, { id: string; code: string }>();
+  schedules = new Map<string, TrainingSchedule>();
 
   async teamCodes() {
     return ["DTA", "GTA", "KDD"];
@@ -147,6 +170,19 @@ export class FakeTrainings implements TrainingRepository {
   }
   async createWithSource(training: NewTraining, source: NewDataSource) {
     this.created.push({ training, source });
+  }
+  async findTraining(id: string) {
+    return this.visible.get(id) ?? null;
+  }
+  async updateSchedule(id: string, schedule: TrainingSchedule) {
+    this.schedules.set(id, schedule);
+  }
+}
+
+export class FakeUploads {
+  saved = new Map<string, { bytes: Uint8Array; contentType: string }>();
+  async save(key: string, bytes: Uint8Array, contentType: string) {
+    this.saved.set(key, { bytes, contentType });
   }
 }
 
@@ -209,8 +245,14 @@ export function importDeps(key = "golden-1") {
     audit: new FakeAudit(),
     clock: new FakeClock(),
     ids: new SeqIds(),
-    settings: { lmsTolerancePp: 1, stagingTtlMinutes: 30, manualSyncMinIntervalMinutes: 10 },
-  } satisfies ImportDeps;
+    settings: {
+      lmsTolerancePp: 1,
+      stagingTtlMinutes: 30,
+      manualSyncMinIntervalMinutes: 10,
+      maxUploadBytes: 5 * 1024 * 1024,
+    },
+    uploads: new FakeUploads(),
+  } satisfies UploadDeps;
   return deps;
 }
 

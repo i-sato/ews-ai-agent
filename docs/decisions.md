@@ -68,6 +68,11 @@ Sumber: spesifikasi §15.1. Perbarui kolom Status dan Catatan setiap ada keputus
 | 2026-11-01 | `STATUS` `Submit` (sheet tersedia saat periode pendaftaran, peserta dalam seleksi penerimaan) → `in_selection` (status baru, migration `20261101000002`); `Pelatihan` (sedang mengikuti pelatihan) → `in_progress`; `Pembatalan` tetap → `cancelled` | Konfirmasi pemilik |
 | 2026-11-01 | Pendaftar `in_selection` tidak dinilai rules engine (tanpa `NOT_STARTED` dsb.) karena belum menjadi peserta. Perlakuan dalam penyebut indikator PK diputuskan di F3 | Usulan pelaksana; dapat diubah |
 | 2026-11-01 | Nilai `STATUS` lain di luar daftar hanya diberi bendera `unmapped_status`; commit tidak ditahan. Berbeda dengan teks §3.2.2 ("ditahan untuk ditinjau"); usulkan penyesuaian spesifikasi | Konfirmasi pemilik |
+| 2026-11-01 | `IMPORT_STAGING_TTL_MINUTES=30` dan `MANUAL_SYNC_MIN_INTERVAL_MINUTES=10` | Keputusan pemilik (F2-08) |
+| 2026-11-01 | Jadwal pelatihan: penyimpan (Pengelola Pelatihan tim terkait atau Admin) sekaligus pemverifikasi dengan centang `verified`; simpan tanpa centang mengosongkan verifikasi. Batas pendaftaran setelah tanggal mulai ditolak (check constraint `trainings`) | Keputusan pemilik (F2-08) |
+| 2026-11-01 | `/api/v1/sync/google-sheets`: `GET` untuk Vercel Cron (`Authorization: Bearer CRON_SECRET`, semua sumber Google aktif berurutan, service role); `POST` untuk sinkron manual satu sumber oleh pengguna | Vercel Cron hanya memanggil GET; antrean 202 menyusul bila durasi fungsi terlampaui (keputusan pemilik) |
+| 2026-11-01 | `POST /imports/preview` menerima multipart (`sourceId` + `file`) untuk CSV/XLSX, atau JSON `{ sourceId }` untuk Google Sheets | §7.1 tidak memuat endpoint unggah terpisah |
+| 2026-11-01 | `GET /sync/runs/:id` untuk semua role aktif; aksesnya dibatasi RLS `read_team` | Viewer tim terkait boleh melihat status sinkron |
 
 ## Saran tertunda (belum diputuskan)
 

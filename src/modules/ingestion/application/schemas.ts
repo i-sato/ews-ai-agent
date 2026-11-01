@@ -43,6 +43,42 @@ export const commitImportInput = z
   })
   .strict();
 
+/** Jadwal §3.6: tahun wajib (tanggal lengkap); urutan sesuai check constraint `trainings`. */
+export const updateScheduleInput = z
+  .object({
+    trainingId: z.uuid(),
+    registrationStart: z.iso.date(),
+    registrationEnd: z.iso.date(),
+    startDate: z.iso.date(),
+    endDate: z.iso.date(),
+    /** Penyimpan menyatakan jadwal sudah dicek dengan halaman portal (keputusan F2-08). */
+    verified: z.boolean(),
+  })
+  .strict()
+  .refine((s) => s.registrationStart <= s.registrationEnd, {
+    path: ["registrationEnd"],
+    message: "Akhir pendaftaran sebelum awal pendaftaran.",
+  })
+  .refine((s) => s.registrationEnd <= s.startDate, {
+    path: ["startDate"],
+    message: "Batas pendaftaran melewati tanggal mulai pelaksanaan.",
+  })
+  .refine((s) => s.startDate <= s.endDate, {
+    path: ["endDate"],
+    message: "Tanggal selesai sebelum tanggal mulai.",
+  });
+
+export const getSyncRunInput = z.object({ runId: z.uuid() }).strict();
+
+/** Unggahan CSV/XLSX; isi file divalidasi terpisah (signature, ukuran) oleh adapter. */
+export const previewUploadInput = z
+  .object({
+    sourceId: z.uuid(),
+    fileName: z.string().trim().min(1).max(255),
+    contentType: z.string().max(255),
+  })
+  .strict();
+
 export const syncSheetInput = z
   .object({ sourceId: z.uuid(), trigger: z.enum(["scheduled", "manual"]) })
   .strict();
@@ -142,6 +178,7 @@ export type ImportSummary = z.infer<typeof importSummary>;
 export type CommitImportInput = z.infer<typeof commitImportInput>;
 export type CommitImportOutput = z.infer<typeof commitImportOutput>;
 export type SyncSheetInput = z.infer<typeof syncSheetInput>;
+export type UpdateScheduleInput = z.infer<typeof updateScheduleInput>;
 export type SyncSheetOutput = z.infer<typeof syncSheetOutput>;
 
 /** Validasi input yang belum tepercaya; galat dikembalikan tanpa detail internal. */
