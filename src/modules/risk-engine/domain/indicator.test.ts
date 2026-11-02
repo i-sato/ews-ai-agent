@@ -66,7 +66,7 @@ describe("assessIndicator", () => {
         finalTarget: 78_319,
         projectedFinal: 77_400,
       }),
-    ).toEqual({
+    ).toMatchObject({
       status: "critical",
       triggeredRules: ["TARGET_GAP", "TARGET_UNLIKELY"],
       gap: -1_759,
@@ -103,6 +103,52 @@ describe("assessIndicator", () => {
       projectedFinal: null,
     });
     expect(r.status).toBe("not_assessable");
+  });
+
+  it("bulan tanpa target antara: TARGET_GAP tidak dapat dinilai, bukan normal", () => {
+    const r = assessIndicator({
+      realization: 70_000,
+      plannedTarget: null,
+      finalTarget: 78_319,
+      projectedFinal: 79_000,
+    });
+    expect(r.status).toBe("not_assessable");
+    expect(r.outcomes[0]).toMatchObject({ outcome: "not_assessable", reason: "NO_PLANNED_TARGET" });
+  });
+
+  it("proyeksi tidak tersedia: TARGET_UNLIKELY tidak dapat dinilai; TARGET_GAP tetap menentukan", () => {
+    const below = { realization: 97.8, plannedTarget: 99, finalTarget: 99, projectedFinal: null };
+    expect(assessIndicator(below).status).toBe("warning");
+    const above = { ...below, realization: 99.5 };
+    expect(assessIndicator(above)).toMatchObject({
+      status: "not_assessable",
+      outcomes: [
+        { rule: "TARGET_GAP", outcome: "clear" },
+        { rule: "TARGET_UNLIKELY", outcome: "not_assessable", reason: "NO_PROJECTION" },
+      ],
+    });
+  });
+
+  it("target resmi tidak tersedia atau negatif: TARGET_UNLIKELY tidak dapat dinilai", () => {
+    for (const finalTarget of [null, -5]) {
+      const r = assessIndicator({
+        realization: 90,
+        plannedTarget: 87,
+        finalTarget,
+        projectedFinal: 91,
+      });
+      expect(r.outcomes[1]).toMatchObject({ outcome: "not_assessable", reason: "NO_TARGET" });
+    }
+  });
+
+  it("target antara 0 (Januari–April IKSK 1.1): realisasi nol tidak memicu TARGET_GAP", () => {
+    const r = assessIndicator({
+      realization: 0,
+      plannedTarget: 0,
+      finalTarget: 87,
+      projectedFinal: 90,
+    });
+    expect(r).toMatchObject({ status: "normal", triggeredRules: [] });
   });
 
   it("deterministik untuk input yang sama", () => {

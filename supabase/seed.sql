@@ -105,4 +105,16 @@ insert into public.risk_rule_versions (version, configuration, effective_at) val
     "freshness_threshold_hours": 72,
     "behind_schedule_tolerance_pp": 10,
     "module_due_warning_days": 3
-  }', '2026-11-01T00:00:00+07:00');
+  }', '2026-11-01T00:00:00+07:00'),
+  -- 1.3 (F3-05): jendela tren proyeksi indikator. DATA_STALE memakai freshness_threshold_hours.
+  ('1.3', '{
+    "not_started_days": 3,
+    "not_started_critical_remaining_days": 3,
+    "stagnant_days": 5,
+    "pass_pending_days_before_end": 7,
+    "lms_consistency_tolerance_pp": 1,
+    "freshness_threshold_hours": 72,
+    "behind_schedule_tolerance_pp": 10,
+    "module_due_warning_days": 3,
+    "indicator_projection_window_days": 30
+  }', '2026-11-02T00:00:00+07:00');

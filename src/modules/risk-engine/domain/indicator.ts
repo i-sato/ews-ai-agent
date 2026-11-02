@@ -32,44 +32,75 @@ export function gap(realization: number, plannedTarget: number | null): number |
   return round(realization - plannedTarget);
 }
 
+export type IndicatorRule = "TARGET_GAP" | "TARGET_UNLIKELY";
+
 export interface IndicatorAssessmentInput {
   realization: number | null;
-  plannedTarget: number | null; // target antara bulan berjalan
+  /** Target antara bulan berjalan (`plannedTargetFor`); null bila tidak tersedia. */
+  plannedTarget: number | null;
   finalTarget: number | null;
+  /** Proyeksi akhir periode (`projectIndicator`); null bila tidak tersedia. */
   projectedFinal: number | null;
+}
+
+export interface IndicatorRuleOutcome {
+  rule: IndicatorRule;
+  outcome: "triggered" | "clear" | "not_assessable";
+  reason?: "NO_PLANNED_TARGET" | "NO_TARGET" | "NO_PROJECTION";
 }
 
 export interface IndicatorAssessment {
   status: IndicatorStatus;
-  triggeredRules: Array<"TARGET_GAP" | "TARGET_UNLIKELY">;
+  triggeredRules: IndicatorRule[];
+  outcomes: IndicatorRuleOutcome[];
   gap: number | null;
   achievementRate: number | null;
 }
 
+function targetGap(realization: number, plannedTarget: number | null): IndicatorRuleOutcome {
+  const rule = "TARGET_GAP";
+  if (plannedTarget === null)
+    return { rule, outcome: "not_assessable", reason: "NO_PLANNED_TARGET" };
+  return { rule, outcome: realization < plannedTarget ? "triggered" : "clear" };
+}
+
+function targetUnlikely(input: IndicatorAssessmentInput): IndicatorRuleOutcome {
+  const rule = "TARGET_UNLIKELY";
+  const { finalTarget, projectedFinal } = input;
+  if (finalTarget === null || finalTarget < 0) {
+    return { rule, outcome: "not_assessable", reason: "NO_TARGET" };
+  }
+  if (projectedFinal === null) return { rule, outcome: "not_assessable", reason: "NO_PROJECTION" };
+  return { rule, outcome: projectedFinal < finalTarget ? "triggered" : "clear" };
+}
+
+function statusOf(outcomes: IndicatorRuleOutcome[]): IndicatorStatus {
+  const hit = (rule: IndicatorRule) =>
+    outcomes.some((o) => o.rule === rule && o.outcome === "triggered");
+  if (hit("TARGET_UNLIKELY")) return "critical";
+  if (hit("TARGET_GAP")) return "warning";
+  if (outcomes.some((o) => o.outcome === "not_assessable")) return "not_assessable";
+  return "normal";
+}
+
 /**
- * `TARGET_GAP` (waspada) bila di bawah target antara;
- * `TARGET_UNLIKELY` (kritis) bila proyeksi akhir di bawah target resmi.
+ * `TARGET_GAP` (waspada) bila di bawah target antara bulan berjalan; `TARGET_UNLIKELY` (kritis)
+ * bila proyeksi akhir di bawah target resmi. Target atau proyeksi yang tidak tersedia membuat
+ * rule-nya tidak dapat dinilai; tanpa rule terpicu, status `not_assessable`, bukan `normal`.
  */
 export function assessIndicator(input: IndicatorAssessmentInput): IndicatorAssessment {
-  const { realization, plannedTarget, finalTarget, projectedFinal } = input;
+  const { realization, plannedTarget, finalTarget } = input;
   if (realization === null) {
-    return { status: "not_assessable", triggeredRules: [], gap: null, achievementRate: null };
+    const outcomes: IndicatorRuleOutcome[] = [];
+    const base = { triggeredRules: [], outcomes, gap: null, achievementRate: null };
+    return { status: "not_assessable", ...base };
   }
-  const g = gap(realization, plannedTarget);
-  const rules: IndicatorAssessment["triggeredRules"] = [];
-  if (g !== null && g < 0) rules.push("TARGET_GAP");
-  if (projectedFinal !== null && finalTarget !== null && projectedFinal < finalTarget) {
-    rules.push("TARGET_UNLIKELY");
-  }
-  const status = rules.includes("TARGET_UNLIKELY")
-    ? "critical"
-    : rules.length
-      ? "warning"
-      : "normal";
+  const outcomes = [targetGap(realization, plannedTarget), targetUnlikely(input)];
   return {
-    status,
-    triggeredRules: rules,
-    gap: g,
+    status: statusOf(outcomes),
+    triggeredRules: outcomes.filter((o) => o.outcome === "triggered").map((o) => o.rule),
+    outcomes,
+    gap: gap(realization, plannedTarget),
     achievementRate: achievementRate(realization, finalTarget),
   };
 }
