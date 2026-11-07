@@ -33,7 +33,7 @@
     "csv-parse": "^7.0.3",
     "fflate": "^0.8.3",
     "googleapis": "^186.0.0",
-    "next": "^16.4.2",
+    "next": "^16.4.3",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "read-excel-file": "^9.3.12",
@@ -48,13 +48,13 @@
     "@vitest/coverage-v8": "^5.0.5",
     "eslint": "^10.13.0",
     "eslint-import-resolver-typescript": "^4.4.5",
-    "eslint-plugin-boundaries": "^7.2.0",
-    "jscpd": "^5.4.1",
+    "eslint-plugin-boundaries": "^7.3.0",
+    "jscpd": "^5.4.2",
     "msw": "^3.0.3",
     "prettier": "^3.9.10",
-    "supabase": "2.121.0",
+    "supabase": "2.122.0",
     "typescript": "~5.9.3",
-    "typescript-eslint": "^8.71.2",
+    "typescript-eslint": "^8.72.0",
     "vitest": "^5.0.5"
   }
 }
